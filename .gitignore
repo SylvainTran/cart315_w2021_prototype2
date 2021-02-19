@@ -1,0 +1,11 @@
+.DS_Store
+/characters/
+/environments/
+/renders/
+/sp/
+/textures/
+*/Library
+*/Temp/
+*.pur
+Natural Docs 2.1/*
+*/Logs/

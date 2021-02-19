@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Forms
+  m_EditorClassIdentifier: 
+  m_GroupName: Forms
+  m_Data:
+    m_SerializedData: []
+  m_GUID: d708d20cf45c84e36b2cffb1fab0471f
+  m_SerializeEntries:
+  - m_GUID: 112390f5aad7d40a8b119bf26ac7d1de
+    m_Address: Assets/Prefabs/UI/CubAcademyName.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - forms
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  - m_GUID: 66f2c09dab2a14eb3bce0883e032f8ec
+    m_Address: Assets/Prefabs/UI/CubInitTrainingProgram.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - forms
+    m_MainAsset: {fileID: 7439681451708332484, guid: 66f2c09dab2a14eb3bce0883e032f8ec, type: 3}
+    m_TargetAsset: {fileID: 7439681451708332484, guid: 66f2c09dab2a14eb3bce0883e032f8ec, type: 3}
+  - m_GUID: a81612a452c114eddbc236cd1e5abd45
+    m_Address: Assets/Prefabs/UI/CubAcademyMommaName.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    m_MainAsset: {fileID: 0}
+    m_TargetAsset: {fileID: 0}
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 93d0789a1a5d745269d53bd9ac1e9564, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: cf7f4fb0205cc4551967402163f1e197, type: 2}
+    - {fileID: 11400000, guid: 196aa3b863d6e4fc1aaabe3328a512f9, type: 2}
