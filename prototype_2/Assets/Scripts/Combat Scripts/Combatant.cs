@@ -71,7 +71,7 @@ public class Combatant : MonoBehaviour
         if(this.gameObject.tag == "Monster" && other.gameObject.CompareTag("Player"))
         {
             if(other.gameObject.GetComponent<Combatant>().Health <= 0f) {
-                GetComponent<MonsterAI>().Evade();
+  
             } else {
                 other.gameObject.GetComponent<Combatant>().TakeDamage(strength);
             }

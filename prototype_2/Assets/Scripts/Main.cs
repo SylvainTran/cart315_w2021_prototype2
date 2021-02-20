@@ -11,17 +11,45 @@ using UnityEngine.SceneManagement;
 public sealed class Main : MonoBehaviour
 {
     /**
+    * Character Factory
+    * Generates characters on demand.
+    */
+    public sealed class CharacterFactory
+    {
+        // Generates a single cub by instantiating the prefab addressed in the GameAssetDatabase
+        // Which is hashmapped to the Cub prefab.
+        public static Cub GenerateNewCub() 
+        {
+            return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset("Cub"));
+        }
+    }
+    /**
      * Level Controller.
      * Checks current game state and
      * rolls out game subroutines accordingly.
      */
     public sealed class LevelController
     {
+        private const int MAX_CUB_CAPACITY = 10;
+        private static Cub[] currentCubRooster = new Cub[MAX_CUB_CAPACITY];
+        private static bool currentCubRoosterFull = false;
+
         public static void ApplyCurrentState()
         {
             switch(gameState)
             {
-                case 0: // INTRO                    
+                case 0: // INTRO 
+                    // Setup database
+                    // Generate new rooster of cubs using the cub factory
+                    for(int i = 0; i < MAX_CUB_CAPACITY; i++)
+                    {
+                        currentCubRooster[i] = CharacterFactory.GenerateNewCub();
+                        // Setup cub's random data
+                        currentCubRooster[i].GenerateStats();
+                        Debug.Log(currentCubRooster[i].ToString());
+                    }
+                    // Place the cubs at the starting point
+                    
                     break;
                 case 1: // GAME
                     break;
@@ -37,7 +65,6 @@ public sealed class Main : MonoBehaviour
     public static int gameState = default;
     public float restartGameDelay = 3.0f;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void LoadMain()
     {
         GameObject main = GameObject.Instantiate(Resources.Load("Initializer")) as GameObject;
@@ -55,9 +82,15 @@ public sealed class Main : MonoBehaviour
     {
 
     }
-    private void Start()
+
+    private void Awake()
     {
+        GameAssetsCharacters.InitGameAssetsCharacters();
+        GameAssetsCharacters.LoadTable();
+        StartCoroutine(GameAssetsForms.LoadTable());
+        LoadMain();
     }
+
     private IEnumerator GameOverState()
     {
         if (gameState == (int)GAME_STATES.END)

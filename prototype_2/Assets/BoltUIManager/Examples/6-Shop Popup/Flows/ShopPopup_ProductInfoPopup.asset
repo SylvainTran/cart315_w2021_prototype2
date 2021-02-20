@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1893448595, guid: a040fb66244a7f54289914d98ea4ef7d, type: 3}
+  m_Name: ShopPopup_ProductInfoPopup
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":null,"summary":null,"pan":{"x":437.1578,"y":89.82437},"zoom":0.95,"elements":[{"specifyFallback":false,"kind":"Object","defaultValues":{"name":{"$content":"closeButton","$type":"System.String"},"object":null},"position":{"x":-259.0,"y":-48.0},"guid":"8db253de-97e8-4105-8ab1-8a62d9b3ecad","$version":"A","$type":"Bolt.GetVariable","$id":"9"},{"nest":{"source":"Macro","macro":0,"embed":null},"defaultValues":{},"position":{"x":-241.0,"y":151.0},"guid":"423dd614-9b1b-4d9e-9490-3e161fca6784","$version":"A","$type":"Bolt.SuperUnit"},{"coroutine":false,"defaultValues":{"target":null},"position":{"x":-60.0,"y":-43.0},"guid":"7a697256-0abe-4c9b-8e91-7f0e349329ad","$version":"A","$type":"Bolt.OnButtonClick","$id":"14"},{"nest":{"source":"Macro","macro":1,"embed":null},"defaultValues":{"enableAnim":{"$content":true,"$type":"System.Boolean"}},"position":{"x":158.0,"y":-43.0},"guid":"d446757f-acc2-4cdf-8d85-1fb54e7b49d5","$version":"A","$type":"Bolt.SuperUnit","$id":"16"},{"nest":{"source":"Macro","macro":2,"embed":null},"defaultValues":{"enableAnim":{"$content":true,"$type":"System.Boolean"}},"position":{"x":678.0,"y":-43.0},"guid":"7d8fc19f-2990-4713-9169-376cbc250010","$version":"A","$type":"Bolt.SuperUnit","$id":"19"},{"nest":{"source":"Macro","macro":3,"embed":null},"defaultValues":{},"position":{"x":444.0,"y":73.0},"guid":"0b681e2e-2db8-4fd0-92eb-cd42f898e724","$version":"A","$type":"Bolt.SuperUnit","$id":"22"},{"type":"System.String","value":{"$content":"productInfoPopup","$type":"System.String"},"defaultValues":{},"position":{"x":251.0,"y":114.0},"guid":"d88fb95b-2703-4340-8633-a6754a4864d9","$version":"A","$type":"Bolt.Literal","$id":"25"},{"defaultValues":{},"position":{"x":42.0,"y":52.0},"guid":"1e8757b2-6869-4425-9cb1-b733320725a6","$version":"A","$type":"Bolt.Self","$id":"27"},{"sourceUnit":{"$ref":"14"},"sourceKey":"trigger","destinationUnit":{"$ref":"16"},"destinationKey":"input","guid":"e0430aa2-808f-4091-81a9-5a47a6b4cbcb","$type":"Bolt.ControlConnection"},{"sourceUnit":{"$ref":"16"},"sourceKey":"output","destinationUnit":{"$ref":"19"},"destinationKey":"input","guid":"b24a862a-33e3-47a7-b990-0fa3d21a0678","$type":"Bolt.ControlConnection"},{"sourceUnit":{"$ref":"9"},"sourceKey":"value","destinationUnit":{"$ref":"14"},"destinationKey":"target","guid":"5851aa72-59a5-40c0-a92b-ef3e195626e9","$type":"Bolt.ValueConnection"},{"sourceUnit":{"$ref":"27"},"sourceKey":"self","destinationUnit":{"$ref":"16"},"destinationKey":"screenObject","guid":"47f3b608-813d-4200-bdce-327debd79a8e","$type":"Bolt.ValueConnection"},{"sourceUnit":{"$ref":"25"},"sourceKey":"output","destinationUnit":{"$ref":"22"},"destinationKey":"dataKey","guid":"c3657cc5-b8cc-47e3-91c5-4a773588bc23","$type":"Bolt.ValueConnection"},{"sourceUnit":{"$ref":"22"},"sourceKey":"value","destinationUnit":{"$ref":"19"},"destinationKey":"screenObject","guid":"c3a4bba4-a35e-4520-b00b-bfa1285565e2","$type":"Bolt.ValueConnection"}],"$version":"A"}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: 78c7439a257964616a359c4c805ac2e4, type: 2}
+    - {fileID: 11400000, guid: 9a5dda3b976834eef8b4fa62e50c4d25, type: 2}
+    - {fileID: 11400000, guid: 9a5dda3b976834eef8b4fa62e50c4d25, type: 2}
+    - {fileID: 11400000, guid: c94a96a2d62834a93b8a299baa0de9da, type: 2}

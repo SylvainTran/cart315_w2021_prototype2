@@ -8,9 +8,8 @@ public class Character : GameAsset
      */
     public string characterName;
     /**
-     * Cubs start with a genetic variant
-     * that influences their stat distributions
-     * upon leveling up or gaining experience.
+     * Training a cub will randomly unlock a certain variant.
+     * A desired variant can be "freezed" and trained upon, or reset.
      * See GDD for precise definitions.
      */
     public string characterVariant;
@@ -38,10 +37,6 @@ public class Character : GameAsset
      * Luck: influence rolls and performance.
      */
     public int luck;
-    /**
-     * Talents: can trigger special bonuses or events.
-     */
-    public int[] talents;
 
     /**
      * Happiness: influences performance.

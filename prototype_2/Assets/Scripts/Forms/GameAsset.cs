@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+* GameAsset contains meta-data for the Addressable pipeline.
+*/
 public class GameAsset : MonoBehaviour
 {
     /**
