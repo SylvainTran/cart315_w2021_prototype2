@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - ShopCanvasUI
+  - ClockTimer
+  - PlayerJournalUI
+  - minutesClock
+  - hoursClock
+  - dayClock
   layers:
   - Default
   - TransparentFX

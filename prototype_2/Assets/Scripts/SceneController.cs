@@ -6,34 +6,105 @@ using TMPro;
 
 public class SceneController : MonoBehaviour
 {
-    public float timer = 0.0f;
-    public int seconds;
-    public GameObject clockTimerUI;
-    private TextMeshProUGUI clockTimerUIText;
+    public static float timer = 0.0f;
+    public static int minutes;
+    public static int hours;
+    public static int days;
+    public static int months;
+    public static int years;
+    public GameObject minutesClock;
+    public GameObject hoursClock;
+    public GameObject dayClock;
+    private TextMeshProUGUI minutesClockText;
+    private TextMeshProUGUI hoursClockText;
+    private TextMeshProUGUI dayClockText;
+    private float delay = 0.0f;
+    private string aMOrPM;
+    private string extraText;
 
     private void Start()
     {
-        clockTimerUI = GameObject.FindWithTag("ClockTimer");
-        clockTimerUIText = clockTimerUI.GetComponent<TextMeshProUGUI>();
-        DontDestroyOnLoad(this.gameObject);
+        minutesClock = GameObject.FindWithTag("minutesClock");
+        minutesClockText = minutesClock.GetComponent<TextMeshProUGUI>();
+        hoursClock = GameObject.FindWithTag("hoursClock");
+        hoursClockText = hoursClock.GetComponent<TextMeshProUGUI>();
+        dayClock = GameObject.FindWithTag("dayClock");
+        dayClockText = dayClock.GetComponent<TextMeshProUGUI>();
+        days = 0;
+        hours = 6; // 6 AM
+        minutes = 0;
+        // Using invoke repeating method, to avoid repeated polling in update
+        InvokeRepeating("UpdateClockTickByInterval", 0f, 10.0f);
+    }
+
+    private void UpdateClockTickByInterval()
+    {
+        minutes += 10;        
+        // Each 60 seconds, add 1 hour
+        if(minutes % 60 == 0) {
+            minutes = 0;
+            hours++;
+            Debug.Log("Hour: " + hours);
+            if(hours > 23) {
+                Debug.Log("End of day reached");
+                dayClockText.SetText($"Season 1: Day {++days}");
+                hours = 0;            
+            }
+        }
+        aMOrPM = "PM";
+        if(hours < 12) {
+            aMOrPM = "AM";
+        }
+        extraText = "";
+        if(minutes == 0) {
+            extraText = "0";
+        }
+        minutesClockText.SetText(extraText + minutes + $" {aMOrPM}");
+        hoursClockText.SetText(hours % 12 + ":");  // military format  
+        if(hours == 12) {
+            hoursClockText.SetText("12:");
+        }                         
+    }
+    // Naive
+    private void UpdateClockTickByFrame()
+    {
+        if(hours < 12) {
+            aMOrPM = "AM";
+        } else {
+            aMOrPM = "PM";
+        }
+        // minutes in float -- 1s = 1 min in game
+        timer += Time.deltaTime;
+        minutes = (int)(timer % 60);
+        // Each 10 seconds, add 10 minutes
+        if(minutes % 10 == 0) {
+            string extraText = "";
+            if(minutes == 0) {
+                extraText = "0";
+            }
+            minutesClockText.SetText(extraText + minutes + $" {aMOrPM}");
+        }
+        // Each 60 seconds, add 1 hour
+        if(minutes % 60 == 0) {
+            if(delay >= 10.0f) {
+                hours++;
+                delay = 0.0f;
+                Debug.Log("Hour: " + hours);
+                // Wrap in 24h, day starts at 6h                
+                if(hours > 23) {
+                    Debug.Log("End of day reached");
+                    hours = 6;            
+                }            
+            }
+            hoursClockText.SetText(hours + ":");                     
+        }
+        // Increment delay
+        delay += minutes;
     }
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Template")
-        {
-            // seconds in float
-            timer += Time.deltaTime;
-            // turn seconds in float to int
-            seconds = (int)(timer % 60);
-            //print(seconds);
-            clockTimerUIText.SetText(60 - seconds + " seconds.");
 
-            if (60 - seconds <= 1)
-            {
-                SceneManager.LoadScene("");
-            }
-        }
     }
 
     public static IEnumerator StartChangeScene(float delay)
@@ -47,15 +118,11 @@ public class SceneController : MonoBehaviour
         // There is a bug with unity's scenemanagement methods related to using build index (int)
         if (SceneManager.GetActiveScene().name == "MainMenu")
         {
-            SceneManager.LoadScene("Template");
+            SceneManager.LoadScene("MommaCubClub");
         }
-        else if (SceneManager.GetActiveScene().name == "Template")
+        else if (SceneManager.GetActiveScene().name == "MommaCubClub")
         {
-            SceneManager.LoadScene("Template1");
-        }
-        else if( SceneManager.GetActiveScene().name == "Template1")
-        {
-            SceneManager.LoadScene("Template2");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 

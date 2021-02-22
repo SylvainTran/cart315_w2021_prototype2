@@ -50,6 +50,17 @@ public class Cub : Character
     public bool isMouseSelected = false;
 
     /**
+    * Current building at.
+    */
+    public string currentBuildingAt;
+    
+    /**
+    * Move event
+    */ 
+    public delegate void CharacterMoved(GameObject c);
+    public static event CharacterMoved OnCharacterMoved;
+
+    /**
      * Assets.
      */
     //public Animator animator;
@@ -107,5 +118,19 @@ public class Cub : Character
         this.characterVariant = null;
         this.isInTrainingProgram = false;
         this.currentTrainingAction = "IDLE";
+    }
+
+    /**
+    * Move to the specified location by setting a flag. This is 
+    * an event that buildings listen to.
+    */
+    public void Move(string location)
+    {
+        currentBuildingAt = location;
+        Debug.Log("Move to: " + currentBuildingAt);
+        // fire move event to OnMove Listeners on buildings
+        if(OnCharacterMoved != null) {
+            OnCharacterMoved(this.gameObject);
+        }
     }
 }

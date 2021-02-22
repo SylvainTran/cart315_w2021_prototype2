@@ -20,7 +20,7 @@ public sealed class Main : MonoBehaviour
         // Which is hashmapped to the Cub prefab.
         public static Cub GenerateNewCub() 
         {
-            return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset("Cub"));
+            return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset("Cub"), new Vector3(0, 0, 0), Quaternion.identity);
         }
     }
     /**
@@ -41,15 +41,16 @@ public sealed class Main : MonoBehaviour
                 case 0: // INTRO 
                     // Setup database
                     // Generate new rooster of cubs using the cub factory
+                    // Place cubs at the Resting Lodge building.
                     for(int i = 0; i < MAX_CUB_CAPACITY; i++)
                     {
                         currentCubRooster[i] = CharacterFactory.GenerateNewCub();
                         // Setup cub's random data
                         currentCubRooster[i].GenerateStats();
                         Debug.Log(currentCubRooster[i].ToString());
+                        // Add the cub to the building's list of current cubs at
+                        currentCubRooster[i].Move("RESTING_LODGE");
                     }
-                    // Place the cubs at the starting point
-                    
                     break;
                 case 1: // GAME
                     break;
@@ -70,7 +71,7 @@ public sealed class Main : MonoBehaviour
         GameObject main = GameObject.Instantiate(Resources.Load("Initializer")) as GameObject;
         GameObject.DontDestroyOnLoad(main);
 
-        // Momma Cub! Mobile Game
+        // Momma Cub Club! Mobile Game
         // TODO LOAD GAME STATE and data from save file
         gameState = (int) GAME_STATES.INTRO;
         // Starts the level controller subroutine
@@ -83,7 +84,7 @@ public sealed class Main : MonoBehaviour
 
     }
 
-    private void Awake()
+    private void Start()
     {
         GameAssetsCharacters.InitGameAssetsCharacters();
         GameAssetsCharacters.LoadTable();
