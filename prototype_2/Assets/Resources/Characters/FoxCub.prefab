@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 6748529710922853047}
   - component: {fileID: 4615274282767546184}
   - component: {fileID: 3642586441011636350}
+  - component: {fileID: 2631241202885701899}
   m_Layer: 0
   m_Name: FoxCub
   m_TagString: Untagged
@@ -161,6 +162,7 @@ MonoBehaviour:
   isInTrainingProgram: 0
   currentTrainingAction: 
   isMouseSelected: 0
+  mouseSelector: {fileID: 0}
   currentBuildingAt: 
   complainSound: {fileID: 0}
   levelUpSound: {fileID: 0}
@@ -208,6 +210,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!65 &2631241202885701899
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962376097806917177}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1962376097806917187
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,7 +322,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1962376097806917195}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

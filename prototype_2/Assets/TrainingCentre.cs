@@ -15,6 +15,7 @@ public class TrainingCentre : Building
     public GameObject trainingCentreRestGate; // Carve at runtime
     public GameObject closeGateButton;    
     public GameObject openGateButton;
+    public GameObject exitTrainingCentreButton;    
 
     private void Awake()
     {
@@ -44,6 +45,9 @@ public class TrainingCentre : Building
         // Show the cubs rooster hanging in the building REST pen.
         restRooster.SetActive(true);
         trainRooster.SetActive(true);    
+        exitTrainingCentreButton.SetActive(true);
+        // Disable box collider temporarily to handle other colliders
+        GetComponent<BoxCollider>().enabled = false;
         OpenRestGate();
         foreach(Cub c in Main.currentCubRooster)
         {
@@ -59,19 +63,20 @@ public class TrainingCentre : Building
         }
     }
 
-    public void OnMouseExit()
+    public void OnBuildingExit()
     {
         Debug.Log("Exiting Building");
         closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        GetComponent<BoxCollider>().enabled = true;
         foreach(GameObject go in labels)
         {
             go.SetActive(true);
-        }
-        //buildingMenu.SetActive(false);     
+        }    
         OpenRestGate();
         closeGateButton.SetActive(false);
         restRooster.SetActive(false);  
-        trainRooster.SetActive(false);         
+        trainRooster.SetActive(false);     
+        exitTrainingCentreButton.SetActive(false);    
         foreach(Cub c in Main.currentCubRooster)
         {
             // if(c.gameObject.GetComponentInChildren<MeshRenderer>()) {
@@ -80,9 +85,9 @@ public class TrainingCentre : Building
             // {
             //     c.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
             // }
-            c.gameObject.GetComponent<CubAI>().headingToTrainingCentreRestTarget = false;            
-            //c.gameObject.SetActive(false);
-            //c.transform.position = restSpawnPoint.transform.position;
+            c.gameObject.GetComponent<CubAI>().headingToTrainingCentreRestTarget = false; 
+            c.gameObject.GetComponent<NavMeshAgent>().speed = 3.5f;     
+            c.gameObject.GetComponent<CubAI>().CancelInvoke(); // Cancel force moving to rest pen      
         }
     }
 

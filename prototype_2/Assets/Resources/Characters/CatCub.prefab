@@ -1156,6 +1156,7 @@ GameObject:
   - component: {fileID: 8026434450815859950}
   - component: {fileID: 7419180396550174388}
   - component: {fileID: 6724718496523300195}
+  - component: {fileID: 8697769443888637013}
   m_Layer: 0
   m_Name: CatCub
   m_TagString: Untagged
@@ -1229,6 +1230,7 @@ MonoBehaviour:
   isInTrainingProgram: 0
   currentTrainingAction: 
   isMouseSelected: 0
+  mouseSelector: {fileID: 0}
   currentBuildingAt: 
   complainSound: {fileID: 0}
   levelUpSound: {fileID: 0}
@@ -1276,6 +1278,19 @@ MonoBehaviour:
   maxFollowDistance: 2
   trainingCentreRest: {fileID: 0}
   headingToTrainingCentreRestTarget: 0
+--- !u!65 &8697769443888637013
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7941390322352951915}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7941390322352951917
 GameObject:
   m_ObjectHideFlags: 0

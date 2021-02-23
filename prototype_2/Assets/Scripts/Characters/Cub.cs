@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using RandomNameGeneratorLibrary;
+using UnityEngine.AI;
 
 public class Cub : Character
 {
@@ -48,7 +49,7 @@ public class Cub : Character
     * Is this cub in the player's mouse selection?
     */
     public bool isMouseSelected = false;
-
+    public GameObject mouseSelector; // Used to lift/drag cubs    
     /**
     * Current building at.
     */
@@ -87,6 +88,7 @@ public class Cub : Character
         GameAssetName = "Cub";
         talents = new string[3];
         talents[0] = "Rookie";
+        mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector");             
     }
 
     /**
@@ -121,8 +123,9 @@ public class Cub : Character
     }
 
     /**
-    * Move to the specified location by setting a flag. This is 
-    * an event that buildings listen to.
+    * Move to the specified location internally by setting a flag. This is 
+    * an event that buildings listen to. Note, this is not a behaviour but a model operation.
+    * The behaviours are on the CubAI component instead.
     */
     public void Move(string location)
     {
@@ -132,5 +135,24 @@ public class Cub : Character
         if(OnCharacterMoved != null) {
             OnCharacterMoved(this.gameObject);
         }
+    }
+
+    bool isLockedToMouseSelector = false;
+    private void OnMouseDown() 
+    {
+        // GetComponent<NavMeshAgent>().enabled = false;
+        // isLockedToMouseSelector = true;
+        // transform.SetParent(mouseSelector.transform);
+        Debug.Log("Lifting cub");
+    }
+
+    private void Update()
+    {
+
+    }
+
+    private void OnMouseUp() 
+    {
+        GetComponent<NavMeshAgent>().enabled = true;   
     }
 }

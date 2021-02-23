@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -197141146841750540}
   - component: {fileID: 4185444193260191253}
   - component: {fileID: 3637059198137573294}
+  - component: {fileID: 4004777142828629557}
   m_Layer: 0
   m_Name: CowCub
   m_TagString: Untagged
@@ -135,6 +136,7 @@ MonoBehaviour:
   isInTrainingProgram: 0
   currentTrainingAction: 
   isMouseSelected: 0
+  mouseSelector: {fileID: 0}
   currentBuildingAt: 
   complainSound: {fileID: 0}
   levelUpSound: {fileID: 0}
@@ -150,7 +152,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 4282966203140283926}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.2887706
+  m_Radius: 1.53
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -182,3 +184,16 @@ MonoBehaviour:
   maxFollowDistance: 2
   trainingCentreRest: {fileID: 0}
   headingToTrainingCentreRestTarget: 0
+--- !u!65 &4004777142828629557
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4282966203140283926}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.92018014, y: 1.5878397, z: 2.2048335}
+  m_Center: {x: 0.0036770701, y: 0.7879247, z: 0.18635377}

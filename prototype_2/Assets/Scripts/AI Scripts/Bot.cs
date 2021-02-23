@@ -35,7 +35,6 @@ public class Bot : MonoBehaviour
         // if(!agent.isOnNavMesh) {
         //     return;
         // }
-        Debug.Log("Cub is wandering.");
         wanderTarget += new Vector3(Random.Range(-1.0f, 1.0f) * wanderJitter,
                                         0,
                                         Random.Range(-1.0f, 1.0f) * wanderJitter);
@@ -44,7 +43,6 @@ public class Bot : MonoBehaviour
 
         Vector3 targetLocal = wanderTarget + new Vector3(0, 0, wanderDistance);
         Vector3 targetWorld = this.gameObject.transform.InverseTransformVector(targetLocal);
-        Debug.Log("Target world: " + targetWorld);
         Seek(targetWorld);
     }
 

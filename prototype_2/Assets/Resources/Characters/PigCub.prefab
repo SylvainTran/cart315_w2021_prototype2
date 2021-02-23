@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2678257993573660621}
   - component: {fileID: 3170645392735552358}
   - component: {fileID: 2726382604867536646}
+  - component: {fileID: 281945243168545416}
   m_Layer: 0
   m_Name: PigCub
   m_TagString: Untagged
@@ -135,6 +136,7 @@ MonoBehaviour:
   isInTrainingProgram: 0
   currentTrainingAction: 
   isMouseSelected: 0
+  mouseSelector: {fileID: 0}
   currentBuildingAt: 
   complainSound: {fileID: 0}
   levelUpSound: {fileID: 0}
@@ -182,3 +184,16 @@ MonoBehaviour:
   maxFollowDistance: 2
   trainingCentreRest: {fileID: 0}
   headingToTrainingCentreRestTarget: 0
+--- !u!65 &281945243168545416
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2300784379038054995}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.4093125, y: 0.697812, z: 1.1939198}
+  m_Center: {x: 0.000000014901161, y: 0.34174016, z: 0.1147968}

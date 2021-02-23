@@ -13,7 +13,7 @@ public sealed class Main : MonoBehaviour
     private const int MAX_CUB_CAPACITY = 10;
     public static Cub[] currentCubRooster = new Cub[MAX_CUB_CAPACITY];
     private static bool currentCubRoosterFull = false;
-
+    public GameObject mouseSelector; // Used to lift/drag cubs
     /**
     * Character Factory
     * Generates characters on demand.
@@ -92,17 +92,23 @@ public sealed class Main : MonoBehaviour
         print("Loaded main");
     }
 
-    private void Update()
-    {
-
-    }
-
     private void Start()
     {
         GameAssetsCharacters.InitGameAssetsCharacters();
         GameAssetsCharacters.LoadTable();
         StartCoroutine(GameAssetsForms.LoadTable());
         LoadMain();
+        mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector");        
+    }
+
+    private void Update()
+    {
+        if(Input.GetMouseButton(0)) 
+        {
+            // Move the mouseSelector to the cursor
+            mouseSelector.transform.position = Input.mousePosition;
+            //Debug.Log("Mouse selector at: " + mouseSelector.transform.position);
+        }
     }
 
     private IEnumerator GameOverState()

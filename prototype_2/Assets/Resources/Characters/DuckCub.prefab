@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -7164048254095974310}
   - component: {fileID: 5460661374378430577}
   - component: {fileID: 4815221296814460216}
+  - component: {fileID: 7641330741802275980}
   m_Layer: 0
   m_Name: DuckCub
   m_TagString: Untagged
@@ -135,6 +136,7 @@ MonoBehaviour:
   isInTrainingProgram: 0
   currentTrainingAction: 
   isMouseSelected: 0
+  mouseSelector: {fileID: 0}
   currentBuildingAt: 
   complainSound: {fileID: 0}
   levelUpSound: {fileID: 0}
@@ -182,3 +184,16 @@ MonoBehaviour:
   maxFollowDistance: 2
   trainingCentreRest: {fileID: 0}
   headingToTrainingCentreRestTarget: 0
+--- !u!65 &7641330741802275980
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3542511559026549578}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.39488983, y: 0.60054964, z: 0.654078}
+  m_Center: {x: 0.0000009834766, y: 0.29665187, z: -0.036258057}
