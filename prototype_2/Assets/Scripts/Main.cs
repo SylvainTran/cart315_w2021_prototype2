@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 /** 
 * Main : MonoBehaviour
@@ -25,16 +26,16 @@ public sealed class Main : MonoBehaviour
         public static Cub GenerateNewCub() 
         {
             string cubType;
-            int randCubType = Random.Range(0, 8);
+            int randCubType = Random.Range(0, 7);
             switch(randCubType) {
-                case 0: cubType = "CatCub"; break;
-                case 1: cubType = "ChickenCub"; break;
-                case 2: cubType = "CowCub"; break;
-                case 3: cubType = "DuckCub"; break;
-                case 4: cubType = "FoxCub"; break;                                
-                case 5: cubType = "PigCub"; break;
-                case 6: cubType = "SheepCub"; break;
-                case 7: cubType = "WolfCub"; break;
+                // case 0: cubType = "CatCub"; break;
+                case 0: cubType = "ChickenCub"; break;
+                case 1: cubType = "CowCub"; break;
+                case 2: cubType = "DuckCub"; break;
+                case 3: cubType = "FoxCub"; break;                                
+                case 4: cubType = "PigCub"; break;
+                case 5: cubType = "SheepCub"; break;
+                case 6: cubType = "WolfCub"; break;
                 default: cubType = "SheepCub"; break;
             }
             return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(0.638f, 0.2455f, 0.511f), Quaternion.identity);
@@ -51,7 +52,8 @@ public sealed class Main : MonoBehaviour
         {
             switch(gameState)
             {
-                case 0: // INTRO 
+                case 0: break;
+                case 1: // GAME 
                     // Setup database
                     // Generate new rooster of cubs using the cub factory
                     // Place cubs at the Resting Lodge building.
@@ -65,9 +67,9 @@ public sealed class Main : MonoBehaviour
                         currentCubRooster[i].Move("RESTING_LODGE");
                     }
                     break;
-                case 1: // GAME
+                case 2: // GAME
                     break;
-                case 2: // END
+                case 3: // END
                     break;
                 default:
                     break;
@@ -75,7 +77,7 @@ public sealed class Main : MonoBehaviour
         }
     }
 
-    public enum GAME_STATES { INTRO, GAME, END };
+    public enum GAME_STATES { INTRO, NORMAL, TRAINING_CENTRE, END };
     public static int gameState = default;
     public float restartGameDelay = 3.0f;
 
@@ -86,7 +88,7 @@ public sealed class Main : MonoBehaviour
 
         // Momma Cub Club! Mobile Game
         // TODO LOAD GAME STATE and data from save file
-        gameState = (int) GAME_STATES.INTRO;
+        gameState = (int) GAME_STATES.NORMAL;
         // Starts the level controller subroutine
         LevelController.ApplyCurrentState();
         print("Loaded main");
@@ -101,14 +103,65 @@ public sealed class Main : MonoBehaviour
         mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector");        
     }
 
+    public GameObject cubLifted;
+    public static Vector3 oldCubPos; // Position before it got lifted up
+    public bool cubMouseLock = false; // prevent several cubs being lifted
+    
     private void Update()
     {
         if(Input.GetMouseButton(0)) 
         {
+            Debug.Log("GAME STATE: " + gameState);
+            // Only allow this dragging behaviour in the training centre game state
+            if(gameState != 2) { // Training Centre State
+                return;
+            }
+            Cursor.lockState = CursorLockMode.Confined;
             // Move the mouseSelector to the cursor
-            mouseSelector.transform.position = Input.mousePosition;
-            //Debug.Log("Mouse selector at: " + mouseSelector.transform.position);
+            Vector3 inputMousePos = Input.mousePosition;
+            inputMousePos.z = Camera.main.nearClipPlane * 14;
+            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
+            mouseSelector.transform.position = mouseWorldPos;
+            Debug.Log("Mouse selector at: " + mouseSelector.transform.position);
+
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                if(!hit.collider.gameObject.CompareTag("Cub")) {
+                    return;
+                }
+                // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+                // Debug.Log("Did Hit a Cub");
+                // Debug.Log("Name: " + hit.collider.gameObject.name);
+                cubLifted = hit.collider.gameObject;
+                oldCubPos = cubLifted.transform.position;
+                cubMouseLock = true;
+                //cubLifted.transform.SetParent(mouseSelector.transform);
+                cubLifted.GetComponent<NavMeshAgent>().enabled = false;
+                cubLifted.transform.position = mouseSelector.transform.position;     
+            }
+            else
+            {
+                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.red);
+                Debug.Log("Did not Hit");
+                cubLifted = null;
+                cubMouseLock = false;
+            }      
         }
+    }
+
+    private void OnMouseUp() 
+    {
+        if(cubLifted && !cubMouseLock) {
+            cubLifted.GetComponent<NavMeshAgent>().enabled = true;  
+            cubLifted.GetComponent<NavMeshAgent>().autoRepath = true;
+            cubLifted.GetComponent<NavMeshAgent>().autoBraking = true;
+            cubLifted.GetComponent<NavMeshAgent>().speed = 3.5f;          
+            cubLifted.GetComponent<NavMeshAgent>().Warp(oldCubPos);
+        }    
+        Cursor.lockState = CursorLockMode.None;    
     }
 
     private IEnumerator GameOverState()

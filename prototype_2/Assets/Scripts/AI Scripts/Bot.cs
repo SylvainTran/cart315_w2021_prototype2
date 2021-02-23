@@ -32,9 +32,9 @@ public class Bot : MonoBehaviour
     Vector3 wanderTarget = Vector3.zero;
     public void Wander()
     {
-        // if(!agent.isOnNavMesh) {
-        //     return;
-        // }
+        if(!agent.isOnNavMesh) {
+            return;
+        }
         wanderTarget += new Vector3(Random.Range(-1.0f, 1.0f) * wanderJitter,
                                         0,
                                         Random.Range(-1.0f, 1.0f) * wanderJitter);

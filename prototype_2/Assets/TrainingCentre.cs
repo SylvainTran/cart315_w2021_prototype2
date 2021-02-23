@@ -61,6 +61,12 @@ public class TrainingCentre : Building
             c.gameObject.GetComponent<CubAI>().MoveToTrainingCentreRest();
             //c.transform.position = restSpawnPoint.transform.position;
         }
+        Invoke("SwitchState", 3.0f);
+    }
+
+    public void SwitchState()
+    {           
+        Main.gameState = 2;            
     }
 
     public void OnBuildingExit()
@@ -79,22 +85,17 @@ public class TrainingCentre : Building
         exitTrainingCentreButton.SetActive(false);    
         foreach(Cub c in Main.currentCubRooster)
         {
-            // if(c.gameObject.GetComponentInChildren<MeshRenderer>()) {
-            //     c.gameObject.GetComponentInChildren<MeshRenderer>().enabled = false;
-            // } else 
-            // {
-            //     c.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = false;
-            // }
             c.gameObject.GetComponent<CubAI>().headingToTrainingCentreRestTarget = false; 
             c.gameObject.GetComponent<NavMeshAgent>().speed = 3.5f;     
             c.gameObject.GetComponent<CubAI>().CancelInvoke(); // Cancel force moving to rest pen      
         }
+        Main.gameState = 1;
+        CancelInvoke();
     }
 
     public void CloseRestGate()
     {
         // Add a carving navmesh obstacle to the gate
-        // trainingCentreRestGate.AddComponent<NavMeshObstacle>();
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().enabled = true;
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().carving = true;
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().carveOnlyStationary = true;

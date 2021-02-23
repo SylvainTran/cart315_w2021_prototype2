@@ -137,22 +137,15 @@ public class Cub : Character
         }
     }
 
-    bool isLockedToMouseSelector = false;
-    private void OnMouseDown() 
-    {
-        // GetComponent<NavMeshAgent>().enabled = false;
-        // isLockedToMouseSelector = true;
-        // transform.SetParent(mouseSelector.transform);
-        Debug.Log("Lifting cub");
-    }
 
     private void Update()
     {
-
+  
     }
 
     private void OnMouseUp() 
     {
+        Debug.Log("Dropping Cub");
         GetComponent<NavMeshAgent>().enabled = true;   
     }
 }

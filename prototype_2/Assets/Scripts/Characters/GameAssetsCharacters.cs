@@ -38,7 +38,7 @@ public class GameAssetsCharacters
     public static void LoadTable()
     {
         // Load Cubs prefabs
-        assets.Add("CatCub", Resources.Load<Character>("Characters/CatCub"));
+        // assets.Add("CatCub", Resources.Load<Character>("Characters/CatCub"));
         assets.Add("ChickenCub", Resources.Load<Character>("Characters/ChickenCub"));
         assets.Add("CowCub", Resources.Load<Character>("Characters/CowCub"));
         assets.Add("DuckCub", Resources.Load<Character>("Characters/DuckCub"));

@@ -8,6 +8,7 @@ public class CubAI : Bot
     public float maxFollowDistance = 2f;
     public GameObject trainingCentreRest;
     public bool headingToTrainingCentreRestTarget = false;
+
     private void Start() {
         trainingCentreRest = GameObject.FindGameObjectWithTag("trainingCentreRestTarget");    
         agent = this.GetComponent<NavMeshAgent>();      
@@ -32,10 +33,8 @@ public class CubAI : Bot
 
     public void ForceMoveToTarget()
     {
-        if(!agent.isOnNavMesh || headingToTrainingCentreRestTarget && agent.isStopped) {
-            headingToTrainingCentreRestTarget = false;
-            agent.speed = 0.0f;
-            // agent.Warp in case
+        if(!agent.isOnNavMesh)
+        {
             return;
         }
         agent.SetDestination(trainingCentreRest.transform.position);
@@ -43,13 +42,12 @@ public class CubAI : Bot
     }
     private void Update()
     {
-        if(!agent.isOnNavMesh) 
-        {
-            return;
-        }
         if(!headingToTrainingCentreRestTarget) 
         {
             Wander();
+        }
+        if(agent.speed == 0 && headingToTrainingCentreRestTarget && agent.isOnNavMesh) {
+            MoveToTrainingCentreRest();
         }
     }
 }
