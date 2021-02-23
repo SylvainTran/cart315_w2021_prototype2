@@ -12,7 +12,9 @@ public class TrainingCentre : Building
     public GameObject trainRooster;    
     protected GameObject[] labels;
     public GameObject restSpawnPoint;
-    public GameObject trainingCentreRestGate; // Carve at runtime    
+    public GameObject trainingCentreRestGate; // Carve at runtime
+    public GameObject closeGateButton;    
+    public GameObject openGateButton;
 
     private void Awake()
     {
@@ -42,6 +44,7 @@ public class TrainingCentre : Building
         // Show the cubs rooster hanging in the building REST pen.
         restRooster.SetActive(true);
         trainRooster.SetActive(true);    
+        OpenRestGate();
         foreach(Cub c in Main.currentCubRooster)
         {
             //c.gameObject.SetActive(true);
@@ -65,6 +68,8 @@ public class TrainingCentre : Building
             go.SetActive(true);
         }
         //buildingMenu.SetActive(false);     
+        OpenRestGate();
+        closeGateButton.SetActive(false);
         restRooster.SetActive(false);  
         trainRooster.SetActive(false);         
         foreach(Cub c in Main.currentCubRooster)
@@ -84,9 +89,25 @@ public class TrainingCentre : Building
     public void CloseRestGate()
     {
         // Add a carving navmesh obstacle to the gate
-        trainingCentreRestGate.AddComponent<NavMeshObstacle>();
+        // trainingCentreRestGate.AddComponent<NavMeshObstacle>();
+        trainingCentreRestGate.GetComponent<NavMeshObstacle>().enabled = true;
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().carving = true;
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().carveOnlyStationary = true;
+        closeGateButton.SetActive(false);
+        openGateButton.SetActive(true);
+        Quaternion target = Quaternion.Euler(0, -60.29f, 0);                   
+        trainingCentreRestGate.transform.rotation = target;
+    }
+
+    public void OpenRestGate()
+    {
+        trainingCentreRestGate.GetComponent<NavMeshObstacle>().carving = false;
+        trainingCentreRestGate.GetComponent<NavMeshObstacle>().carveOnlyStationary = false;
+        trainingCentreRestGate.GetComponent<NavMeshObstacle>().enabled = false;
+        closeGateButton.SetActive(true);
+        openGateButton.SetActive(false);
+        Quaternion target = Quaternion.Euler(0, 57.15f, 0);            
+        trainingCentreRestGate.transform.rotation = target;
     }
 
     public override void OnClockTick()
