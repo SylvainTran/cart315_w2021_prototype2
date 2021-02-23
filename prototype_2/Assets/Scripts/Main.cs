@@ -10,6 +10,10 @@ using UnityEngine.SceneManagement;
 */
 public sealed class Main : MonoBehaviour
 {
+    private const int MAX_CUB_CAPACITY = 10;
+    public static Cub[] currentCubRooster = new Cub[MAX_CUB_CAPACITY];
+    private static bool currentCubRoosterFull = false;
+
     /**
     * Character Factory
     * Generates characters on demand.
@@ -20,7 +24,20 @@ public sealed class Main : MonoBehaviour
         // Which is hashmapped to the Cub prefab.
         public static Cub GenerateNewCub() 
         {
-            return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset("Cub"), new Vector3(0, 0, 0), Quaternion.identity);
+            string cubType;
+            int randCubType = Random.Range(0, 8);
+            switch(randCubType) {
+                case 0: cubType = "CatCub"; break;
+                case 1: cubType = "ChickenCub"; break;
+                case 2: cubType = "CowCub"; break;
+                case 3: cubType = "DuckCub"; break;
+                case 4: cubType = "FoxCub"; break;                                
+                case 5: cubType = "PigCub"; break;
+                case 6: cubType = "SheepCub"; break;
+                case 7: cubType = "WolfCub"; break;
+                default: cubType = "SheepCub"; break;
+            }
+            return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(0.638f, 0.2455f, 0.511f), Quaternion.identity);
         }
     }
     /**
@@ -30,10 +47,6 @@ public sealed class Main : MonoBehaviour
      */
     public sealed class LevelController
     {
-        private const int MAX_CUB_CAPACITY = 10;
-        private static Cub[] currentCubRooster = new Cub[MAX_CUB_CAPACITY];
-        private static bool currentCubRoosterFull = false;
-
         public static void ApplyCurrentState()
         {
             switch(gameState)

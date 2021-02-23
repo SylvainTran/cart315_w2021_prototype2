@@ -755,6 +755,12 @@
  <Reference Include="Unity.2D.IK.Runtime">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
  </Reference>
+ <Reference Include="Cinemachine">
+ <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+ </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>
  </Reference>

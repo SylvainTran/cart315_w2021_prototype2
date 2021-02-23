@@ -48,52 +48,54 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Forms\AcademyCreationForm.cs" />
-     <Compile Include="Assets\Scripts\ItemShopController.cs" />
-     <Compile Include="Assets\Scripts\UseItem.cs" />
-     <Compile Include="Assets\BudgetManagement.cs" />
+     <Compile Include="Assets\Scripts\Misc\ItemShopController.cs" />
+     <Compile Include="Assets\Scripts\Misc\UseItem.cs" />
      <Compile Include="Assets\Scripts\Signs and Feedbacks\Rotator.cs" />
-     <Compile Include="Assets\Scripts\StaminaPotion.cs" />
-     <Compile Include="Assets\Scripts\DontDestroy.cs" />
-     <Compile Include="Assets\Scripts\Characters\Character.cs" />
-     <Compile Include="Assets\Scripts\Item.cs" />
+     <Compile Include="Assets\Scripts\Misc\StaminaPotion.cs" />
+     <Compile Include="Assets\Scripts\Utilities\DontDestroy.cs" />
+     <Compile Include="Assets\Scripts\Misc\Item.cs" />
      <Compile Include="Assets\Scripts\Gameplay Scripts\BuildAtPoint.cs" />
+     <Compile Include="Assets\Scripts\AI Scripts\World.cs" />
+     <Compile Include="Assets\Scripts\Forms\GameAssetTable.cs" />
+     <Compile Include="Assets\Scripts\BuildingWaypointController.cs" />
+     <Compile Include="Assets\Scripts\Physics Scripts\BallCollision.cs" />
+     <Compile Include="Assets\Scripts\Misc\Spell.cs" />
+     <Compile Include="Assets\Scripts\AI Scripts\Bot.cs" />
+     <Compile Include="Assets\BrokenVector\LowPolyFencePack\Scripts\DoorController.cs" />
+     <Compile Include="Assets\Scripts\Combat Scripts\Combatant.cs" />
+     <Compile Include="Assets\Scripts\AI Scripts\MonsterAI.cs" />
+     <Compile Include="Assets\ProducingManagement.cs" />
+     <Compile Include="Assets\BoltUIManager\Core\Scripts\BoltUIAnimationType.cs" />
+     <Compile Include="Assets\BrokenVector\LowPolyBrickHouses\Scripts\ModelCustomizer.cs" />
+     <Compile Include="Assets\Scripts\Misc\ItemTemplate1.cs" />
+     <Compile Include="Assets\Scripts\Utilities\Spawner.cs" />
+     <Compile Include="Assets\RestingLodge.cs" />
+     <Compile Include="Assets\Scripts\3Cs\Drive.cs" />
+     <Compile Include="Assets\Scripts\Utilities\TrippyMesh.cs" />
+     <Compile Include="Assets\Scripts\Main.cs" />
+     <Compile Include="Assets\BudgetManagement.cs" />
+     <Compile Include="Assets\Scripts\Characters\Character.cs" />
      <Compile Include="Assets\TrainingCentre.cs" />
-     <Compile Include="Assets\Scripts\ItemInventory.cs" />
+     <Compile Include="Assets\Scripts\Misc\ItemInventory.cs" />
      <Compile Include="Assets\Scripts\Combat Scripts\EnemySpawnerController.cs" />
-     <Compile Include="Assets\Scripts\BuyItemShop.cs" />
+     <Compile Include="Assets\Scripts\Misc\BuyItemShop.cs" />
      <Compile Include="Assets\Scripts\Utilities\Utility.cs" />
      <Compile Include="Assets\Scripts\3Cs\OrbitMouse.cs" />
      <Compile Include="Assets\Scripts\Characters\GameAssetsCharacters.cs" />
      <Compile Include="Assets\Scripts\Gameplay Scripts\OperateLevers.cs" />
-     <Compile Include="Assets\Scripts\AI Scripts\World.cs" />
+     <Compile Include="Assets\Scripts\AI Scripts\CubAI.cs" />
      <Compile Include="Assets\Scripts\Forms\GameAssetsForms.cs" />
-     <Compile Include="Assets\Scripts\AI Scripts\FollowerAI.cs" />
-     <Compile Include="Assets\Scripts\Forms\GameAssetTable.cs" />
-     <Compile Include="Assets\Scripts\BuildingWaypointController.cs" />
-     <Compile Include="Assets\Scripts\Physics Scripts\BallCollision.cs" />
+     <Compile Include="Assets\BrokenVector\LowPolyFencePack\Scripts\DoorToggle.cs" />
      <Compile Include="Assets\Scripts\Physics Scripts\BuildingHandleMouse.cs" />
-     <Compile Include="Assets\Scripts\Spell.cs" />
      <Compile Include="Assets\Scripts\Signs and Feedbacks\HighlightController.cs" />
      <Compile Include="Assets\Scripts\Forms\GameAsset.cs" />
-     <Compile Include="Assets\Scripts\AI Scripts\Bot.cs" />
      <Compile Include="Assets\Scripts\Characters\Cub.cs" />
      <Compile Include="Assets\Scripts\Forms\Form.cs" />
-     <Compile Include="Assets\Scripts\Combat Scripts\Combatant.cs" />
-     <Compile Include="Assets\Scripts\AI Scripts\MonsterAI.cs" />
-     <Compile Include="Assets\Scripts\SetupController.cs" />
-     <Compile Include="Assets\ProducingManagement.cs" />
-     <Compile Include="Assets\BoltUIManager\Core\Scripts\BoltUIAnimationType.cs" />
-     <Compile Include="Assets\BrokenVector\LowPolyBrickHouses\Scripts\ModelCustomizer.cs" />
+     <Compile Include="Assets\Scripts\Misc\SetupController.cs" />
      <Compile Include="Assets\Scripts\Building.cs" />
-     <Compile Include="Assets\Scripts\ItemTemplate1.cs" />
-     <Compile Include="Assets\Scripts\Utilities\Spawner.cs" />
-     <Compile Include="Assets\RestingLodge.cs" />
      <Compile Include="Assets\Scripts\SceneController.cs" />
      <Compile Include="Assets\Scripts\UI Scripts\UIController.cs" />
-     <Compile Include="Assets\Scripts\3Cs\Drive.cs" />
      <Compile Include="Assets\Scripts\Utilities\RespawnPlayer.cs" />
-     <Compile Include="Assets\Scripts\Utilities\TrippyMesh.cs" />
-     <Compile Include="Assets\Scripts\Main.cs" />
      <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Web.Extensions.Design.xml" />
      <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\Microsoft.Build.Engine.xml" />
      <None Include="Assets\Ludiq\Bolt\Documentation\0. READ ME FIRST.txt" />
@@ -188,6 +190,7 @@
      <None Include="Assets\BrokenVector\LowPolyBrickHouses\Shaders\FoliageShader.shader" />
      <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.xml" />
      <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Windows.Presentation.xml" />
+     <None Include="Assets\Art\VertexColorFarmAnimals\Shaders\VertexColorUnlit.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
      <None Include="Assets\Ludiq\Ludiq.Core\DotNetDocumentation\System.Xml.xml" />
  <Reference Include="UnityEngine">
@@ -873,6 +876,12 @@
  </Reference>
  <Reference Include="Unity.2D.IK.Runtime">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Cinemachine">
+ <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+ </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>

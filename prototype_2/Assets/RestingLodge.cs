@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 /**
 * Buildings just mutate cubs based on their location.
@@ -11,38 +12,46 @@ using UnityEngine;
 */
 public class RestingLodge : Building
 {
-    public List<Character> charactersInThisBuilding; // all sorts of characters can end up in a building, causing havoc
-
-    void OnEnable()
-    {
-        Cub.OnCharacterMoved += SetCharacterToThisLocation;
-    }
-
-    void OnDisable()
-    {
-        Cub.OnCharacterMoved -= SetCharacterToThisLocation;
-    }
-
+    public GameObject buildingMenu;
+    public GameObject closeUpBuildingCam;
+    protected GameObject[] labels;
+  
     private void Awake()
     {
         buildingName = "RESTING_LODGE";
-        charactersInThisBuilding = new List<Character>();
     }
 
-    public void SetCharacterToThisLocation(GameObject c)
+    private void Start()
     {
-        Debug.Log($"Cub named {c.GetComponent<Character>().characterName} just moved to : {buildingName}");
-        charactersInThisBuilding.Add(c.GetComponent<Character>());
+        labels = GameObject.FindGameObjectsWithTag("buildingLabel");
     }
 
     private void OnMouseDown() 
     {
         Debug.Log($"{buildingName} was clicked by player.");
+        // Prompt building menu or interactive cub placement?
         // Display UI with cubs/other characters in the building
+        closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
+        // Disable labels for clarity
+        foreach(GameObject go in labels)
+        {
+            go.SetActive(false);
+        }
+    }
+
+    public void ExitBuilding()
+    {
+        Debug.Log("Exiting Building");
+        closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        foreach(GameObject go in labels)
+        {
+            go.SetActive(true);
+        }
+        buildingMenu.SetActive(false);     
     }
 
     // Listener
-    public void OnRestTick()
+    public override void OnClockTick()
     {
         // Each tick of the clock, all the cubs currently in the building will be restored some amount of stamina etc.
     }

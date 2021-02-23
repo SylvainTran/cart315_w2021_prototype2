@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3056476164519695573}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 191.96785, y: 277.78534, z: -0.4189453}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -119,14 +119,17 @@ MonoBehaviour:
   aggressiveness: 0
   age: 0
   luck: 0
-  talents: 
   happiness: 0
-  trainingCost: 0
   performanceLevel: 0
-  profession: 
+  talents: []
+  acquiredExperienceSlots: []
+  trainingCost: 0
   isInTrainingProgram: 0
   currentTrainingAction: 
+  isMouseSelected: 0
+  currentBuildingAt: 
   complainSound: {fileID: 0}
   levelUpSound: {fileID: 0}
   hitSound: {fileID: 0}
   deathSound: {fileID: 0}
+  MAX_BASE_CHARACTER_POINTS: 25

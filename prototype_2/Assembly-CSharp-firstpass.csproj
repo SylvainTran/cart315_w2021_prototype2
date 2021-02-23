@@ -47,43 +47,43 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\Standard Assets\Cameras\Scripts\TargetFieldOfView.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs" />
-     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExplosionFireAndDebris.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\ProtectCameraFromWallClip.cs" />
      <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\Displace.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\HandHeldCam.cs" />
-     <Compile Include="Assets\Standard Assets\Cameras\Scripts\AbstractTargetFollower.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\FreeLookCam.cs" />
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\AfterburnerPhysicsForce.cs" />
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExplosionPhysicsForce.cs" />
      <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\PlanarReflection.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\Joystick.cs" />
-     <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\WaterTile.cs" />
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\SmokeParticles.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
-     <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\SpecularLighting.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\AutoCam.cs" />
      <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ParticleSystemMultiplier.cs" />
+     <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\GerstnerDisplace.cs" />
+     <Compile Include="Assets\Standard Assets\Cameras\Scripts\PivotBasedCameraRig.cs" />
+     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
+     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
+     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\MobileInput.cs" />
+     <Compile Include="Assets\Standard Assets\Cameras\Scripts\TargetFieldOfView.cs" />
+     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExplosionFireAndDebris.cs" />
+     <Compile Include="Assets\Standard Assets\Cameras\Scripts\AbstractTargetFollower.cs" />
+     <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\WaterTile.cs" />
+     <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\SpecularLighting.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\StandaloneInput.cs" />
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\FireLight.cs" />
      <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\WaterBase.cs" />
      <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\MeshContainer.cs" />
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExtinguishableParticleSystem.cs" />
-     <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ParticleSystemMultiplier.cs" />
      <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
-     <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\GerstnerDisplace.cs" />
-     <Compile Include="Assets\Standard Assets\Cameras\Scripts\PivotBasedCameraRig.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
      <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
      <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\WaterHoseParticles.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\InputAxisScrollbar.cs" />
-     <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\MobileInput.cs" />
      <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\Water.cs" />
      <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\MobileControlRig.cs" />
@@ -798,6 +798,12 @@
  </Reference>
  <Reference Include="Unity.2D.IK.Runtime">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/Unity.2D.IK.Runtime.dll</HintPath>
+ </Reference>
+ <Reference Include="Cinemachine">
+ <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/Cinemachine.dll</HintPath>
+ </Reference>
+ <Reference Include="com.unity.cinemachine.editor">
+ <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/com.unity.cinemachine.editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.ProBuilder.AssetIdRemapUtility">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Library/ScriptAssemblies/Unity.ProBuilder.AssetIdRemapUtility.dll</HintPath>

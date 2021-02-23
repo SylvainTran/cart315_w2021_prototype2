@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class Bot : MonoBehaviour
 {
-    UnityEngine.AI.NavMeshAgent agent;
+    protected NavMeshAgent agent;
     public GameObject target;
     public float wanderRadius;
     public float wanderDistance;
@@ -31,6 +32,10 @@ public class Bot : MonoBehaviour
     Vector3 wanderTarget = Vector3.zero;
     public void Wander()
     {
+        // if(!agent.isOnNavMesh) {
+        //     return;
+        // }
+        Debug.Log("Cub is wandering.");
         wanderTarget += new Vector3(Random.Range(-1.0f, 1.0f) * wanderJitter,
                                         0,
                                         Random.Range(-1.0f, 1.0f) * wanderJitter);
@@ -39,6 +44,7 @@ public class Bot : MonoBehaviour
 
         Vector3 targetLocal = wanderTarget + new Vector3(0, 0, wanderDistance);
         Vector3 targetWorld = this.gameObject.transform.InverseTransformVector(targetLocal);
+        Debug.Log("Target world: " + targetWorld);
         Seek(targetWorld);
     }
 
