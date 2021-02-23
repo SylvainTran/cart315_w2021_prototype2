@@ -38,7 +38,7 @@ public class CubAI : Bot
             return;
         }
         agent.SetDestination(trainingCentreRest.transform.position);
-        Debug.Log("Force moved");
+        //Debug.Log("Force moved");
     }
     private void Update()
     {
@@ -48,6 +48,26 @@ public class CubAI : Bot
         }
         if(agent.speed == 0 && headingToTrainingCentreRestTarget && agent.isOnNavMesh) {
             MoveToTrainingCentreRest();
+        }
+        if(!agent.isOnNavMesh) {
+            Invoke("DelayPlaceCharacterOnNavMesh", 3.0f);
+        }
+    }
+
+    private void DelayPlaceCharacterOnNavMesh()
+    {
+        agent.enabled = true;  
+        agent.autoRepath = true;
+        agent.autoBraking = true;
+        agent.speed = 3.5f;    
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        {
+            if(!hit.collider.gameObject.CompareTag("ground")) {
+                return;
+            }
+            agent.Warp(hit.point);
+            CancelInvoke();
         }
     }
 }

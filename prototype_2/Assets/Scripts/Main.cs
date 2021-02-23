@@ -111,18 +111,17 @@ public sealed class Main : MonoBehaviour
     {
         if(Input.GetMouseButton(0)) 
         {
-            Debug.Log("GAME STATE: " + gameState);
+            //Debug.Log("GAME STATE: " + gameState);
             // Only allow this dragging behaviour in the training centre game state
             if(gameState != 2) { // Training Centre State
                 return;
             }
-            Cursor.lockState = CursorLockMode.Confined;
             // Move the mouseSelector to the cursor
             Vector3 inputMousePos = Input.mousePosition;
             inputMousePos.z = Camera.main.nearClipPlane * 14;
             Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
             mouseSelector.transform.position = mouseWorldPos;
-            Debug.Log("Mouse selector at: " + mouseSelector.transform.position);
+            //Debug.Log("Mouse selector at: " + mouseSelector.transform.position);
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
@@ -144,15 +143,15 @@ public sealed class Main : MonoBehaviour
             }
             else
             {
-                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.red);
-                Debug.Log("Did not Hit");
+                //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.red);
+                //Debug.Log("Did not Hit");
                 cubLifted = null;
                 cubMouseLock = false;
             }      
         }
     }
 
-    private void OnMouseUp() 
+    public void PlaceCharacterOnNavMesh()
     {
         if(cubLifted && !cubMouseLock) {
             cubLifted.GetComponent<NavMeshAgent>().enabled = true;  
@@ -161,7 +160,12 @@ public sealed class Main : MonoBehaviour
             cubLifted.GetComponent<NavMeshAgent>().speed = 3.5f;          
             cubLifted.GetComponent<NavMeshAgent>().Warp(oldCubPos);
         }    
-        Cursor.lockState = CursorLockMode.None;    
+        Cursor.lockState = CursorLockMode.Confined;   
+    }
+
+    private void OnMouseUp() 
+    {
+        PlaceCharacterOnNavMesh();
     }
 
     private IEnumerator GameOverState()

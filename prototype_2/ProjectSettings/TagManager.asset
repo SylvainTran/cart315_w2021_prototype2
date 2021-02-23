@@ -15,6 +15,7 @@ TagManager:
   - trainingCentreRestGate
   - mouseSelector
   - Cub
+  - isTrainingCollider
   layers:
   - Default
   - TransparentFX
