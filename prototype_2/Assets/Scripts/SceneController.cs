@@ -24,6 +24,9 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
+        if (SceneManager.GetActiveScene().name == "MainMenu") {
+            return;
+        }
         minutesClock = GameObject.FindWithTag("minutesClock");
         minutesClockText = minutesClock.GetComponent<TextMeshProUGUI>();
         hoursClock = GameObject.FindWithTag("hoursClock");
