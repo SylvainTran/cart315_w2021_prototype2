@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class CubAI : Bot
 {
     public float maxFollowDistance = 2f;
@@ -50,12 +51,13 @@ public class CubAI : Bot
             MoveToTrainingCentreRest();
         }
         if(!agent.isOnNavMesh) {
-            Invoke("DelayPlaceCharacterOnNavMesh", 3.0f);
+            Invoke("DelayPlaceCharacterOnNavMesh", 0.6f);
         }
     }
 
     private void DelayPlaceCharacterOnNavMesh()
     {
+        GetComponent<Cub>().PlayDropFXThenDie();            
         agent.enabled = true;  
         agent.autoRepath = true;
         agent.autoBraking = true;

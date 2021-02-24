@@ -36,7 +36,9 @@ public class SceneController : MonoBehaviour
         // Using invoke repeating method, to avoid repeated polling in update
         InvokeRepeating("UpdateClockTickByInterval", 0f, 10.0f);
     }
-
+    public delegate void OnClockTicked();
+    public static event OnClockTicked onClockTicked;
+    // Event producer
     private void UpdateClockTickByInterval()
     {
         minutes += 10;        
@@ -63,7 +65,10 @@ public class SceneController : MonoBehaviour
         hoursClockText.SetText(hours % 12 + ":");  // military format  
         if(hours == 12) {
             hoursClockText.SetText("12:");
-        }                         
+        }
+        // Update listeners
+        Debug.Log("Updating listeners clock tick");
+        onClockTicked();                         
     }
     // Naive
     private void UpdateClockTickByFrame()

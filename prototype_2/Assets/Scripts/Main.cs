@@ -15,6 +15,9 @@ public sealed class Main : MonoBehaviour
     public static Cub[] currentCubRooster = new Cub[MAX_CUB_CAPACITY];
     private static bool currentCubRoosterFull = false;
     public GameObject mouseSelector; // Used to lift/drag cubs
+    public AudioSource cubLiftUpSound;
+    public GameObject cubProfileUI; // the menu that shows a cub's statistics
+
     /**
     * Character Factory
     * Generates characters on demand.
@@ -41,6 +44,9 @@ public sealed class Main : MonoBehaviour
             return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(0.638f, 0.2455f, 0.511f), Quaternion.identity);
         }
     }
+    // For UI
+    public delegate void OnCharactersLoaded();
+    public static event OnCharactersLoaded onCharactersLoaded;
     /**
      * Level Controller.
      * Checks current game state and
@@ -77,7 +83,7 @@ public sealed class Main : MonoBehaviour
         }
     }
 
-    public enum GAME_STATES { INTRO, NORMAL, TRAINING_CENTRE, END };
+    public enum GAME_STATES { INTRO, NORMAL, TRAINING_CENTRE, PROGRAM_MANAGEMENT, END };
     public static int gameState = default;
     public float restartGameDelay = 3.0f;
 
@@ -91,6 +97,7 @@ public sealed class Main : MonoBehaviour
         gameState = (int) GAME_STATES.NORMAL;
         // Starts the level controller subroutine
         LevelController.ApplyCurrentState();
+        onCharactersLoaded();
         print("Loaded main");
     }
 
@@ -99,66 +106,120 @@ public sealed class Main : MonoBehaviour
         GameAssetsCharacters.InitGameAssetsCharacters();
         GameAssetsCharacters.LoadTable();
         StartCoroutine(GameAssetsForms.LoadTable());
+        cubLiftUpSound = GetComponent<AudioSource>();
         LoadMain();
         mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector");        
     }
 
+    /**
+    * Current lifted cub and related vars. 
+    * TODO make local in scope.
+    */
     public GameObject cubLifted;
+    public NavMeshAgent agent;
     public static Vector3 oldCubPos; // Position before it got lifted up
     public bool cubMouseLock = false; // prevent several cubs being lifted
     
+    /**
+    * Gets a ray to be used in raycasting.
+    */
+    private Ray GetRay()
+    {
+        // Move the mouseSelector to the cursor
+        Vector3 inputMousePos = Input.mousePosition;
+        inputMousePos.z = Camera.main.nearClipPlane * 14;
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
+        mouseSelector.transform.position = mouseWorldPos;
+        return Camera.main.ScreenPointToRay(Input.mousePosition);
+        // TODO make a lock for the currently lifted cub, no need to raycast and hit a 
+        // collider again on the next frame which causes jittering and fail
+        // Also prevent other cubs from being lifted while lifting a cub
+    }
+
+    /**
+    * Raycast Cub characters by tag
+    * and updates flags. TODO make these local in scope.
+    */
+    private RaycastHit RayCastCharacters()
+    {
+       RaycastHit hit;        
+       if (Physics.Raycast(GetRay(), out hit)){
+            {
+                if(!hit.collider.gameObject.CompareTag("Cub")) {
+                    cubLifted = null;
+                    cubMouseLock = false;
+                }
+            }
+        }
+        return hit;
+    }
+
+    /**
+    * Grabs a Cub character using a raycast hit.
+    */
+    private void GrabCub(RaycastHit hit)
+    {
+        cubLifted = hit.collider.gameObject;
+        oldCubPos = cubLifted.transform.position;
+        cubMouseLock = true;
+        agent = cubLifted.GetComponent<NavMeshAgent>();
+        agent.enabled = false;
+        cubLifted.transform.position = mouseSelector.transform.position;
+        cubLifted.transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));     
+        if(!cubLiftUpSound.isPlaying) {
+            cubLiftUpSound.Play();
+        }
+        cubLifted.GetComponent<Cub>().PlayLiftFXThenDie();
+        // TODO highlight cub's outline or material
+    }
+
+    private bool FilterCubHit(RaycastHit hit)
+    {
+        if(!hit.collider || !hit.collider.gameObject.CompareTag("Cub")) {
+            return false;
+        }
+        return true;
+    }
+
     private void Update()
     {
+        // Keep holding to open up the cub's profile menu
+        if(Input.GetMouseButtonDown(0)) 
+        {
+            RaycastHit hit = RayCastCharacters();
+            if(!FilterCubHit(hit)) return;
+            GameObject[] profileUIsOpen = GameObject.FindGameObjectsWithTag("cubProfileUI");
+            foreach(GameObject profile in profileUIsOpen) {
+                if(profile.GetComponent<Canvas>().enabled == true) {
+                    profile.GetComponent<Canvas>().enabled = false;
+                }
+            }
+            hit.collider.gameObject.GetComponent<Cub>().cubProfileUI.GetComponent<UpdateCubProfileUI>().ShowCanvas();
+        }
         if(Input.GetMouseButton(0)) 
         {
-            //Debug.Log("GAME STATE: " + gameState);
             // Only allow this dragging behaviour in the training centre game state
             if(gameState != 2) { // Training Centre State
                 return;
             }
-            // Move the mouseSelector to the cursor
-            Vector3 inputMousePos = Input.mousePosition;
-            inputMousePos.z = Camera.main.nearClipPlane * 14;
-            Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
-            mouseSelector.transform.position = mouseWorldPos;
-            //Debug.Log("Mouse selector at: " + mouseSelector.transform.position);
-
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction * 100, Color.green);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                if(!hit.collider.gameObject.CompareTag("Cub")) {
-                    return;
-                }
-                // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
-                // Debug.Log("Did Hit a Cub");
-                // Debug.Log("Name: " + hit.collider.gameObject.name);
-                cubLifted = hit.collider.gameObject;
-                oldCubPos = cubLifted.transform.position;
-                cubMouseLock = true;
-                //cubLifted.transform.SetParent(mouseSelector.transform);
-                cubLifted.GetComponent<NavMeshAgent>().enabled = false;
-                cubLifted.transform.position = mouseSelector.transform.position;     
-            }
-            else
-            {
-                //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.red);
-                //Debug.Log("Did not Hit");
-                cubLifted = null;
-                cubMouseLock = false;
-            }      
+            RaycastHit hit = RayCastCharacters();
+            if(!FilterCubHit(hit)) return;
+            GrabCub(hit);
         }
     }
 
+    /**
+    * Replace a Cub in the air on the navmesh
+    * to prevent stasis.
+    */
     public void PlaceCharacterOnNavMesh()
     {
         if(cubLifted && !cubMouseLock) {
-            cubLifted.GetComponent<NavMeshAgent>().enabled = true;  
-            cubLifted.GetComponent<NavMeshAgent>().autoRepath = true;
-            cubLifted.GetComponent<NavMeshAgent>().autoBraking = true;
-            cubLifted.GetComponent<NavMeshAgent>().speed = 3.5f;          
-            cubLifted.GetComponent<NavMeshAgent>().Warp(oldCubPos);
+            agent.enabled = true;  
+            agent.autoRepath = true;
+            agent.autoBraking = true;
+            agent.speed = 3.5f;          
+            agent.Warp(oldCubPos);
         }    
         Cursor.lockState = CursorLockMode.Confined;   
     }

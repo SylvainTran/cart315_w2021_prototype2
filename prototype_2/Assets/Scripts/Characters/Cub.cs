@@ -67,11 +67,11 @@ public class Cub : Character
     //public Animator animator;
     //public Sprite icon;
 
-    [Header("Sound")]
-    public AudioClip complainSound;
-    public AudioClip levelUpSound;
-    public AudioClip hitSound;
-    public AudioClip deathSound;
+    [Header("Sound and FX")]
+    public AudioSource cubLiftUpSound;
+
+    [Header("UI")]
+    public GameObject cubProfileUI;
 
     public int MAX_BASE_CHARACTER_POINTS = 25;
     /**
@@ -88,7 +88,8 @@ public class Cub : Character
         GameAssetName = "Cub";
         talents = new string[3];
         talents[0] = "Rookie";
-        mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector");             
+        mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector");   
+        StartCoroutine(KillFX(0.1f));
     }
 
     /**
@@ -117,7 +118,6 @@ public class Cub : Character
         this.happiness = 100;
 
         // Training
-        this.characterVariant = null;
         this.isInTrainingProgram = false;
         this.currentTrainingAction = "IDLE";
     }
@@ -137,15 +137,49 @@ public class Cub : Character
         }
     }
 
-
-    private void Update()
+    public void PlayLiftFXThenDie()
     {
-  
+        ParticleSystem[] childrenParticleSytems = gameObject.GetComponentsInChildren<ParticleSystem>();
+        foreach( ParticleSystem childPS in childrenParticleSytems )
+        {
+            childPS.Play();
+        }
+        StartCoroutine(KillFX(2.0f));
     }
 
-    private void OnMouseUp() 
+    public void PlayDropFXThenDie()
     {
-        Debug.Log("Dropping Cub");
-        GetComponent<NavMeshAgent>().enabled = true;   
+        Debug.Log("In play drop fx then die");
+        ParticleSystem[] childrenParticleSytems = gameObject.GetComponentsInChildren<ParticleSystem>();
+        foreach( ParticleSystem childPS in childrenParticleSytems )
+        {
+            if(childPS.gameObject.CompareTag("smokePuffFX") || childPS.gameObject.CompareTag("brokenHeartFX")) {
+                Debug.Log("Found smoke puff fx or broken heart fx");
+                childPS.Play();
+            }
+        }        
+        StartCoroutine(KillFX(0.1f));
+    }
+
+    public void PlayLevelUpFXThenDie()
+    {
+        ParticleSystem[] childrenParticleSytems = gameObject.GetComponentsInChildren<ParticleSystem>();
+        foreach( ParticleSystem childPS in childrenParticleSytems )
+        {
+            if(childPS.gameObject.CompareTag("pickupStarFX")) {
+                childPS.Play();
+            }
+        }        
+        StartCoroutine(KillFX(0.1f));  
+    }
+
+    private IEnumerator KillFX(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ParticleSystem[] childrenParticleSytems = gameObject.GetComponentsInChildren< ParticleSystem >();
+        foreach( ParticleSystem childPS in childrenParticleSytems )
+        {
+            childPS.Stop();
+        }
     }
 }

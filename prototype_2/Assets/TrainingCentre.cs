@@ -29,6 +29,14 @@ public class TrainingCentre : Building
         //buildingMenu = GameObject.Instantiate(Resources.Load("UI/TrainingCentreMenu")) as GameObject;
     }
 
+    private void OnEnable() {
+        SceneController.onClockTicked += OnClockTick;   
+    }
+
+    private void OnDisable() {
+        SceneController.onClockTicked -= OnClockTick;   
+    }
+
     private void OnMouseDown() 
     {
         Debug.Log($"{buildingName} was clicked by player.");
@@ -85,9 +93,17 @@ public class TrainingCentre : Building
         exitTrainingCentreButton.SetActive(false);    
         foreach(Cub c in Main.currentCubRooster)
         {
-            c.gameObject.GetComponent<CubAI>().headingToTrainingCentreRestTarget = false; 
-            c.gameObject.GetComponent<NavMeshAgent>().speed = 3.5f;     
-            c.gameObject.GetComponent<CubAI>().CancelInvoke(); // Cancel force moving to rest pen      
+            if(!c.isInTrainingProgram) {
+                c.gameObject.GetComponent<CubAI>().headingToTrainingCentreRestTarget = false; 
+                c.gameObject.GetComponent<NavMeshAgent>().speed = 3.5f;     
+                c.gameObject.GetComponent<CubAI>().CancelInvoke(); // Cancel force moving to rest pen     
+            } 
+            else {
+                // hold it there while it's training               
+                c.gameObject.GetComponent<BoxCollider>().enabled = false;
+                c.gameObject.GetComponent<CubAI>().enabled = false;
+                c.gameObject.GetComponent<NavMeshAgent>().enabled = false;
+            }           
         }
         Main.gameState = 1;
         CancelInvoke();
@@ -115,10 +131,21 @@ public class TrainingCentre : Building
         Quaternion target = Quaternion.Euler(0, 57.15f, 0);            
         trainingCentreRestGate.transform.rotation = target;
     }
-
+    
     public override void OnClockTick()
     {
-        
-
+        foreach(Cub c in Main.currentCubRooster)
+        {
+            if(!c.isInTrainingProgram) {
+                continue;
+            }
+            //TODO c.currentTrainingProgram.Apply()
+            c.performanceLevel++;
+            c.cubProfileUI.GetComponent<UpdateCubProfileUI>().UpdatePerformanceLevelUI();            
+            print("Cub IN training program: " + c);
+            Debug.Log(c + " increased their performance level. Congratulations!");
+            // play FX
+            c.PlayLevelUpFXThenDie();
+        }
     }
 }

@@ -16,6 +16,11 @@ TagManager:
   - mouseSelector
   - Cub
   - isTrainingCollider
+  - ground
+  - smokePuffFX
+  - brokenHeartFX
+  - pickupStarFX
+  - cubProfileUI
   layers:
   - Default
   - TransparentFX
