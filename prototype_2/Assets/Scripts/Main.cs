@@ -11,7 +11,7 @@ using TMPro;
 */
 public sealed class Main : MonoBehaviour
 {
-    private const int MAX_CUB_CAPACITY = 10;
+    public const int MAX_CUB_CAPACITY = 10;
     public static Cub[] currentCubRooster = new Cub[MAX_CUB_CAPACITY];
     private static bool currentCubRoosterFull = false;
 

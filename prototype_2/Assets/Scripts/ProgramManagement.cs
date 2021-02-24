@@ -30,6 +30,7 @@ public class ProgramManagement : Building
         {
             go.SetActive(false);
         }
+        buildingMenu.GetComponent<UpdateProgramManagementUI>().ShowCanvas(true);        
         exitProgramManagementButton.SetActive(true);
         // Disable box collider temporarily to handle other colliders
         GetComponent<BoxCollider>().enabled = false;
@@ -50,7 +51,8 @@ public class ProgramManagement : Building
         foreach(GameObject go in labels)
         {
             go.SetActive(true);
-        }    
+        } 
+        buildingMenu.GetComponent<UpdateProgramManagementUI>().ShowCanvas(false);   
         exitProgramManagementButton.SetActive(false);    
         Main.gameState = 1;
         CancelInvoke();

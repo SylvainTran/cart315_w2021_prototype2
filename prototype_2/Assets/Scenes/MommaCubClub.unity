@@ -295,7 +295,7 @@ BoxCollider:
   m_GameObject: {fileID: 20316549}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -4537,13 +4537,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1863519636}
     m_Modifications:
+    - target: {fileID: 4767060584051407061, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.7998047
+      objectReference: {fileID: 0}
     - target: {fileID: 4767060584274919434, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
       propertyPath: m_Name
       value: SellButton
       objectReference: {fileID: 0}
     - target: {fileID: 4767060584918829017, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -194.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767060584918829017, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 175
+      value: 126.3
       objectReference: {fileID: 0}
     - target: {fileID: 4767060585580202770, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
       propertyPath: m_Pivot.x
@@ -6047,7 +6055,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679944638}
   m_LocalRotation: {x: -0.6388186, y: -0.56316924, z: -0.3287171, w: -0.40828466}
-  m_LocalPosition: {x: 3.5843458, y: -11.2490635, z: 23.348097}
+  m_LocalPosition: {x: 2.2, y: -20.1, z: 23.7}
   m_LocalScale: {x: 2.1002824, y: 2.1002812, z: 2.1002817}
   m_Children: []
   m_Father: {fileID: 1743442671}
@@ -6061,7 +6069,9 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 679944638}
-  m_Text: 'Program
+  m_Text: '[Not implemented yet]
+
+    Program
 
     Management'
   m_OffsetZ: 0
@@ -6076,7 +6086,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: 87c316b602156405d92e616621658222, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190335
 --- !u!23 &679944641
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7979,6 +7989,27 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4919222737381444, guid: 9dca676f2ff988a45a505d56f3bd0bb6, type: 3}
   m_PrefabInstance: {fileID: 1283629235}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &955983232 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4767060585580202774, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
+  m_PrefabInstance: {fileID: 1330194677}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &955983236
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955983232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537e044e88800d744bb1d41f3c84f7ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonPrefab: {fileID: 8698240777391080211, guid: 4d60fb21893995a4f950f8f304a643c5, type: 3}
+  textRatingPrefab: {fileID: 0}
+  panel: {fileID: 1802356886}
+  cubsInShop: []
 --- !u!1001 &957489385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10750,6 +10781,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1863519636}
     m_Modifications:
+    - target: {fileID: 4767060584051407061, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.7998047
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767060584918828998, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
+      propertyPath: m_text
+      value: 'Program Management
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 4767060585580202770, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -10838,13 +10879,17 @@ PrefabInstance:
       propertyPath: m_MatchWidthOrHeight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4767060585580202773, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4767060585580202774, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
       propertyPath: m_Name
       value: ProgramManagementUI
       objectReference: {fileID: 0}
     - target: {fileID: 4767060585580202774, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4767060585580202774, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
       propertyPath: m_TagString
@@ -11268,7 +11313,9 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1386547729}
-  m_Text: Slaughter House
+  m_Text: '[Not implemented yet]
+
+    Slaughter House'
   m_OffsetZ: 0
   m_CharacterSize: 1
   m_LineSpacing: 1
@@ -11281,7 +11328,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: 87c316b602156405d92e616621658222, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190330
 --- !u!23 &1386547732
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -11789,7 +11836,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434817002}
   m_LocalRotation: {x: 0.5477271, y: -0.55919987, z: -0.43307042, w: 0.4469234}
-  m_LocalPosition: {x: -4.5, y: 3.72, z: 15.26}
+  m_LocalPosition: {x: -4.5, y: 7.61, z: 15.16}
   m_LocalScale: {x: 0.6259501, y: 0.62595004, z: 0.6259501}
   m_Children: []
   m_Father: {fileID: 1451420652}
@@ -11803,7 +11850,9 @@ TextMesh:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1434817002}
-  m_Text: 'Resting
+  m_Text: '[Not implemented yet]
+
+    Resting
 
     Lodge'
   m_OffsetZ: 0
@@ -11818,7 +11867,7 @@ TextMesh:
   m_Font: {fileID: 12800000, guid: 87c316b602156405d92e616621658222, type: 3}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4278190335
 --- !u!23 &1434817005
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -12918,7 +12967,6 @@ MonoBehaviour:
   m_Script: {fileID: 995777834, guid: c8d0ad23af520fe46aabe2b1fecf6462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _variables: {fileID: 0}
 --- !u!114 &1526362751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12931,9 +12979,6 @@ MonoBehaviour:
   m_Script: {fileID: -1465209106, guid: c8d0ad23af520fe46aabe2b1fecf6462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"collection":{"$content":[],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
 --- !u!4 &1526362752
 Transform:
   m_ObjectHideFlags: 0
@@ -13911,7 +13956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -93, y: 117}
+  m_AnchoredPosition: {x: -156, y: 78.5}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1681053325
@@ -14464,7 +14509,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   charactersInThisBuilding: []
   closeUpBuildingCam: {fileID: 1195447409}
-  buildingMenu: {fileID: 0}
+  buildingMenu: {fileID: 955983232}
   inactiveTrainingPrograms: {fileID: 0}
   activeTrainingPrograms: {fileID: 0}
   exitProgramManagementButton: {fileID: 288935271}
@@ -14477,7 +14522,7 @@ BoxCollider:
   m_GameObject: {fileID: 1743442667}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 8.689227, y: 12.66, z: 17.099981}
   m_Center: {x: -0.71008766, y: 0.25000012, z: 8.906941}
@@ -14862,6 +14907,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4449120862878004, guid: 7c1b7eb3905d5694688d9bb9fe2c0d47, type: 3}
   m_PrefabInstance: {fileID: 764944544}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1802356886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4767060584051407060, guid: 65dd37d6fcb73424bae575d6c4c62b5e, type: 3}
+  m_PrefabInstance: {fileID: 1330194677}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1810593474
 GameObject:
