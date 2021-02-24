@@ -146,6 +146,8 @@ public class TrainingCentre : Building
             Debug.Log(c + " increased their performance level. Congratulations!");
             // play FX
             c.PlayLevelUpFXThenDie();
+            // increment their value rating
+            c.valueRating += c.performanceLevel * 100;
         }
     }
 }

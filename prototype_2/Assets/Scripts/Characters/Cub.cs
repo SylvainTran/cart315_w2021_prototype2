@@ -14,7 +14,7 @@ public class Cub : Character
      * to combat training actions received in a cub's lifetime.
      */
     public int performanceLevel;
-
+    public int valueRating;
     /**
      * Talents: the player "gambles" to get a combination of 1-3
      * talents. Frozen upon graduating. The higher the performance, the
@@ -181,5 +181,23 @@ public class Cub : Character
         {
             childPS.Stop();
         }
+    }
+
+    public override bool Equals(object obj)
+    {        
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }        
+        Cub c = (Cub) obj;
+        return characterName == (c.characterName); // TODO add UUID for collision safety
+    }
+    
+    // override object.GetHashCode
+    public override int GetHashCode()
+    {
+        // TODO: write your implementation of GetHashCode() here
+        throw new System.NotImplementedException();
+        return base.GetHashCode();
     }
 }

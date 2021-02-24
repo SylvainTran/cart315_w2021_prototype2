@@ -38,12 +38,12 @@ public sealed class AccountBalanceAI : MonoBehaviour
     }
 
     // Can be a negative value for withdraw operations
-    private static void UpdateMoney(int value) 
+    public static void UpdateMoney(int value) 
     {
         money += value;
     }
 
-    private static void UpdateTotalBalance()
+    public static void UpdateTotalBalance()
     {
         Debug.Log("Updating total balance");
         //netChange = (totalGain - (totalUpcost / NB_DAYS_IN_WEEK / NB_HOURS_IN_DAY / NB_SECONDS_IN_HOUR / NB_TICKS_IN_HOUR));

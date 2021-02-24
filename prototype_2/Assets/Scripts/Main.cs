@@ -84,7 +84,7 @@ public sealed class Main : MonoBehaviour
         }
     }
 
-    public enum GAME_STATES { INTRO, NORMAL, TRAINING_CENTRE, PROGRAM_MANAGEMENT, END };
+    public enum GAME_STATES { INTRO, NORMAL, TRAINING_CENTRE, PROGRAM_MANAGEMENT, CLIENTS, END };
     public static int gameState = default;
     public float restartGameDelay = 3.0f;
 

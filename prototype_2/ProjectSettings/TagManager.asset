@@ -25,6 +25,7 @@ TagManager:
   - totalBalance
   - netChange
   - gameOverUI
+  - programManagementUI
   layers:
   - Default
   - TransparentFX
