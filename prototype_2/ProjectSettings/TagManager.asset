@@ -26,6 +26,7 @@ TagManager:
   - netChange
   - gameOverUI
   - programManagementUI
+  - clientShopUI
   layers:
   - Default
   - TransparentFX

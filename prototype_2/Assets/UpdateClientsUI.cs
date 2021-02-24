@@ -19,7 +19,7 @@ public class UpdateClientsUI : MonoBehaviour
         RectTransform parentCanvas = panel.GetComponent<RectTransform>();
         canvasWidthHeight = new Vector2(parentCanvas.rect.width, parentCanvas.rect.height);
         // startingPoint = canvasWidthHeight.y;
-        startingPoint = 275.0f;
+        startingPoint = 350.0f;
     }
     private void OnEnable() {
         SceneController.onClockTicked += UpdateCubRatingsUI;    
@@ -74,9 +74,9 @@ public class UpdateClientsUI : MonoBehaviour
         // performanceLevel.GetComponent<TextMeshProUGUI>().SetText($"Performance Level (0-10): {cubData.performanceLevel}");        
     }
 
-    public void ShowCanvas()
+    public void ShowCanvas(bool value)
     {
-        GetComponent<Canvas>().enabled = true;
+        GetComponent<Canvas>().enabled = value;
     }
 
     public void CloseButton()

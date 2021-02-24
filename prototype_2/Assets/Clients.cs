@@ -28,6 +28,7 @@ public class Clients : Building
         {
             go.SetActive(false);
         }
+        buildingMenu.GetComponent<UpdateClientsUI>().ShowCanvas(true);
         exitClientsButton.SetActive(true);
         // Disable box collider temporarily to handle other colliders
         GetComponent<BoxCollider>().enabled = false;
@@ -48,6 +49,7 @@ public class Clients : Building
         {
             go.SetActive(true);
         }    
+        buildingMenu.GetComponent<UpdateClientsUI>().ShowCanvas(false);
         exitClientsButton.SetActive(false);    
         Main.gameState = 1;
         CancelInvoke();
