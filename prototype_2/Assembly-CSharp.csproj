@@ -60,6 +60,7 @@
      <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
      <Compile Include="Assets\Scripts\AI Scripts\World.cs" />
      <Compile Include="Assets\Scripts\Forms\GameAssetTable.cs" />
+     <Compile Include="Assets\UpdateCubProfileUI.cs" />
      <Compile Include="Assets\Scripts\BuildingWaypointController.cs" />
      <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_RandomDir.cs" />
      <Compile Include="Assets\Scripts\Physics Scripts\BallCollision.cs" />
@@ -68,7 +69,7 @@
      <Compile Include="Assets\BrokenVector\LowPolyFencePack\Scripts\DoorController.cs" />
      <Compile Include="Assets\Scripts\Combat Scripts\Combatant.cs" />
      <Compile Include="Assets\Scripts\AI Scripts\MonsterAI.cs" />
-     <Compile Include="Assets\ProducingManagement.cs" />
+     <Compile Include="Assets\SlaughterHouse.cs" />
      <Compile Include="Assets\BoltUIManager\Core\Scripts\BoltUIAnimationType.cs" />
      <Compile Include="Assets\BrokenVector\LowPolyBrickHouses\Scripts\ModelCustomizer.cs" />
      <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_AutoDestructShuriken.cs" />
@@ -78,7 +79,7 @@
      <Compile Include="Assets\Scripts\3Cs\Drive.cs" />
      <Compile Include="Assets\Scripts\Utilities\TrippyMesh.cs" />
      <Compile Include="Assets\Scripts\Main.cs" />
-     <Compile Include="Assets\BudgetManagement.cs" />
+     <Compile Include="Assets\ProgramManagement.cs" />
      <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
      <Compile Include="Assets\Scripts\Characters\Character.cs" />
      <Compile Include="Assets\TrainingCentre.cs" />

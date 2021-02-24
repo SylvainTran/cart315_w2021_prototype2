@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
-
+using TMPro;
 /** 
 * Main : MonoBehaviour
 *
@@ -14,6 +14,7 @@ public sealed class Main : MonoBehaviour
     private const int MAX_CUB_CAPACITY = 10;
     public static Cub[] currentCubRooster = new Cub[MAX_CUB_CAPACITY];
     private static bool currentCubRoosterFull = false;
+
     public GameObject mouseSelector; // Used to lift/drag cubs
     public AudioSource cubLiftUpSound;
     public GameObject cubProfileUI; // the menu that shows a cub's statistics

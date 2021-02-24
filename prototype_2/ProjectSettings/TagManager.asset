@@ -21,6 +21,10 @@ TagManager:
   - brokenHeartFX
   - pickupStarFX
   - cubProfileUI
+  - moneyCount
+  - totalBalance
+  - netChange
+  - gameOverUI
   layers:
   - Default
   - TransparentFX

@@ -71,7 +71,13 @@ public class SceneController : MonoBehaviour
         }
         // Update listeners
         Debug.Log("Updating listeners clock tick");
-        onClockTicked();                         
+        onClockTicked();               
+        // Check if lost condition is true (game over if player has a negative balance)
+        if(AccountBalanceAI.money <= 0) {
+            AccountBalanceAI.gameOverUI.GetComponent<TextMeshProUGUI>().alpha = 255;
+            // TODO Show stats
+            StartCoroutine(StartChangeScene(3.0f));
+        }                  
     }
     // Naive
     private void UpdateClockTickByFrame()
