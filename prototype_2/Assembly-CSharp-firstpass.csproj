@@ -61,12 +61,9 @@
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\SmokeParticles.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\AutoCam.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics2D.cs" />
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ParticleSystemMultiplier.cs" />
      <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\GerstnerDisplace.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\PivotBasedCameraRig.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUnityVersion.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUtils.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\MobileInput.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\TargetFieldOfView.cs" />
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExplosionFireAndDebris.cs" />
@@ -78,14 +75,10 @@
      <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\WaterBase.cs" />
      <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\MeshContainer.cs" />
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\ExtinguishableParticleSystem.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModulePhysics.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleSprite.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleUI.cs" />
      <Compile Include="Assets\Standard Assets\ParticleSystems\Scripts\WaterHoseParticles.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\InputAxisScrollbar.cs" />
      <Compile Include="Assets\Standard Assets\Environment\Water\Water\Scripts\Water.cs" />
-     <Compile Include="Assets\Plugins\Demigiant\DOTween\Modules\DOTweenModuleAudio.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\MobileControlRig.cs" />
      <Compile Include="Assets\Standard Assets\Cameras\Scripts\LookatTarget.cs" />
      <Compile Include="Assets\Standard Assets\CrossPlatformInput\Scripts\AxisTouchButton.cs" />
@@ -113,7 +106,6 @@
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
      <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
      <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
-     <None Include="Assets\Plugins\Demigiant\DOTween\readme.txt" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
  <Reference Include="UnityEngine">
  <HintPath>E:/Unity/Hub/Editor/2020.2.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
@@ -337,56 +329,8 @@
  <Reference Include="UnityEditor.UnityConnectModule">
  <HintPath>E:/Unity/Hub/Editor/2020.2.2f1/Editor/Data/Managed/UnityEngine/UnityEditor.UnityConnectModule.dll</HintPath>
  </Reference>
- <Reference Include="Bolt.State.Editor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.State.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Bolt.Core.Editor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.Core.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Ludiq.Graphs.Editor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ludiq.Graphs.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Bolt.Core.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.Core.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Ludiq.Graphs.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ludiq.Graphs.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="YamlDotNet">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/YamlDotNet.dll</HintPath>
- </Reference>
  <Reference Include="RandomNameGeneratorLibrary">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Plugins/RandomNameGeneratorLibrary.dll</HintPath>
- </Reference>
- <Reference Include="Antlr3.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Antlr3.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Ionic.Zip">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ionic.Zip.dll</HintPath>
- </Reference>
- <Reference Include="Bolt.Flow.Editor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.Flow.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Ludiq.Core.Editor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ludiq.Core.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Bolt.Flow.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.Flow.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="DOTween">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="Ludiq.Platforms">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ludiq.Platforms.dll</HintPath>
- </Reference>
- <Reference Include="Ludiq.Core.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ludiq.Core.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="MiscUtil">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/MiscUtil.dll</HintPath>
- </Reference>
- <Reference Include="Bolt.State.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.State.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>E:/Unity/Hub/Editor/2020.2.2f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>

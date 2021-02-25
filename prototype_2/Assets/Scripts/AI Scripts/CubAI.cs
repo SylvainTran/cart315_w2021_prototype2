@@ -57,7 +57,8 @@ public class CubAI : Bot
 
     private void DelayPlaceCharacterOnNavMesh()
     {
-        GetComponent<Cub>().PlayDropFXThenDie();            
+        //Debug.Log("DelayPlaceCharacter on nav mesh");
+        //GetComponent<Cub>().PlayDropFXThenDie();            
         agent.enabled = true;  
         agent.autoRepath = true;
         agent.autoBraking = true;

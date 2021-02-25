@@ -279,59 +279,8 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>E:/Unity/Hub/Editor/2020.2.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
- <Reference Include="Bolt.State.Editor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.State.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Bolt.Core.Editor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.Core.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Ludiq.Graphs.Editor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ludiq.Graphs.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Bolt.Core.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.Core.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Ludiq.Graphs.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ludiq.Graphs.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenEditor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
- </Reference>
- <Reference Include="YamlDotNet">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/YamlDotNet.dll</HintPath>
- </Reference>
  <Reference Include="RandomNameGeneratorLibrary">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Plugins/RandomNameGeneratorLibrary.dll</HintPath>
- </Reference>
- <Reference Include="Antlr3.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Antlr3.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="Ionic.Zip">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ionic.Zip.dll</HintPath>
- </Reference>
- <Reference Include="Bolt.Flow.Editor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.Flow.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Ludiq.Core.Editor">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ludiq.Core.Editor.dll</HintPath>
- </Reference>
- <Reference Include="Bolt.Flow.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.Flow.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="DOTween">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="Ludiq.Platforms">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ludiq.Platforms.dll</HintPath>
- </Reference>
- <Reference Include="Ludiq.Core.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Ludiq.Core.Runtime.dll</HintPath>
- </Reference>
- <Reference Include="MiscUtil">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/MiscUtil.dll</HintPath>
- </Reference>
- <Reference Include="Bolt.State.Runtime">
- <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Ludiq/Assemblies/Bolt.State.Runtime.dll</HintPath>
  </Reference>
  <Reference Include="JMOAssets_CartoonFXFreeWelcome">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>

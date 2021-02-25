@@ -137,40 +137,31 @@ public class Cub : Character
         }
     }
 
-    public void PlayLiftFXThenDie()
+    public void PlayFXThenDie(string targetTag)
     {
         ParticleSystem[] childrenParticleSytems = gameObject.GetComponentsInChildren<ParticleSystem>();
         foreach( ParticleSystem childPS in childrenParticleSytems )
         {
-            childPS.Play();
+            if(childPS.gameObject.CompareTag(targetTag)) {
+                childPS.Play();
+            }
         }
         StartCoroutine(KillFX(2.0f));
     }
-
-    public void PlayDropFXThenDie()
-    {
-        Debug.Log("In play drop fx then die");
-        ParticleSystem[] childrenParticleSytems = gameObject.GetComponentsInChildren<ParticleSystem>();
-        foreach( ParticleSystem childPS in childrenParticleSytems )
-        {
-            if(childPS.gameObject.CompareTag("smokePuffFX") || childPS.gameObject.CompareTag("brokenHeartFX")) {
-                Debug.Log("Found smoke puff fx or broken heart fx");
-                childPS.Play();
-            }
-        }        
-        StartCoroutine(KillFX(0.1f));
-    }
-
-    public void PlayLevelUpFXThenDie()
+    // Overload for multiple tags
+    public void PlayFXThenDie(string[] targetTags)
     {
         ParticleSystem[] childrenParticleSytems = gameObject.GetComponentsInChildren<ParticleSystem>();
         foreach( ParticleSystem childPS in childrenParticleSytems )
         {
-            if(childPS.gameObject.CompareTag("pickupStarFX")) {
-                childPS.Play();
+            foreach(string t in targetTags)
+            {
+                if(childPS.gameObject.CompareTag(t)) {
+                    childPS.Play();
+                }                
             }
-        }        
-        StartCoroutine(KillFX(0.1f));  
+        }
+        StartCoroutine(KillFX(2.0f));
     }
 
     private IEnumerator KillFX(float delay)

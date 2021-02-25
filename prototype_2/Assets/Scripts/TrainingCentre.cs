@@ -145,7 +145,7 @@ public class TrainingCentre : Building
             print("Cub IN training program: " + c);
             Debug.Log(c + " increased their performance level. Congratulations!");
             // play FX
-            c.PlayLevelUpFXThenDie();
+            c.PlayFXThenDie("pickupStarFX");
             // increment their value rating
             c.valueRating += c.performanceLevel * 100;
         }

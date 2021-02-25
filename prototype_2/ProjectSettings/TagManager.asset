@@ -27,6 +27,8 @@ TagManager:
   - gameOverUI
   - programManagementUI
   - clientShopUI
+  - pickupHeart
+  - magicalSourceFX
   layers:
   - Default
   - TransparentFX

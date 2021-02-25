@@ -109,7 +109,8 @@ public sealed class Main : MonoBehaviour
         StartCoroutine(GameAssetsForms.LoadTable());
         cubLiftUpSound = GetComponent<AudioSource>();
         LoadMain();
-        mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector");        
+        mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector"); 
+        Cursor.lockState = CursorLockMode.Confined;       
     }
 
     /**
@@ -144,7 +145,8 @@ public sealed class Main : MonoBehaviour
     private RaycastHit RayCastCharacters()
     {
        RaycastHit hit;        
-       if (Physics.Raycast(GetRay(), out hit)){
+       int layerMask =~ LayerMask.GetMask("TransparentFX");
+       if (Physics.Raycast(GetRay(), out hit, Mathf.Infinity, layerMask)){
             {
                 if(!hit.collider.gameObject.CompareTag("Cub")) {
                     cubLifted = null;
@@ -170,10 +172,11 @@ public sealed class Main : MonoBehaviour
         if(!cubLiftUpSound.isPlaying) {
             cubLiftUpSound.Play();
         }
-        cubLifted.GetComponent<Cub>().PlayLiftFXThenDie();
+        string[] fx = {"pickupHeart", "magicalSourceFX"};
+        cubLifted.GetComponent<Cub>().PlayFXThenDie(fx);
         // TODO highlight cub's outline or material
     }
-
+    
     private bool FilterCubHit(RaycastHit hit)
     {
         if(!hit.collider || !hit.collider.gameObject.CompareTag("Cub")) {
@@ -207,6 +210,13 @@ public sealed class Main : MonoBehaviour
             if(!FilterCubHit(hit)) return;
             GrabCub(hit);
         }
+        if(Input.GetMouseButtonUp(0))
+        {
+            if(!cubMouseLock) {
+                return;
+            }            
+            PlaceCharacterOnNavMesh();
+        }
     }
 
     /**
@@ -215,19 +225,18 @@ public sealed class Main : MonoBehaviour
     */
     public void PlaceCharacterOnNavMesh()
     {
-        if(cubLifted && !cubMouseLock) {
+        if(cubLifted) {
             agent.enabled = true;  
             agent.autoRepath = true;
             agent.autoBraking = true;
             agent.speed = 3.5f;          
             agent.Warp(oldCubPos);
-        }    
-        Cursor.lockState = CursorLockMode.Confined;   
-    }
-
-    private void OnMouseUp() 
-    {
-        PlaceCharacterOnNavMesh();
+        }      
+        string[] fx = {"smokePuffFX", "brokenHeartFX"};
+        cubLifted.GetComponent<Cub>().PlayFXThenDie(fx);            
+        // Release cub grabbed cache
+        Debug.Log("Releasing cub");
+        cubMouseLock = false;
     }
 
     private IEnumerator GameOverState()
