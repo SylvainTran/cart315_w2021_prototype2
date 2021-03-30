@@ -11,4 +11,4 @@ The interest in this project was to create a hypercasual lighthearted themed gam
 
 # 1-week iteration
 
-The goal of this iteration was to address clarity issues in the training centre and the overall game flow.
+The goal of this iteration was to address clarity issues in the training centre and the overall game flow. Making the player game flow and training process clear were the main goals. A secondary goal was to implement challenges in the design of the training centre's mini-game. A stretch goal is to add to the slaughterhouse feature.
