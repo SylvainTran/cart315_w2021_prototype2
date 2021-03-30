@@ -11,8 +11,8 @@ using TMPro;
 */
 public sealed class Main : MonoBehaviour
 {
-    public const int MAX_CUB_CAPACITY = 10;
-    public static Cub[] currentCubRooster = new Cub[MAX_CUB_CAPACITY];
+    public static int MAX_CUB_CAPACITY = 0;
+    public static Cub[] currentCubRooster;
     private static bool currentCubRoosterFull = false;
 
     public GameObject mouseSelector; // Used to lift/drag cubs
@@ -55,37 +55,49 @@ public sealed class Main : MonoBehaviour
      */
     public sealed class LevelController
     {
-        public static void ApplyCurrentState()
+        public static void SetupActors(int nbCubs)
         {
-            switch(gameState)
+            MAX_CUB_CAPACITY = nbCubs;
+            GenerateNewCubs(nbCubs); 
+            // Generate other things
+            // ...           
+        }
+        public static void GenerateNewCubs(int nbCubs)
+        {
+            currentCubRooster = new Cub[MAX_CUB_CAPACITY];
+            for(int i = 0; i < MAX_CUB_CAPACITY; i++)
             {
+                currentCubRooster[i] = CharacterFactory.GenerateNewCub();
+                // Setup cub's random data
+                currentCubRooster[i].GenerateStats();
+                Debug.Log(currentCubRooster[i].ToString());
+            }            
+        }
+        public static void InitLevel()
+        {
+            int nbCubs;
+            // Assign amount of cubs
+            switch(gameState) {
+                case 0: nbCubs = 1; break;
+                case 1: nbCubs = 10; break;
+                case 2: nbCubs = 0; break;
+                default: nbCubs = 10; break;
+            }            
+            // Assign stage
+            switch(tutorialState) {
                 case 0: break;
-                case 1: // GAME 
-                    // Setup database
-                    // Generate new rooster of cubs using the cub factory
-                    // Place cubs at the Resting Lodge building.
-                    for(int i = 0; i < MAX_CUB_CAPACITY; i++)
-                    {
-                        currentCubRooster[i] = CharacterFactory.GenerateNewCub();
-                        // Setup cub's random data
-                        currentCubRooster[i].GenerateStats();
-                        Debug.Log(currentCubRooster[i].ToString());
-                        // Add the cub to the building's list of current cubs at
-                        currentCubRooster[i].Move("RESTING_LODGE");
-                    }
-                    break;
-                case 2: // GAME
-                    break;
-                case 3: // END
-                    break;
-                default:
-                    break;
+                default: break;
             }
+            SetupActors(nbCubs);
         }
     }
 
-    public enum GAME_STATES { INTRO, NORMAL, TRAINING_CENTRE, PROGRAM_MANAGEMENT, CLIENTS, END };
+    public enum GAME_STATES { TUTORIAL, NORMAL, END };
+    public enum PLAYER_STATES { MAP, RESTING_LODGE, TRAINING_CENTRE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT, CLIENTS };
+    public enum TUTORIAL_STATES { GREETINGS, RESTING_LODGE, TRAINING_CENTRE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT };
     public static int gameState = default;
+    public static int playerState = default;
+    public static int tutorialState = default;
     public float restartGameDelay = 3.0f;
 
     public static void LoadMain()
@@ -95,9 +107,11 @@ public sealed class Main : MonoBehaviour
 
         // Momma Cub Club! Mobile Game
         // TODO LOAD GAME STATE and data from save file
-        gameState = (int) GAME_STATES.NORMAL;
+        gameState = (int) GAME_STATES.TUTORIAL;
+        playerState = (int) PLAYER_STATES.MAP;
+        tutorialState = (int) TUTORIAL_STATES.GREETINGS;
         // Starts the level controller subroutine
-        LevelController.ApplyCurrentState();
+        LevelController.InitLevel();
         onCharactersLoaded();
         print("Loaded main");
     }
@@ -203,7 +217,7 @@ public sealed class Main : MonoBehaviour
         if(Input.GetMouseButton(0)) 
         {
             // Only allow this dragging behaviour in the training centre game state
-            if(gameState != 2) { // Training Centre State
+            if(playerState != 2) { // Training Centre State
                 return;
             }
             RaycastHit hit = RayCastCharacters();
@@ -234,8 +248,6 @@ public sealed class Main : MonoBehaviour
         }      
         string[] fx = {"smokePuffFX", "brokenHeartFX"};
         cubLifted.GetComponent<Cub>().PlayFXThenDie(fx);            
-        // Release cub grabbed cache
-        Debug.Log("Releasing cub");
         cubMouseLock = false;
     }
 

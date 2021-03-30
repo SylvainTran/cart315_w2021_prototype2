@@ -610,6 +610,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4045147016447063881, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 1280
+      objectReference: {fileID: 0}
+    - target: {fileID: 4045147016447063881, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 720
+      objectReference: {fileID: 0}
     - target: {fileID: 4045147016447063883, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
       propertyPath: m_Name
       value: cubProfileUI

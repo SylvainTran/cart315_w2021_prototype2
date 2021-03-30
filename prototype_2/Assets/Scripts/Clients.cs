@@ -37,7 +37,7 @@ public class Clients : Building
 
     public void SwitchState()
     {           
-        Main.gameState = 4; // CLIENTS           
+        Main.playerState = 5; // CLIENTS           
     }
 
     public void OnBuildingExit()
@@ -51,7 +51,7 @@ public class Clients : Building
         }    
         buildingMenu.GetComponent<UpdateClientsUI>().ShowCanvas(false);
         exitClientsButton.SetActive(false);    
-        Main.gameState = 1;
+        Main.playerState = 0;
         CancelInvoke();
     }
 }

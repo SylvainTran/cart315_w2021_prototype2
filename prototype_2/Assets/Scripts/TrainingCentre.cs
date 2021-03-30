@@ -74,7 +74,7 @@ public class TrainingCentre : Building
 
     public void SwitchState()
     {           
-        Main.gameState = 2;            
+        Main.playerState = 2;            
     }
 
     public void OnBuildingExit()
@@ -105,7 +105,7 @@ public class TrainingCentre : Building
                 c.gameObject.GetComponent<NavMeshAgent>().enabled = false;
             }           
         }
-        Main.gameState = 1;
+        Main.playerState = 0;
         CancelInvoke();
     }
 
