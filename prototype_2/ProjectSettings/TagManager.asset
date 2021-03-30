@@ -29,6 +29,7 @@ TagManager:
   - clientShopUI
   - pickupHeart
   - magicalSourceFX
+  - TutorialCanvas
   layers:
   - Default
   - TransparentFX

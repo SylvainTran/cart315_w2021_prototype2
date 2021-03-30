@@ -16,6 +16,7 @@ public class TrainingCentre : Building
     public GameObject closeGateButton;    
     public GameObject openGateButton;
     public GameObject exitTrainingCentreButton;    
+    public bool interactibleState = false; // Can interact with this building or not
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class TrainingCentre : Building
         labels = GameObject.FindGameObjectsWithTag("buildingLabel");
         trainingCentreRestGate = GameObject.FindGameObjectWithTag("trainingCentreRestGate");        
         //buildingMenu = GameObject.Instantiate(Resources.Load("UI/TrainingCentreMenu")) as GameObject;
+        interactibleState = Main.tutorialState == 2? true : false;
     }
 
     private void OnEnable() {
@@ -40,36 +42,10 @@ public class TrainingCentre : Building
     private void OnMouseDown() 
     {
         Debug.Log($"{buildingName} was clicked by player.");
-        // Prompt building menu or interactive cub placement?
-        // Display UI with cubs/other characters in the building
-        closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
-        // Disable labels for clarity
-        foreach(GameObject go in labels)
-        {
-            go.SetActive(false);
+        if(!interactibleState) {
+            return;
         }
-        // Spawn Building Menu
-        // buildingMenu.SetActive(true);
-        // Show the cubs rooster hanging in the building REST pen.
-        restRooster.SetActive(true);
-        trainRooster.SetActive(true);    
-        exitTrainingCentreButton.SetActive(true);
-        // Disable box collider temporarily to handle other colliders
-        GetComponent<BoxCollider>().enabled = false;
-        OpenRestGate();
-        foreach(Cub c in Main.currentCubRooster)
-        {
-            //c.gameObject.SetActive(true);
-            if(c.gameObject.GetComponentInChildren<MeshRenderer>()) {
-                c.gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
-            } else 
-            {
-                c.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
-            }
-            c.gameObject.GetComponent<CubAI>().MoveToTrainingCentreRest();
-            //c.transform.position = restSpawnPoint.transform.position;
-        }
-        Invoke("SwitchState", 3.0f);
+        SetBuildingActive();
     }
 
     public void SwitchState()
@@ -107,6 +83,40 @@ public class TrainingCentre : Building
         }
         Main.playerState = 0;
         CancelInvoke();
+    }
+
+    public void SetBuildingActive()
+    {
+        // Prompt building menu or interactive cub placement?
+        // Display UI with cubs/other characters in the building
+        closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
+        // Disable labels for clarity
+        foreach(GameObject go in labels)
+        {
+            go.SetActive(false);
+        }
+        // Spawn Building Menu
+        // buildingMenu.SetActive(true);
+        // Show the cubs rooster hanging in the building REST pen.
+        restRooster.SetActive(true);
+        trainRooster.SetActive(true);    
+        exitTrainingCentreButton.SetActive(true);
+        // Disable box collider temporarily to handle other colliders
+        GetComponent<BoxCollider>().enabled = false;
+        OpenRestGate();
+        foreach(Cub c in Main.currentCubRooster)
+        {
+            //c.gameObject.SetActive(true);
+            if(c.gameObject.GetComponentInChildren<MeshRenderer>()) {
+                c.gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
+            } else 
+            {
+                c.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
+            }
+            c.gameObject.GetComponent<CubAI>().MoveToTrainingCentreRest();
+            //c.transform.position = restSpawnPoint.transform.position;
+        }
+        Invoke("SwitchState", 3.0f);     
     }
 
     public void CloseRestGate()

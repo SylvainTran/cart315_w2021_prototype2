@@ -7,7 +7,8 @@ using TMPro;
 /** 
 * Main : MonoBehaviour
 *
-* Persistent driver class for global components.
+* Persistent game controller and driver class 
+* for global components.
 */
 public sealed class Main : MonoBehaviour
 {
@@ -83,18 +84,65 @@ public sealed class Main : MonoBehaviour
                 case 2: nbCubs = 0; break;
                 default: nbCubs = 10; break;
             }            
-            // Assign stage
-            switch(tutorialState) {
-                case 0: break;
-                default: break;
-            }
             SetupActors(nbCubs);
         }
+    }
+    /**
+    * Controls tutorial flows.
+    */
+    public sealed class TutorialController
+    {
+        /**
+        * Tutorial start event
+        */ 
+        public delegate void TutorialStarted(TutorialData t);
+        public static event TutorialStarted onTutorialStarted;
+
+        public struct TutorialData
+        {
+            public TutorialData(List<string> conversations, Building building) : this()
+            {
+                this.Conversations = conversations;
+                this.Building = building;
+            }
+
+            public List<string> Conversations { get; }
+            private List<string> conversations;
+            public Building? Building { get; }
+            private Building? building;
+
+            public override string ToString() => $"(Tutorial : )";
+        }
+        public static void SetupTutorial()
+        {
+            // Check tutorialState in Main, load its data (TODO put in external json)
+            // Assign stage
+            List<string> conversations = new List<string>();
+            switch(tutorialState) {
+                case 0:
+                    conversations.Add("Welcome to Momma Cub! I'm going to teach you how to play.");
+                    break;
+                default: 
+                    break;
+            }
+            TutorialData t = new TutorialData(conversations, null);
+            Debug.Log(tutorialState);
+            Debug.Log(t.ToString());
+            RunTutorial(t);
+        }
+        public static void RunTutorial(TutorialData t)
+        {
+            // Trigger event to canvas handler with the conversations
+            UIController.TriggerTutorialConversation(t);
+        }
+        public static void TeardownTutorial()
+        {
+        }        
     }
 
     public enum GAME_STATES { TUTORIAL, NORMAL, END };
     public enum PLAYER_STATES { MAP, RESTING_LODGE, TRAINING_CENTRE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT, CLIENTS };
-    public enum TUTORIAL_STATES { GREETINGS, RESTING_LODGE, TRAINING_CENTRE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT };
+    public enum TUTORIAL_STATES { GREETINGS, RESTING_LODGE, TRAINING_CENTRE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT, CLIENTS, COMPLETED_ALL };
     public static int gameState = default;
     public static int playerState = default;
     public static int tutorialState = default;
@@ -112,6 +160,8 @@ public sealed class Main : MonoBehaviour
         tutorialState = (int) TUTORIAL_STATES.GREETINGS;
         // Starts the level controller subroutine
         LevelController.InitLevel();
+        // Start tutorials
+        TutorialController.SetupTutorial();
         onCharactersLoaded();
         print("Loaded main");
     }

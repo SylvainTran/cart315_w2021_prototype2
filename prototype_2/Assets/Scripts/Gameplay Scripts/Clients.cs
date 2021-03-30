@@ -9,7 +9,7 @@ public class Clients : Building
     public GameObject buildingMenu;
     protected GameObject[] labels;
     public GameObject exitClientsButton;    
-
+    public bool interactibleState = false;
     private void Awake()
     {
         buildingName = "CLIENTS";
@@ -18,6 +18,7 @@ public class Clients : Building
     private void Start()
     {
         labels = GameObject.FindGameObjectsWithTag("buildingLabel");
+        interactibleState = Main.tutorialState == 5? true : false;
     }
 
     private void OnMouseDown() 

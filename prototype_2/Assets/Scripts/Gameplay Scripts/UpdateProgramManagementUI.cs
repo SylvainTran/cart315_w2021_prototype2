@@ -71,7 +71,7 @@ public class UpdateProgramManagementUI : MonoBehaviour
         AccountBalanceAI.UpdateMoney(-c.valueRating);
         // Delete button and append go to current cub rooster
         if(Main.currentCubRooster.Length == 0) {
-            Main.currentCubRooster = new Cub[10];
+            Main.currentCubRooster = new Cub[Main.MAX_CUB_CAPACITY];
         }
         Main.currentCubRooster[Main.currentCubRooster.Length - 1] = c;        
         Destroy(b.gameObject);
