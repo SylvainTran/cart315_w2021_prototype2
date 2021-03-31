@@ -23,6 +23,9 @@ public class Clients : Building
 
     private void OnMouseDown() 
     {
+        if(!interactibleState) {
+            return;
+        }
         Debug.Log($"{buildingName} was clicked by player.");
         closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
         foreach(GameObject go in labels)

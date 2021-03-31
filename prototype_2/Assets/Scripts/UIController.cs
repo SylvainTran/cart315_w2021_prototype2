@@ -22,6 +22,6 @@ public class UIController : MonoBehaviour
     public static void TriggerTutorialConversation(Main.TutorialController.TutorialData t)
     {
         Debug.Log($"Tutorial: {t.Conversations[0]}");
-        // tutorialCanvas.gameObject.transform.GetChild(2).gameObject.GetComponent<TextMeshProUGUI>().SetText(t.Conversations[0]);
+        tutorialCanvas.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(t.Conversations[0]);
     }
 }

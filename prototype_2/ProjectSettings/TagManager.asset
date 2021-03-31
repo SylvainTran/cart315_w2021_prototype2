@@ -30,6 +30,7 @@ TagManager:
   - pickupHeart
   - magicalSourceFX
   - TutorialCanvas
+  - UICanvas
   layers:
   - Default
   - TransparentFX

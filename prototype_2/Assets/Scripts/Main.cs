@@ -115,12 +115,18 @@ public sealed class Main : MonoBehaviour
         }
         public static void SetupTutorial()
         {
+            // Hide distracting labels
+            GameObject.FindGameObjectWithTag("UICanvas").gameObject.GetComponent<Canvas>().enabled = false;
+            GameObject[] buildingLabels = GameObject.FindGameObjectsWithTag("buildingLabel");
+            foreach(GameObject label in buildingLabels) {
+                label.SetActive(false);
+            }
             // Check tutorialState in Main, load its data (TODO put in external json)
             // Assign stage
             List<string> conversations = new List<string>();
             switch(tutorialState) {
                 case 0:
-                    conversations.Add("Welcome to Momma Cub! I'm going to teach you how to play.");
+                    conversations.Add("Welcome to Momma Cub! I'm the Tutorial Girl, and I'm going to teach you how to play.");
                     break;
                 default: 
                     break;
