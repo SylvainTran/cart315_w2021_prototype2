@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using static TutorialController;
+using System;
 
 // TODO rename to conversation controller or something
 public class UIController : MonoBehaviour
@@ -13,54 +14,56 @@ public class UIController : MonoBehaviour
     public static int dialogueNodeIterator = 0;
     public delegate void ConversationFlowEnded();
     public static event ConversationFlowEnded onConversationFlowEnded;
-
-    public interface IDialogueActionReader
-    {
-        public void ReadDialogueAction();
-    }
-
-    public class DialogueActionReader : IDialogueActionReader
-    {
-        private string dialogueAction;
-        private string actionTargetTag;
-        private List<List<string>> conversationGroupsTargets;
-
-        private DialogueActionExecutor DialogueActionExecutor;
-
-        public DialogueActionReader() : this("Show", "Player", null) { }
-
-        public DialogueActionReader(string dialogueAction, string actionTargetTag, List<List<string>> conversationGroupsTargets)
-        {
-            this.dialogueAction = dialogueAction;
-            this.actionTargetTag = actionTargetTag;
-            this.conversationGroupsTargets = conversationGroupsTargets;
-            DialogueActionExecutor = new DialogueActionExecutor();
-        }
-
-        public void ReadDialogueAction()
-        {
-            switch(dialogueAction)
-            {
-                case "TriggerTextByAlpha":
-                    DialogueActionExecutor.TriggerTextByAlpha(conversationGroupsTargets, actionTargetTag);
-                    break;
-            }
-        }
-    }
+    public static IDialogueActionExecutor dialogueActionExecutor = new DialogueActionExecutor();
 
     public interface IDialogueActionExecutor
     {
-        // Set conversation actions to be implemented here
-        public void TriggerTextByAlpha(List<List<string>> conversationGroupsTargets, string actionTargetTag);
+        // Set all conversation actions to be implemented here
+        public void ReadDialogueAction();
+        public void TriggerTextByAlpha();
+        public void SetGameObjectClickable();
+        public void WaitForMouseDown();
+        public void SetAction(string dialogueAction, string actionTargetTag, List<List<string>> activeConversationGroupTargets);
     }
 
     public class DialogueActionExecutor : IDialogueActionExecutor
     {
         private int dialogueActionIterator = 0;
+        private string dialogueAction;
+        private string actionTargetTag;
+        private List<List<string>> conversationGroupsTargets;
 
-        public DialogueActionExecutor() {}
+        public DialogueActionExecutor() : this(null, null, null) { }
+        public DialogueActionExecutor(string dialogueAction, string actionTargetTag, List<List<string>> conversationGroupsTargets)
+        {
+            this.dialogueAction = dialogueAction;
+            this.actionTargetTag = actionTargetTag;
+            this.conversationGroupsTargets = conversationGroupsTargets;
+        }
 
-        public void TriggerTextByAlpha(List<List<string>> conversationGroupsTargets, string actionTargetTag)
+        public void ReadDialogueAction()
+        {
+            switch (dialogueAction)
+            {
+                case "TriggerTextByAlpha":
+                    TriggerTextByAlpha();
+                    break;
+                case "SetGameObjectClickable":
+                    SetGameObjectClickable();
+                    break;
+                case "WaitForMouseDown":
+                    break;
+            }
+        }
+
+        public void SetAction(string dialogueAction, string actionTargetTag, List<List<string>> conversationGroupsTargets)
+        {
+            this.dialogueAction = dialogueAction;
+            this.actionTargetTag = actionTargetTag;
+            this.conversationGroupsTargets = conversationGroupsTargets;
+        }
+
+        public void TriggerTextByAlpha()
         {
             if(conversationGroupsTargets[0][dialogueActionIterator].Length <= 0)
             {
@@ -76,6 +79,16 @@ public class UIController : MonoBehaviour
                     ++dialogueActionIterator;
                 }
             }
+        }
+
+        public void SetGameObjectClickable()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void WaitForMouseDown()
+        {
+            throw new NotImplementedException();
         }
     }
 
@@ -110,16 +123,18 @@ public class UIController : MonoBehaviour
             dialogueAction = t.Conversations[dialogueNodeIterator].Substring(1, t.Conversations[dialogueNodeIterator].IndexOf("]")).Replace("[", "").Replace("]", "");
             actionTargetTag = t.Conversations[dialogueNodeIterator].Substring(t.Conversations[dialogueNodeIterator].IndexOf(" ") + 1);
             activeConversationGroupTargets = t.ConversationTargets;
-            ExecuteDialogueAction(new DialogueActionReader(dialogueAction, actionTargetTag, activeConversationGroupTargets));
+            dialogueActionExecutor.SetAction(dialogueAction, actionTargetTag, activeConversationGroupTargets);
+            ExecuteDialogueAction(dialogueActionExecutor);
         } else
         {
             tutorialCanvas.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(t.Conversations[dialogueNodeIterator]);
         }
     }
 
-    public static void ExecuteDialogueAction(IDialogueActionReader dialogueActionReader)
+    // TODO change into event driven (make executors listeners)
+    public static void ExecuteDialogueAction(IDialogueActionExecutor dialogueActionExecutor)
     {
-        dialogueActionReader.ReadDialogueAction();
+        dialogueActionExecutor.ReadDialogueAction();
     }
 
     public void ContinueDialogueFlow()
