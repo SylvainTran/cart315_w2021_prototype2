@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 /**
 * Controls tutorial flows.
 */
@@ -14,6 +14,9 @@ public class TutorialController : MonoBehaviour
     public static event TutorialStarted onTutorialStarted;
     public static List<List<string>> conversationGroups = new List<List<string>>();
     public static List<string> activeConversationGroup = new List<string>();
+    // GameObject targets
+    public static List<List<List<string>>> conversationGroupsTargets = new List<List<List<string>>>();
+    public static List<List<string>> activeConversationGroupTargets = new List<List<string>>();
 
     private void OnEnable()
     {
@@ -27,16 +30,16 @@ public class TutorialController : MonoBehaviour
 
     public struct TutorialData
     {
-        public TutorialData(List<string> conversations, Building building) : this()
-        {
-            this.Conversations = conversations;
-            this.Building = building;
-        }
-
-        public List<string> Conversations { get; }
+        public List<string> Conversations { get { return conversations; } }
         private List<string> conversations;
-        public Building? Building { get; }
-        private Building? building;
+        public List<List<string>> ConversationTargets { get { return conversationTargets; } }
+        private List<List<string>> conversationTargets;
+
+        public TutorialData(List<string> conversations, List<List<string>> conversationTargets) : this()
+        {
+            this.conversations = conversations;
+            this.conversationTargets = conversationTargets;
+        }
 
         public override string ToString() => $"(Tutorial : )";
     }
@@ -58,26 +61,29 @@ public class TutorialController : MonoBehaviour
     {
         int len = System.Enum.GetNames(typeof(Main.TUTORIAL_STATES)).Length;
         List<string> conversations;
+        List<List<string>> conversationTargets;
         for (int i = 0; i < len; i++)
         {
             conversations = new List<string>();
+            conversationTargets = new List<List<string>>();
             switch (i)
             {
                 case 0:
                     conversations.Add("Welcome to Momma Cub! I'm the Tutorial Girl, and I'm going to teach you how to play.");
                     conversations.Add("This game is all about managing your Cub Academy. That's right, you're the boss here!");
                     conversations.Add("Let's begin!!!");
+                    conversationTargets.Add(new List<string>() {""});
                     break;
                 case 1:
                     conversations.Add("First, you need to start checking for any new cubs who wish to enroll.");
                     conversations.Add("Click on Program Management now!");
-                    ShowAParticularGameObject("programManagementLabel");
                     conversations.Add("Good job! Now click on any of the names of the cubs that you wish to admit.");
+                    conversationTargets.Add(new List<string>() { "programManagementLabel" });
                     break;
                 case 2:
                     conversations.Add("It's time to visit the Training Centre.");
                     conversations.Add("Exit the Program Management view and click on Training Centre now!");
-                    ShowAParticularGameObject("trainingCentreLabel");
+                    conversations.Add("@[TriggerTextByAlpha] buildingLabel");
                     conversations.Add("This is the most important step, so listen up.");
                     conversations.Add("Your cubs need to eat, rest, and exercise. But YOU choose how often all of these actions happen.");
                     conversations.Add("Any cubs that you put in the feeding pen will feed, so long as there is fodder inside the feeding pen.");
@@ -90,6 +96,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("Again, this depends on what your client wants. Some prefer fatter cubs, some leaner ones.");
                     conversations.Add("Note that all these actions require you to spend budget money. Lose too much money, and you won't be able to keep up. We'll look at ways that you can make money next.");
                     conversations.Add("To summarize, you need to make sure your cubs eat, rest and exercise depending on your clients' needs. We will look at clients soon, so don't worry.");
+                    conversationTargets.Add(new List<string>() { "trainingCentreLabel" });
                     break;
                 case 3:
                     conversations.Add("Ever wanted to make delicious meat sandwiches? I know I have!");
@@ -98,7 +105,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("There are three major ways to make money: Making goods out of the cubs at the slaughterhouse, sending cubs to Missions, and selling the cubs themselves. The last option is permanent: you will lose the cub that you sell.");
                     break;
                 case 4:
-                    conversations.Add("Make sure to rest sometimes. You'll work better that way. Click on Resting Lodge now.");
+                    conversations.Add("Resting is part of the rules, too. Click on Resting Lodge now.");
                     conversations.Add("Here you can pass time faster and talk with your cubs! You might even receive new mail from sponsors or cubs' relatives...");
                     break;
                 case 5:
@@ -111,17 +118,7 @@ public class TutorialController : MonoBehaviour
                     break;
             }
             conversationGroups.Add(conversations);
-        }
-    }
-
-    public static void ShowAParticularGameObject(string gameObjectName)
-    {
-        GameObject[] buildingLabels = GameObject.FindGameObjectsWithTag("buildingLabel");
-        foreach (GameObject label in buildingLabels)
-        {
-            if(label.gameObject.name.Equals(gameObjectName)) {
-                label.SetActive(true);
-            }
+            conversationGroupsTargets.Add(conversationTargets);
         }
     }
 
@@ -130,12 +127,14 @@ public class TutorialController : MonoBehaviour
         // Hide distracting labels
         GameObject.FindGameObjectWithTag("UICanvas").gameObject.GetComponent<Canvas>().enabled = false;
         GameObject[] buildingLabels = GameObject.FindGameObjectsWithTag("buildingLabel");
+        // Hide labels for clarity
         foreach (GameObject label in buildingLabels)
         {
-            label.SetActive(false);
+            label.GetComponent<TMP_Text>().alpha = 0f;
         }
         activeConversationGroup = conversationGroups[Main.tutorialState];
-        TutorialData t = new TutorialData(activeConversationGroup, null);
+        activeConversationGroupTargets = conversationGroupsTargets[Main.tutorialState]; // List list string
+        TutorialData t = new TutorialData(activeConversationGroup, activeConversationGroupTargets);
         RunTutorial(t);
     }
 

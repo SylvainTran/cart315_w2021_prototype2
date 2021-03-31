@@ -6,9 +6,10 @@
           <Node name="prototype_2" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Gameplay Scripts" expanded="True" />
+                <Node name="Gameplay Scripts" expanded="True">
+                  <Node name="UpdateClientsUI.cs" selected="True" />
+                </Node>
                 <Node name="Misc" expanded="True" />
-                <Node name="TutorialController.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -21,10 +22,10 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="3cf45671-e514-4956-84b7-da3414e94702" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="8ef3e347-310a-48f9-9347-c496ceebad40" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/UIController.cs" relfile="Assets/Scripts/UIController.cs" line="44" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/UIController.cs" relfile="Assets/Scripts/UIController.cs" line="72" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

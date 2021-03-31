@@ -73,9 +73,9 @@ public class UpdateClientsUI : MonoBehaviour
 
     public void UpdateCubRatingsUI()
     {
-        foreach(Cub c in Main.currentCubRooster) {
-            // Generate a button to show the name and value rating for each cub in rooster
-        }
+        //foreach(Cub c in Main.currentCubRooster) {
+        //    // Generate a button to show the name and value rating for each cub in rooster
+        //}
         // performanceLevel.GetComponent<TextMeshProUGUI>().SetText($"Performance Level (0-10): {cubData.performanceLevel}");        
     }
 
