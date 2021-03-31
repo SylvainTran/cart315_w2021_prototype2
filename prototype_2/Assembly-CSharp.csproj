@@ -120,6 +120,7 @@
     <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_LightFlicker.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/SceneController.cs" />
     <Compile Include="Assets/Scripts/Utilities/RespawnPlayer.cs" />
+    <Compile Include="Assets/Scripts/TutorialController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

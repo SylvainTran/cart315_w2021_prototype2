@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using static Main.TutorialController;
+using static TutorialController;
 
 // TODO rename to conversation controller or something
 public class UIController : MonoBehaviour
@@ -25,7 +25,6 @@ public class UIController : MonoBehaviour
     public static void TriggerTutorialConversation(TutorialData t)
     {
         tutorialCanvas = GameObject.FindGameObjectWithTag("TutorialCanvas");
-        Debug.Log($"Tutorial: {t.Conversations[0]}");
         tutorialData = t;
         RefreshDialogueFlow(tutorialData);
     }
@@ -37,15 +36,31 @@ public class UIController : MonoBehaviour
 
     public void ContinueDialogueFlow()
     {
+        if(Main.tutorialState == (int) Main.TUTORIAL_STATES.COMPLETED_ALL)
+        {
+            return;
+        }
+        // If has next conversation groups then proceed not
+        if(TutorialController.conversationGroups[Main.tutorialState + 1][0].Length == 0)
+        {
+            return;
+        }
+        if (ConversationEnded())
+        {
+            // Then start next tutorial or conversation flow
+            //if (onConversationFlowEnded != null)
+            //{
+            //    dialogueNodeIterator = 0;
+            //    onConversationFlowEnded();
+            //}
+            dialogueNodeIterator = 0;
+            TutorialController.OnConversationEnded();
+            return;
+        }
         ++dialogueNodeIterator;
         int max = tutorialData.Conversations.Count - 1;
         dialogueNodeIterator = Mathf.Clamp(dialogueNodeIterator, 0, max);
         RefreshDialogueFlow(tutorialData);
-        if(ConversationEnded())
-        {
-            // Then start next tutorial or conversation flow
-            onConversationFlowEnded();
-        }
     }
 
     public bool ConversationEnded()

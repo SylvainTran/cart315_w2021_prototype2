@@ -21,6 +21,14 @@ public sealed class Main : MonoBehaviour
     public AudioSource cubLiftUpSound;
     public GameObject cubProfileUI; // the menu that shows a cub's statistics
 
+    public enum GAME_STATES { TUTORIAL, NORMAL, END };
+    public enum PLAYER_STATES { MAP, RESTING_LODGE, TRAINING_CENTRE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT, CLIENTS };
+    public enum TUTORIAL_STATES { GREETINGS, PROGRAM_MANAGEMENT, TRAINING_CENTRE, SLAUGHTERHOUSE, RESTING_LODGE, CLIENTS, COMPLETED_ALL };
+    public static int gameState = default;
+    public static int playerState = default;
+    public static int tutorialState = default;
+    public float restartGameDelay = 3.0f;
+
     /**
     * Character Factory
     * Generates characters on demand.
@@ -88,133 +96,6 @@ public sealed class Main : MonoBehaviour
             SetupActors(nbCubs);
         }
     }
-    /**
-    * Controls tutorial flows.
-    */
-    public sealed class TutorialController
-    {
-        /**
-        * Tutorial start event
-        */ 
-        public delegate void TutorialStarted(TutorialData t);
-        public static event TutorialStarted onTutorialStarted;
-        public static List<List<string>> conversationGroups = new List<List<string>>();
-
-        private void OnEnable()
-        {
-            UIController.onConversationFlowEnded += OnConversationEnded;
-        }
-
-        private void OnDisable()
-        {
-            UIController.onConversationFlowEnded -= OnConversationEnded;
-        }
-
-        public struct TutorialData
-        {
-            public TutorialData(List<string> conversations, Building building) : this()
-            {
-                this.Conversations = conversations;
-                this.Building = building;
-            }
-
-            public List<string> Conversations { get; }
-            private List<string> conversations;
-            public Building? Building { get; }
-            private Building? building;
-
-            public override string ToString() => $"(Tutorial : )";
-        }
-
-        public static void OnConversationEnded()
-        {
-            ++tutorialState;
-            // if there are remaining conversation groups, advance to the next one
-
-        }
-
-        public static void InitConversationGroups()
-        {
-            int len = Enum.GetNames(typeof(TUTORIAL_STATES)).Length;
-            List<string> conversations;
-            for (int i = 0; i < len; i++)
-            {
-                conversations = new List<string>();
-                switch (i)
-                {
-                    case 0:
-                        conversations.Add("Welcome to Momma Cub! I'm the Tutorial Girl, and I'm going to teach you how to play.");
-                        conversations.Add("This game is all about managing your Cub Academy. That's right, you're the boss here!");
-                        conversations.Add("Let's begin!!!");
-                        break;
-                    case 1:
-                        conversations.Add("Welcome to Momma Cub! I'm the Tutorial Girl, and I'm going to teach you how to play.");
-                        conversations.Add("This game is all about managing your Cub Academy. That's right, you're the boss here!");
-                        conversations.Add("Let's begin!!!");
-                        break;
-                    default:
-                        break;
-                }
-                conversationGroups.Add(conversations);
-            }
-        }
-
-        public static void SetupTutorial()
-        {
-            // Hide distracting labels
-            GameObject.FindGameObjectWithTag("UICanvas").gameObject.GetComponent<Canvas>().enabled = false;
-            GameObject[] buildingLabels = GameObject.FindGameObjectsWithTag("buildingLabel");
-            foreach(GameObject label in buildingLabels) {
-                label.SetActive(false);
-            }
-            // Setup conversation groups for all tutorials
-            List<string> conversations = new List<string>();
-            conversationGroups.Add(conversations);
-
-            switch (tutorialState) {
-                // Greetings tutorial
-                case 0:
-                    conversations.Add("Welcome to Momma Cub! I'm the Tutorial Girl, and I'm going to teach you how to play.");
-                    conversations.Add("This game is all about managing your Cub Academy. That's right, you're the boss here!");
-                    conversations.Add("Let's begin!!!");
-                    break;
-                case 1:
-                    // Start teaching at the cub shop
-                    break;
-                case 2:
-                    // Then the resting lodge
-                    break;
-                case 3:
-                    // Then the training centre...
-                    break;
-                case 4:
-                    // then the UI...
-                    break;
-                default: 
-                    break;
-            }
-            TutorialData t = new TutorialData(conversations, null);
-            Debug.Log(tutorialState);
-            Debug.Log(t.ToString());
-            RunTutorial(t);
-        }
-        public static void RunTutorial(TutorialData t)
-        {
-            // Trigger event to canvas handler with the conversations
-            UIController.TriggerTutorialConversation(t);
-        }
-        public static void TeardownTutorial()
-        {
-        }        
-    }
-
-    public enum GAME_STATES { TUTORIAL, NORMAL, END };
-    public enum PLAYER_STATES { MAP, RESTING_LODGE, TRAINING_CENTRE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT, CLIENTS };
-    public enum TUTORIAL_STATES { GREETINGS, RESTING_LODGE, TRAINING_CENTRE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT, CLIENTS, COMPLETED_ALL };
-    public static int gameState = default;
-    public static int playerState = default;
-    public static int tutorialState = default;
-    public float restartGameDelay = 3.0f;
 
     public static void LoadMain()
     {
@@ -229,6 +110,7 @@ public sealed class Main : MonoBehaviour
         // Starts the level controller subroutine
         LevelController.InitLevel();
         // Start tutorials
+        TutorialController.InitConversationGroups();
         TutorialController.SetupTutorial();
         onCharactersLoaded();
         print("Loaded main");
