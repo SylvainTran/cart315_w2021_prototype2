@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,7 +32,7 @@ public sealed class Main : MonoBehaviour
         public static Cub GenerateNewCub() 
         {
             string cubType;
-            int randCubType = Random.Range(0, 7);
+            int randCubType = UnityEngine.Random.Range(0, 7);
             switch(randCubType) {
                 // case 0: cubType = "CatCub"; break;
                 case 0: cubType = "ChickenCub"; break;
@@ -97,6 +98,17 @@ public sealed class Main : MonoBehaviour
         */ 
         public delegate void TutorialStarted(TutorialData t);
         public static event TutorialStarted onTutorialStarted;
+        public static List<List<string>> conversationGroups = new List<List<string>>();
+
+        private void OnEnable()
+        {
+            UIController.onConversationFlowEnded += OnConversationEnded;
+        }
+
+        private void OnDisable()
+        {
+            UIController.onConversationFlowEnded -= OnConversationEnded;
+        }
 
         public struct TutorialData
         {
@@ -113,6 +125,40 @@ public sealed class Main : MonoBehaviour
 
             public override string ToString() => $"(Tutorial : )";
         }
+
+        public static void OnConversationEnded()
+        {
+            ++tutorialState;
+            // if there are remaining conversation groups, advance to the next one
+
+        }
+
+        public static void InitConversationGroups()
+        {
+            int len = Enum.GetNames(typeof(TUTORIAL_STATES)).Length;
+            List<string> conversations;
+            for (int i = 0; i < len; i++)
+            {
+                conversations = new List<string>();
+                switch (i)
+                {
+                    case 0:
+                        conversations.Add("Welcome to Momma Cub! I'm the Tutorial Girl, and I'm going to teach you how to play.");
+                        conversations.Add("This game is all about managing your Cub Academy. That's right, you're the boss here!");
+                        conversations.Add("Let's begin!!!");
+                        break;
+                    case 1:
+                        conversations.Add("Welcome to Momma Cub! I'm the Tutorial Girl, and I'm going to teach you how to play.");
+                        conversations.Add("This game is all about managing your Cub Academy. That's right, you're the boss here!");
+                        conversations.Add("Let's begin!!!");
+                        break;
+                    default:
+                        break;
+                }
+                conversationGroups.Add(conversations);
+            }
+        }
+
         public static void SetupTutorial()
         {
             // Hide distracting labels
@@ -121,12 +167,28 @@ public sealed class Main : MonoBehaviour
             foreach(GameObject label in buildingLabels) {
                 label.SetActive(false);
             }
-            // Check tutorialState in Main, load its data (TODO put in external json)
-            // Assign stage
+            // Setup conversation groups for all tutorials
             List<string> conversations = new List<string>();
-            switch(tutorialState) {
+            conversationGroups.Add(conversations);
+
+            switch (tutorialState) {
+                // Greetings tutorial
                 case 0:
                     conversations.Add("Welcome to Momma Cub! I'm the Tutorial Girl, and I'm going to teach you how to play.");
+                    conversations.Add("This game is all about managing your Cub Academy. That's right, you're the boss here!");
+                    conversations.Add("Let's begin!!!");
+                    break;
+                case 1:
+                    // Start teaching at the cub shop
+                    break;
+                case 2:
+                    // Then the resting lodge
+                    break;
+                case 3:
+                    // Then the training centre...
+                    break;
+                case 4:
+                    // then the UI...
                     break;
                 default: 
                     break;

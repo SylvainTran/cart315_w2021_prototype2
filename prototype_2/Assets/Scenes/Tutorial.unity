@@ -2014,7 +2014,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -408}
+  m_AnchoredPosition: {x: -2, y: -235}
   m_SizeDelta: {x: 1280, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &217416252
@@ -2037,7 +2037,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: testsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabeltestsetsetsetssssssssssssssssssssssssssssssssssssslabelf
+  m_text: Hey there, you look beautiful today
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2082,7 +2082,7 @@ MonoBehaviour:
   m_charWidthMaxAdj: 0
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 4
+  m_overflowMode: 1
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1
@@ -2100,7 +2100,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 1
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 93.71242, y: -1.6983609, z: 139.48825, w: -51.71295}
+  m_margin: {x: 93.71242, y: -1.6983609, z: 260.17517, w: -71.0365}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -3719,7 +3719,7 @@ RectTransform:
   m_GameObject: {fileID: 370631329}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.61676, y: 0.67784417, z: 0.61676}
+  m_LocalScale: {x: 1.3568103, y: 1.4911894, z: 1.3568103}
   m_Children:
   - {fileID: 1964437165}
   m_Father: {fileID: 677676171}
@@ -3727,7 +3727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -30.400024, y: 20}
+  m_AnchoredPosition: {x: -35, y: 15.200012}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &370631331
@@ -3773,7 +3773,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 370631332}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9032352084469539480, guid: 3206b92b1354b1444aca30249de7778f, type: 3}
+        m_TargetAssemblyTypeName: UIController, Assembly-CSharp
+        m_MethodName: ContinueDialogueFlow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &370631332
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5027,23 +5039,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 408904, guid: 4cc487e002327cb43995ca1871bd142e, type: 3}
   m_PrefabInstance: {fileID: 533718084}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &536494601 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5879134415521007560, guid: 3206b92b1354b1444aca30249de7778f, type: 3}
-  m_PrefabInstance: {fileID: 5879134415527718208}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &536494607
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 536494601}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f2bc292949a891c45805c49f480a6f6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &539786471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19213,14 +19208,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5879134415521007563, guid: 3206b92b1354b1444aca30249de7778f, type: 3}
-      propertyPath: moneyUI
-      value: 
-      objectReference: {fileID: 1324354778}
-    - target: {fileID: 5879134415521007563, guid: 3206b92b1354b1444aca30249de7778f, type: 3}
-      propertyPath: totalBalanceUI
-      value: 
-      objectReference: {fileID: 1821688382}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3206b92b1354b1444aca30249de7778f, type: 3}
 --- !u!1001 &6716802496765317104
