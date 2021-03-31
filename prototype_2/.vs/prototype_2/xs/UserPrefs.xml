@@ -1,10 +1,10 @@
 ﻿<Properties StartupConfiguration="{67CC9819-92D7-58F7-CE2C-F302FC0031F7}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/UIController.cs">
     <Files>
-      <File FileName="Assets/Scripts/Main.cs" Line="25" Column="16" />
-      <File FileName="Assets/Scripts/TutorialController.cs" Line="87" Column="64" />
-      <File FileName="Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" Line="144" Column="5" />
-      <File FileName="Assets/Scripts/UIController.cs" Line="48" Column="27" />
+      <File FileName="Assets/Scripts/Main.cs" Line="232" Column="75" />
+      <File FileName="Assets/Scripts/TutorialController.cs" Line="88" Column="1" />
+      <File FileName="Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" Line="101" Column="11" />
+      <File FileName="Assets/Scripts/UIController.cs" Line="184" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,6 +12,8 @@
           <Node name="prototype_2" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
+                <Node name="AI Scripts" expanded="True" />
+                <Node name="Characters" expanded="True" />
                 <Node name="Gameplay Scripts" expanded="True" />
                 <Node name="Misc" expanded="True" />
                 <Node name="UIController.cs" selected="True" />
@@ -21,7 +23,9 @@
         </State>
       </Pad>
       <Pad Id="MonoDevelop.Debugger.WatchPad">
-        <State />
+        <State>
+          <Value>targetGameObjects</Value>
+        </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
@@ -30,7 +34,10 @@
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="8ef3e347-310a-48f9-9347-c496ceebad40" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/UIController.cs" relfile="Assets/Scripts/UIController.cs" line="74" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Main.cs" relfile="Assets/Scripts/Main.cs" line="267" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/UIController.cs" relfile="Assets/Scripts/UIController.cs" line="73" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/UIController.cs" relfile="Assets/Scripts/UIController.cs" line="88" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" relfile="Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" line="45" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

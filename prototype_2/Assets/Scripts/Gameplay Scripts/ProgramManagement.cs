@@ -26,10 +26,6 @@ public class ProgramManagement : Building
     {
         Debug.Log($"{buildingName} was clicked by player.");
         closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
-        foreach(GameObject go in labels)
-        {
-            go.SetActive(false);
-        }
         buildingMenu.GetComponent<UpdateProgramManagementUI>().ShowCanvas(true);        
         exitProgramManagementButton.SetActive(true);
         // Disable box collider temporarily to handle other colliders

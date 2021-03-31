@@ -84,9 +84,10 @@ public class TutorialController : MonoBehaviour
                     break;
                 case 2:
                     conversations.Add("It's time to visit the Training Centre.");
-                    conversations.Add("Exit the Program Management view and click on Training Centre now!");
+                    conversations.Add("Exit the Program Management view.");
+                    conversations.Add("@[SetGameObjectClickable] TrainingCentre");
+                    conversations.Add("Now click on the Training Centre.");
                     conversations.Add("@[TriggerTextByAlpha] buildingLabel");
-                    conversations.Add("@[SetGameObjectClickable] trainingCentre");
                     conversations.Add("@[WaitForMouseDown] trainingCentre");
                     conversations.Add("This is the most important step, so listen up.");
                     conversations.Add("Your cubs need to eat, rest, and exercise. But YOU choose how often all of these actions happen.");
@@ -100,11 +101,13 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("Again, this depends on what your client wants. Some prefer fatter cubs, some leaner ones.");
                     conversations.Add("Note that all these actions require you to spend budget money. Lose too much money, and you won't be able to keep up. We'll look at ways that you can make money next.");
                     conversations.Add("To summarize, you need to make sure your cubs eat, rest and exercise depending on your clients' needs. We will look at clients soon, so don't worry.");
-                    conversationTargets.Add(new List<string>() { "trainingCentreLabel", "TrainingCentre", "OnMouseDown" });
+                    conversations.Add("Tip: You can see the cubs' hunger, resting and exercise stats at the Resting Lodge by holding the left mouse button over a cub. This will only work at the Resting Lodge!");
+                    conversationTargets.Add(new List<string>() { "TrainingCentre", "trainingCentreLabel", "OnMouseDown" });
                     break;
                 case 3:
                     conversations.Add("Ever wanted to make delicious meat sandwiches? I know I have!");
-                    conversations.Add("Exit the Training Centre now and click on the Slaughterhouse building.");
+                    conversations.Add("Exit the Training Centre now by pressing Escape.");
+                    conversations.Add("Click on the Slaughterhouse.");
                     conversations.Add("Cubs are cloned for their characteristics and then... you know the 'drill'. What do you think of all this?");
                     conversations.Add("There are three major ways to make money: Making goods out of the cubs at the slaughterhouse, sending cubs to Missions, and selling the cubs themselves. The last option is permanent: you will lose the cub that you sell.");
                     break;

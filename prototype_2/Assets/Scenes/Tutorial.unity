@@ -286,6 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charactersInThisBuilding: []
+  interactibleState: 0
 --- !u!65 &20316551
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1837,7 +1838,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &192483772
 Transform:
   m_ObjectHideFlags: 0
@@ -4321,10 +4322,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charactersInThisBuilding: []
+  interactibleState: 0
   closeUpBuildingCam: {fileID: 2108042625}
   buildingMenu: {fileID: 1443907198}
   exitClientsButton: {fileID: 289957234}
-  interactibleState: 0
 --- !u!4 &454359334 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4735502971657758, guid: 5bf57647fe46deb40a2b6a3b57e4c344, type: 3}
@@ -5159,8 +5160,16 @@ PrefabInstance:
       value: 8.91
       objectReference: {fileID: 0}
     - target: {fileID: 8625384145130239598, guid: 75f88b38523238944bde491a98619916, type: 3}
+      propertyPath: m_Name
+      value: Main Camera Brain
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625384145130239598, guid: 75f88b38523238944bde491a98619916, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625384145130239598, guid: 75f88b38523238944bde491a98619916, type: 3}
+      propertyPath: m_TagString
+      value: MainCamera
       objectReference: {fileID: 0}
     - target: {fileID: 8625384145140539143, guid: 75f88b38523238944bde491a98619916, type: 3}
       propertyPath: m_IsActive
@@ -12958,6 +12967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charactersInThisBuilding: []
+  interactibleState: 0
   buildingMenu: {fileID: 0}
   closeUpBuildingCam: {fileID: 576268776}
 --- !u!65 &1451420649
@@ -15322,6 +15332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   charactersInThisBuilding: []
+  interactibleState: 0
   closeUpBuildingCam: {fileID: 1195447409}
   buildingMenu: {fileID: 955983232}
   inactiveTrainingPrograms: {fileID: 0}
@@ -19150,6 +19161,10 @@ PrefabInstance:
       value: 0.45298567
       objectReference: {fileID: 0}
     - target: {fileID: 3842099761920094881, guid: daa8fe020d783a74e94ebff7bd77968a, type: 3}
+      propertyPath: globalCam
+      value: 
+      objectReference: {fileID: 1493372055}
+    - target: {fileID: 3842099761920094881, guid: daa8fe020d783a74e94ebff7bd77968a, type: 3}
       propertyPath: idleRooster
       value: 
       objectReference: {fileID: 1576626773}
@@ -19187,7 +19202,7 @@ PrefabInstance:
       objectReference: {fileID: 1117629487}
     - target: {fileID: 3842099761920094895, guid: daa8fe020d783a74e94ebff7bd77968a, type: 3}
       propertyPath: m_Name
-      value: BUILDING_TrainingCentre
+      value: TrainingCentre
       objectReference: {fileID: 0}
     - target: {fileID: 3842099761920094895, guid: daa8fe020d783a74e94ebff7bd77968a, type: 3}
       propertyPath: m_TagString
@@ -19533,6 +19548,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5879134415521007563, guid: 3206b92b1354b1444aca30249de7778f, type: 3}
+      propertyPath: globalCam
+      value: 
+      objectReference: {fileID: 1493372055}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3206b92b1354b1444aca30249de7778f, type: 3}
 --- !u!1001 &6716802496765317104

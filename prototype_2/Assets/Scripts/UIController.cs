@@ -52,6 +52,7 @@ public class UIController : MonoBehaviour
                     SetGameObjectClickable();
                     break;
                 case "WaitForMouseDown":
+                    WaitForMouseDown();
                     break;
             }
         }
@@ -65,30 +66,46 @@ public class UIController : MonoBehaviour
 
         public void TriggerTextByAlpha()
         {
-            if(conversationGroupsTargets[0][dialogueActionIterator].Length <= 0)
+            if(conversationGroupsTargets[0] == null)
             {
                 return;
             }
+            GameObject conversationTarget = FindConversationTarget();
+            if (conversationTarget)
+            {
+                conversationTarget.GetComponent<TMP_Text>().alpha = 255.0f;
+                ++dialogueActionIterator;
+            } else
+            {
+                throw new NullReferenceException("Conversation object not found! Check the tags again or wait until the developer gets good, and adds addressable assets to preload. What a moron!");
+            }
+        }
+
+        public void SetGameObjectClickable()
+        {
+            GameObject conversationTarget = FindConversationTarget();
+            conversationTarget.GetComponent<Building>().interactibleState = true;
+            ++dialogueActionIterator;
+        }
+
+        public void WaitForMouseDown()
+        {
+            ++dialogueActionIterator;
+            throw new NotImplementedException();
+        }
+
+        public GameObject FindConversationTarget()
+        {
             GameObject[] targetGameObjects = GameObject.FindGameObjectsWithTag(actionTargetTag);
             foreach (GameObject gameObject in targetGameObjects)
             {
                 string match = conversationGroupsTargets[0][dialogueActionIterator];
                 if (gameObject.name.Equals(match))
                 {
-                    gameObject.GetComponent<TMP_Text>().alpha = 255.0f;
-                    ++dialogueActionIterator;
+                    return gameObject;
                 }
             }
-        }
-
-        public void SetGameObjectClickable()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void WaitForMouseDown()
-        {
-            throw new NotImplementedException();
+            return null;
         }
     }
 
@@ -125,6 +142,8 @@ public class UIController : MonoBehaviour
             activeConversationGroupTargets = t.ConversationTargets;
             dialogueActionExecutor.SetAction(dialogueAction, actionTargetTag, activeConversationGroupTargets);
             ExecuteDialogueAction(dialogueActionExecutor);
+            // Skip to the next conversation node
+            ContinueDialogueFlow();
         } else
         {
             tutorialCanvas.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(t.Conversations[dialogueNodeIterator]);
@@ -137,7 +156,7 @@ public class UIController : MonoBehaviour
         dialogueActionExecutor.ReadDialogueAction();
     }
 
-    public void ContinueDialogueFlow()
+    public static void ContinueDialogueFlow()
     {
         if(Main.tutorialState == (int) Main.TUTORIAL_STATES.COMPLETED_ALL)
         {
@@ -166,7 +185,7 @@ public class UIController : MonoBehaviour
         RefreshDialogueFlow(tutorialData);
     }
 
-    public bool ConversationEnded()
+    public static bool ConversationEnded()
     {
         return dialogueNodeIterator == tutorialData.Conversations.Count - 1;
     }

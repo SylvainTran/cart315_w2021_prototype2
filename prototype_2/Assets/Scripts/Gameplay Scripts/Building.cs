@@ -7,6 +7,7 @@ public class Building : MonoBehaviour
 {
     protected string buildingName;
     public List<Character> charactersInThisBuilding; // all sorts of characters can end up in a building, causing havoc
+    public bool interactibleState = false; // Can interact with this building or not
 
     private void Start()
     {

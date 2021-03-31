@@ -9,7 +9,7 @@ public class Clients : Building
     public GameObject buildingMenu;
     protected GameObject[] labels;
     public GameObject exitClientsButton;    
-    public bool interactibleState = false;
+
     private void Awake()
     {
         buildingName = "CLIENTS";

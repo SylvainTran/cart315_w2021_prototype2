@@ -32,11 +32,6 @@ public class RestingLodge : Building
         // Prompt building menu or interactive cub placement?
         // Display UI with cubs/other characters in the building
         closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
-        // Disable labels for clarity
-        foreach(GameObject go in labels)
-        {
-            go.SetActive(false);
-        }
     }
 
     public void ExitBuilding()

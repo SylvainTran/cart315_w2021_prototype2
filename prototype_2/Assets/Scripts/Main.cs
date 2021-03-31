@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
 using TMPro;
+using Cinemachine;
+
 /** 
 * Main : MonoBehaviour
 *
@@ -28,6 +30,9 @@ public sealed class Main : MonoBehaviour
     public static int playerState = default;
     public static int tutorialState = default;
     public float restartGameDelay = 3.0f;
+
+    // Cams
+    public GameObject globalCam;
 
     /**
     * Character Factory
@@ -199,6 +204,35 @@ public sealed class Main : MonoBehaviour
         return true;
     }
 
+    public void ShowCubStats(RaycastHit hit)
+    {
+        GameObject[] profileUIsOpen = GameObject.FindGameObjectsWithTag("cubProfileUI");
+        foreach (GameObject profile in profileUIsOpen)
+        {
+            if (profile.GetComponent<Canvas>().enabled == true)
+            {
+                profile.GetComponent<Canvas>().enabled = false;
+            }
+        }
+        hit.collider.gameObject.GetComponent<Cub>().cubProfileUI.GetComponent<UpdateCubProfileUI>().ShowCanvas();
+
+    }
+
+    public void ReturnToMapCameraView()
+    {
+        CinemachineVirtualCamera[] cams = GameObject.FindObjectsOfType<CinemachineVirtualCamera>();
+        for (int i = 0; i < cams.Length; i++)
+        {
+            CinemachineVirtualCamera c = cams[i].GetComponent<CinemachineVirtualCamera>();
+            if (c)
+            {
+                c.Priority = 0;
+            }
+        }
+        globalCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
+        playerState = 0;
+    }
+
     private void Update()
     {
         // Keep holding to open up the cub's profile menu
@@ -206,13 +240,10 @@ public sealed class Main : MonoBehaviour
         {
             RaycastHit hit = RayCastCharacters();
             if(!FilterCubHit(hit)) return;
-            GameObject[] profileUIsOpen = GameObject.FindGameObjectsWithTag("cubProfileUI");
-            foreach(GameObject profile in profileUIsOpen) {
-                if(profile.GetComponent<Canvas>().enabled == true) {
-                    profile.GetComponent<Canvas>().enabled = false;
-                }
+            if (tutorialState >= 4) // Stats can be seen after the Resting Lodge tutorial and above
+            {
+                ShowCubStats(hit);
             }
-            hit.collider.gameObject.GetComponent<Cub>().cubProfileUI.GetComponent<UpdateCubProfileUI>().ShowCanvas();
         }
         if(Input.GetMouseButton(0)) 
         {
@@ -230,6 +261,10 @@ public sealed class Main : MonoBehaviour
                 return;
             }            
             PlaceCharacterOnNavMesh();
+        }
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ReturnToMapCameraView();
         }
     }
 

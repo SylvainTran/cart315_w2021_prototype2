@@ -15,8 +15,8 @@ public class TrainingCentre : Building
     public GameObject trainingCentreRestGate; // Carve at runtime
     public GameObject closeGateButton;    
     public GameObject openGateButton;
-    public GameObject exitTrainingCentreButton;    
-    public bool interactibleState = false; // Can interact with this building or not
+    public GameObject exitTrainingCentreButton;
+    public GameObject globalCam;
 
     private void Awake()
     {
@@ -89,12 +89,8 @@ public class TrainingCentre : Building
     {
         // Prompt building menu or interactive cub placement?
         // Display UI with cubs/other characters in the building
-        closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
-        // Disable labels for clarity
-        foreach(GameObject go in labels)
-        {
-            go.SetActive(false);
-        }
+        globalCam.GetComponent<CinemachineVirtualCamera>().Priority = 0;
+        closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 400;
         // Spawn Building Menu
         // buildingMenu.SetActive(true);
         // Show the cubs rooster hanging in the building REST pen.
@@ -102,7 +98,7 @@ public class TrainingCentre : Building
         trainRooster.SetActive(true);    
         exitTrainingCentreButton.SetActive(true);
         // Disable box collider temporarily to handle other colliders
-        GetComponent<BoxCollider>().enabled = false;
+        //GetComponent<BoxCollider>().enabled = false;
         OpenRestGate();
         foreach(Cub c in Main.currentCubRooster)
         {
