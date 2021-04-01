@@ -1,3 +1,7 @@
+# Playtesters:
+
+Game will be up tomorrow around midnight (Thursday April 1st). This is not an April Fool's Day joke!
+
 # cart315_w2021_prototype2
 Prototype 2: Momma Cub!
 
