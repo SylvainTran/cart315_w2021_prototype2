@@ -60,9 +60,49 @@ public class CommandLineController : MonoBehaviour
             throw new NotImplementedException();
         }
 
-        public static void Buying(List<string> args)
+        public static void Examine(List<string> args)
         {
             throw new NotImplementedException();
+        }
+
+        public static void Buy(List<string> args)
+        {
+            if (args == null)
+            {
+                // Feed all case
+                Debug.Log("Buying all that is possible within the boundaries of personal material resources.");
+            }
+            else
+            {
+                int qty = default;
+                if (int.TryParse(args[0], out qty))
+                {
+                    if(qty > 0 && args.Count > 1)
+                    {
+                        // Buying qty of X
+                        for(int i = 1; i < args.Count; i++)
+                        {
+                            if (args[i].Equals("chicken") || args[i].Equals("sheep") ||
+                                args[i].Equals("cow") || args[i].Equals("duck") ||
+                                args[i].Equals("fox") || args[i].Equals("pig") ||
+                                args[i].Equals("wolf"))
+                            {
+                                Debug.Log("Buying a silly cub!");
+                                if(!Main.currentCubRoosterFull)
+                                {
+                                    Main.LevelController.GenerateNewCub(qty, args[i]);
+                                } else
+                                {
+                                    Debug.Log("Cub rooster is full");
+                                }
+                            } else
+                            {
+                                Debug.Log("Type of goods doesn't exist.");
+                            }                            
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -76,7 +116,7 @@ public class CommandLineController : MonoBehaviour
             {
                 return null;
             }
-            commandLineText = commandLineText.Trim().ToLower();
+            commandLineText = commandLineText.Trim().ToLower().Replace(" ", string.Empty);
             return commandLineText;
         }
 
@@ -104,7 +144,7 @@ public class CommandLineController : MonoBehaviour
                         }
                     } else
                     {
-                        commandLineText = commandLineText.Replace('(', ' ').Replace(')', ' ').Trim();
+                        commandLineText = commandLineText.Replace('(', ' ').Replace(')', ' ');
                     }
                 }
             } catch(System.ArgumentOutOfRangeException e)
@@ -140,7 +180,7 @@ public class CommandLineController : MonoBehaviour
                     break;
                 case "buy":
                     Debug.Log("Buying: ");
-                    CommandLineActions.Buying(args);
+                    CommandLineActions.Buy(args);
                     break;
                 default:
                     break;

@@ -39,13 +39,13 @@ public class GameAssetsCharacters
     {
         // Load Cubs prefabs
         // assets.Add("CatCub", Resources.Load<Character>("Characters/CatCub"));
-        assets.Add("ChickenCub", Resources.Load<Character>("Characters/ChickenCub"));
-        assets.Add("CowCub", Resources.Load<Character>("Characters/CowCub"));
-        assets.Add("DuckCub", Resources.Load<Character>("Characters/DuckCub"));
-        assets.Add("FoxCub", Resources.Load<Character>("Characters/FoxCub"));
-        assets.Add("PigCub", Resources.Load<Character>("Characters/PigCub"));
-        assets.Add("SheepCub", Resources.Load<Character>("Characters/SheepCub"));
-        assets.Add("WolfCub", Resources.Load<Character>("Characters/WolfCub"));                                                        
+        assets.Add("chicken", Resources.Load<Character>("Characters/ChickenCub"));
+        assets.Add("cow", Resources.Load<Character>("Characters/CowCub"));
+        assets.Add("duck", Resources.Load<Character>("Characters/DuckCub"));
+        assets.Add("fox", Resources.Load<Character>("Characters/FoxCub"));
+        assets.Add("pig", Resources.Load<Character>("Characters/PigCub"));
+        assets.Add("sheep", Resources.Load<Character>("Characters/SheepCub"));
+        assets.Add("wolf", Resources.Load<Character>("Characters/WolfCub"));                                                        
         Debug.Log("Loaded characters table");
     }
 }

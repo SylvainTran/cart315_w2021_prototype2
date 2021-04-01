@@ -49,26 +49,18 @@ public class UpdateClientsUI : MonoBehaviour
 
     public void SellCub(Cub c, GameObject b)
     {
-        Cub[] dest = new Cub[Main.currentCubRooster.Length - 1];
+        Cub[] dest = new Cub[Main.currentCubRooster.Count - 1];
 
-        for(int i = 0; i < Main.currentCubRooster.Length; i++)
+        for(int i = 0; i < Main.currentCubRooster.Count; i++)
         {
-            if(Main.currentCubRooster[i] == c) {
-                if( i > 0 )
-                    Array.Copy(Main.currentCubRooster, 0, dest, 0, i);
-                if( i < Main.currentCubRooster.Length - 1 )
-                    Array.Copy(Main.currentCubRooster, i + 1, dest, i, Main.currentCubRooster.Length - i - 1);
-            }
+            Main.currentCubRooster.Remove(c);
         }
         // Add money to player account
         AccountBalanceAI.UpdateMoney(c.valueRating);
         // Delete go and button
         Destroy(c.gameObject);
         Destroy(b.gameObject);
-        Debug.Log("New rooster length: " + Main.currentCubRooster.Length);
-        // Update cub rooster
-        Main.currentCubRooster = new Cub[Main.currentCubRooster.Length];
-        Main.currentCubRooster = dest;
+        Debug.Log("New rooster length: " + Main.currentCubRooster.Count);
     }
 
     public void UpdateCubRatingsUI()

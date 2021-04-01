@@ -46,6 +46,7 @@ public class TrainingCentre : Building
             return;
         }
         SetBuildingActive();
+        UIController.pauseConversations = false;
     }
 
     public void SwitchState()

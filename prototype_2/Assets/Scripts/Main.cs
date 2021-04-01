@@ -16,8 +16,8 @@ using Cinemachine;
 public sealed class Main : MonoBehaviour
 {
     public static int MAX_CUB_CAPACITY = 0;
-    public static Cub[] currentCubRooster;
-    private static bool currentCubRoosterFull = false;
+    public static List<Cub> currentCubRooster;
+    public static bool currentCubRoosterFull = false;
 
     public GameObject mouseSelector; // Used to lift/drag cubs
     public AudioSource cubLiftUpSound;
@@ -33,7 +33,7 @@ public sealed class Main : MonoBehaviour
     public float restartGameDelay = 3.0f;
 
     // Cams
-    public GameObject globalCam;
+    public static GameObject globalCam;
 
     /**
     * Character Factory
@@ -49,16 +49,21 @@ public sealed class Main : MonoBehaviour
             int randCubType = UnityEngine.Random.Range(0, 7);
             switch(randCubType) {
                 // case 0: cubType = "CatCub"; break;
-                case 0: cubType = "ChickenCub"; break;
-                case 1: cubType = "CowCub"; break;
-                case 2: cubType = "DuckCub"; break;
-                case 3: cubType = "FoxCub"; break;                                
-                case 4: cubType = "PigCub"; break;
-                case 5: cubType = "SheepCub"; break;
-                case 6: cubType = "WolfCub"; break;
-                default: cubType = "SheepCub"; break;
+                case 0: cubType = "chicken"; break;
+                case 1: cubType = "cow"; break;
+                case 2: cubType = "duck"; break;
+                case 3: cubType = "fox"; break;                                
+                case 4: cubType = "pig"; break;
+                case 5: cubType = "sheep"; break;
+                case 6: cubType = "wolf"; break;
+                default: cubType = "sheep"; break;
             }
             return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(0.638f, 0.2455f, 0.511f), Quaternion.identity);
+        }
+        public static Cub GenerateNewCubByType(string cubType)
+        {
+            currentCubRoosterFull = currentCubRooster.Count >= MAX_CUB_CAPACITY ? true : false;
+            return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(-1.7f, 0.4f, -2.7f), Quaternion.identity);
         }
     }
     // For UI
@@ -74,20 +79,41 @@ public sealed class Main : MonoBehaviour
         public static void SetupActors(int nbCubs)
         {
             MAX_CUB_CAPACITY = nbCubs;
-            GenerateNewCubs(nbCubs); 
+            currentCubRooster = new List<Cub>(MAX_CUB_CAPACITY);
             // Generate other things
             // ...           
         }
         public static void GenerateNewCubs(int nbCubs)
         {
-            currentCubRooster = new Cub[MAX_CUB_CAPACITY];
             for(int i = 0; i < MAX_CUB_CAPACITY; i++)
             {
-                currentCubRooster[i] = CharacterFactory.GenerateNewCub();
-                // Setup cub's random data
-                currentCubRooster[i].GenerateStats();
+                Cub newCub = CharacterFactory.GenerateNewCub();
+                newCub.GenerateStats();
+                currentCubRooster.Add(newCub);
                 Debug.Log(currentCubRooster[i].ToString());
             }            
+        }
+        public static void GenerateNewCub(int nbCubs, string cubType)
+        {
+            if(nbCubs + currentCubRooster.Count >= MAX_CUB_CAPACITY)
+            {
+                Debug.Log("Too many cubs to buy.");
+                return;
+            }
+            Cub newCub = null;
+            for (int i = 0; i < nbCubs; i++)
+            {
+                newCub = CharacterFactory.GenerateNewCubByType(cubType);
+                newCub.GenerateStats();
+                currentCubRooster.Add(newCub);
+                Debug.Log(currentCubRooster[i].ToString());
+            }
+        }
+
+        public static IEnumerator GlobalCamPrimacy()
+        {
+            yield return new WaitForSeconds(3.0f);
+            globalCam.GetComponent<CinemachineVirtualCamera>().Priority = 400;
         }
         public static void InitLevel()
         {
@@ -114,11 +140,13 @@ public sealed class Main : MonoBehaviour
         playerState = (int) PLAYER_STATES.MAP;
         tutorialState = (int) TUTORIAL_STATES.GREETINGS;
         // Starts the level controller subroutine
-        LevelController.InitLevel();
+        // LevelController.InitLevel();
         // Start tutorials
+        LevelController.SetupActors(2);
         TutorialController.InitConversationGroups();
         TutorialController.SetupTutorial();
         onCharactersLoaded();
+        globalCam = GameObject.FindGameObjectWithTag("GlobalCam");
         print("Loaded main");
     }
 

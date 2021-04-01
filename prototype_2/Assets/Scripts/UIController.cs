@@ -12,9 +12,13 @@ public class UIController : MonoBehaviour
     public static GameObject tutorialCanvas;
     public static TutorialData tutorialData;
     public static int dialogueNodeIterator = 0;
+    public static int dialogueActionIterator = 0;
+    public static bool pauseConversations = false;
     public delegate void ConversationFlowEnded();
     public static event ConversationFlowEnded onConversationFlowEnded;
     public static IDialogueActionExecutor dialogueActionExecutor = new DialogueActionExecutor();
+    public GameObject TRAINING_CENTRE;
+    public GameObject PROGRAM_MANAGEMENT;
 
     public interface IDialogueActionExecutor
     {
@@ -28,7 +32,6 @@ public class UIController : MonoBehaviour
 
     public class DialogueActionExecutor : IDialogueActionExecutor
     {
-        private int dialogueActionIterator = 0;
         private string dialogueAction;
         private string actionTargetTag;
         private List<List<string>> conversationGroupsTargets;
@@ -91,7 +94,12 @@ public class UIController : MonoBehaviour
         public void WaitForMouseDown()
         {
             ++dialogueActionIterator;
-            throw new NotImplementedException();
+            pauseConversations = true;
+        }
+
+        public IEnumerator WaitForMouseDownSeconds(float delay)
+        {
+            yield return new WaitForSeconds(delay);
         }
 
         public GameObject FindConversationTarget()
@@ -131,6 +139,17 @@ public class UIController : MonoBehaviour
 
     public static void RefreshDialogueFlow(TutorialData t)
     {
+        if (ConversationEnded())
+        {
+            dialogueNodeIterator = 0;
+            dialogueActionIterator = 0;
+            TutorialController.OnConversationEnded();
+            return;
+        }
+        if(pauseConversations)
+        {
+            return;
+        }
         // if the current node is a conversation, then display the text
         string dialogueAction;
         string actionTargetTag;
@@ -170,6 +189,7 @@ public class UIController : MonoBehaviour
         if (ConversationEnded())
         {
             dialogueNodeIterator = 0; // This variable needs to be reset so that the next conversation group starts at its beginning
+            dialogueActionIterator = 0;
             TutorialController.OnConversationEnded();
             return;
         }
