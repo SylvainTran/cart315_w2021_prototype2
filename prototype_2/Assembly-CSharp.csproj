@@ -92,6 +92,7 @@
     <Compile Include="Assets/Scripts/Main.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/ProgramManagement.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RotateCamera.cs" />
+    <Compile Include="Assets/Scripts/TutorialController.cs" />
     <Compile Include="Assets/Scripts/Characters/Character.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" />
     <Compile Include="Assets/Scripts/Misc/ItemInventory.cs" />
@@ -120,7 +121,9 @@
     <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_LightFlicker.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/SceneController.cs" />
     <Compile Include="Assets/Scripts/Utilities/RespawnPlayer.cs" />
-    <Compile Include="Assets/Scripts/TutorialController.cs" />
+    <Compile Include="Assets/DetectAgentOverArea.cs" />
+    <Compile Include="Assets/FooderController.cs" />
+    <Compile Include="Assets/Scripts/CommandLineController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

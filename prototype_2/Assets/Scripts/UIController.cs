@@ -169,13 +169,7 @@ public class UIController : MonoBehaviour
         }
         if (ConversationEnded())
         {
-            // Then start next tutorial or conversation flow
-            //if (onConversationFlowEnded != null)
-            //{
-            //    dialogueNodeIterator = 0;
-            //    onConversationFlowEnded();
-            //}
-            dialogueNodeIterator = 0;
+            dialogueNodeIterator = 0; // This variable needs to be reset so that the next conversation group starts at its beginning
             TutorialController.OnConversationEnded();
             return;
         }

@@ -9,6 +9,7 @@ public class CubAI : Bot
     public float maxFollowDistance = 2f;
     public GameObject trainingCentreRest;
     public bool headingToTrainingCentreRestTarget = false;
+    public bool selectedByPlayer = false; // If true, then use Setdestination command to move
 
     private void Start() {
         trainingCentreRest = GameObject.FindGameObjectWithTag("trainingCentreRestTarget");    
@@ -41,17 +42,20 @@ public class CubAI : Bot
         agent.SetDestination(trainingCentreRest.transform.position);
         //Debug.Log("Force moved");
     }
+
     private void Update()
     {
-        if(!headingToTrainingCentreRestTarget) 
+        if (!headingToTrainingCentreRestTarget)
         {
             Wander();
         }
-        if(agent.speed == 0 && headingToTrainingCentreRestTarget && agent.isOnNavMesh) {
+        if (agent.speed == 0 && headingToTrainingCentreRestTarget && agent.isOnNavMesh)
+        {
             MoveToTrainingCentreRest();
         }
-        if(!agent.isOnNavMesh) {
-            Invoke("DelayPlaceCharacterOnNavMesh", 0.6f);
+        if (!agent.isOnNavMesh)
+        {
+            Invoke("DelayPlaceCharacterOnNavMesh", 3.6f);
         }
     }
 
@@ -72,5 +76,14 @@ public class CubAI : Bot
             agent.Warp(hit.point);
             CancelInvoke();
         }
+    }
+
+    public void ForcePlaceCharacterOnNavMeshPoint()
+    {
+        agent.enabled = true;
+        agent.autoRepath = true;
+        agent.autoBraking = true;
+        agent.speed = 3.5f;
+        agent.Warp(GameObject.FindGameObjectWithTag("trainingCentreTarget").transform.position);
     }
 }

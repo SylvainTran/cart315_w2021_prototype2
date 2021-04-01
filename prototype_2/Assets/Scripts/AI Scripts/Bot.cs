@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Bot : MonoBehaviour
 {
-    protected NavMeshAgent agent;
+    public NavMeshAgent agent;
     public GameObject target;
     public float wanderRadius;
     public float wanderDistance;

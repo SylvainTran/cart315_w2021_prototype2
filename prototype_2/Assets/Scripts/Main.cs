@@ -22,6 +22,7 @@ public sealed class Main : MonoBehaviour
     public GameObject mouseSelector; // Used to lift/drag cubs
     public AudioSource cubLiftUpSound;
     public GameObject cubProfileUI; // the menu that shows a cub's statistics
+    public GameObject selectedCub;
 
     public enum GAME_STATES { TUTORIAL, NORMAL, END };
     public enum PLAYER_STATES { MAP, RESTING_LODGE, TRAINING_CENTRE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT, CLIENTS };
@@ -136,69 +137,83 @@ public sealed class Main : MonoBehaviour
     * Current lifted cub and related vars. 
     * TODO make local in scope.
     */
-    public GameObject cubLifted;
+    public GameObject liftedGameObject;
     public NavMeshAgent agent;
     public static Vector3 oldCubPos; // Position before it got lifted up
-    public bool cubMouseLock = false; // prevent several cubs being lifted
+    public bool grabbedObjectMouseLock = false; // prevent several cubs being lifted
     
     /**
     * Gets a ray to be used in raycasting.
     */
-    private Ray GetRay()
+    public Ray GetRay()
     {
         // Move the mouseSelector to the cursor
         Vector3 inputMousePos = Input.mousePosition;
-        inputMousePos.z = Camera.main.nearClipPlane * 14;
+        inputMousePos.z = Camera.main.nearClipPlane * 35;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
         mouseSelector.transform.position = mouseWorldPos;
         return Camera.main.ScreenPointToRay(Input.mousePosition);
-        // TODO make a lock for the currently lifted cub, no need to raycast and hit a 
-        // collider again on the next frame which causes jittering and fail
-        // Also prevent other cubs from being lifted while lifting a cub
     }
 
     /**
     * Raycast Cub characters by tag
     * and updates flags. TODO make these local in scope.
     */
-    private RaycastHit RayCastCharacters()
+    public RaycastHit RayCastObjects(string tag)
     {
        RaycastHit hit;        
        int layerMask =~ LayerMask.GetMask("TransparentFX");
-       if (Physics.Raycast(GetRay(), out hit, Mathf.Infinity, layerMask)){
+       if (Physics.Raycast(GetRay(), out hit, Mathf.Infinity, layerMask))
+       {
+            if(!hit.collider.gameObject.CompareTag(tag))
             {
-                if(!hit.collider.gameObject.CompareTag("Cub")) {
-                    cubLifted = null;
-                    cubMouseLock = false;
-                }
+                liftedGameObject = null;
+                grabbedObjectMouseLock = false;
             }
-        }
-        return hit;
+       }
+       return hit;
     }
 
     /**
     * Grabs a Cub character using a raycast hit.
     */
-    private void GrabCub(RaycastHit hit)
+    public void Grab(RaycastHit hit)
     {
-        cubLifted = hit.collider.gameObject;
-        oldCubPos = cubLifted.transform.position;
-        cubMouseLock = true;
-        agent = cubLifted.GetComponent<NavMeshAgent>();
-        agent.enabled = false;
-        cubLifted.transform.position = mouseSelector.transform.position;
-        cubLifted.transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));     
-        if(!cubLiftUpSound.isPlaying) {
-            cubLiftUpSound.Play();
+        liftedGameObject = hit.collider.gameObject;
+        oldCubPos = liftedGameObject.transform.position;
+
+        grabbedObjectMouseLock = true;
+        agent = liftedGameObject.GetComponent<NavMeshAgent>();
+        if(agent)
+        {
+            agent.enabled = false;
         }
-        string[] fx = {"pickupHeart", "magicalSourceFX"};
-        cubLifted.GetComponent<Cub>().PlayFXThenDie(fx);
+        liftedGameObject.transform.position = mouseSelector.transform.position;
+        liftedGameObject.transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));
+        if(liftedGameObject.gameObject.CompareTag("Cub"))
+        {
+            if (!cubLiftUpSound.isPlaying)
+            {
+                cubLiftUpSound.Play();
+            }
+            string[] fx = { "pickupHeart", "magicalSourceFX" };
+            liftedGameObject.GetComponent<Cub>().PlayFXThenDie(fx);
+        }
         // TODO highlight cub's outline or material
     }
-    
-    private bool FilterCubHit(RaycastHit hit)
+
+    public void SelectCub(RaycastHit hit)
     {
-        if(!hit.collider || !hit.collider.gameObject.CompareTag("Cub")) {
+        liftedGameObject = hit.collider.gameObject;
+        oldCubPos = liftedGameObject.transform.position;
+        liftedGameObject.GetComponent<CubAI>().selectedByPlayer = true;
+        agent = liftedGameObject.GetComponent<NavMeshAgent>();
+        agent.SetDestination(Input.mousePosition);
+    }
+
+    public bool FilterObjectHit(RaycastHit hit, string tag)
+    {
+        if(!hit.collider || !hit.collider.gameObject.CompareTag(tag)) {
             return false;
         }
         return true;
@@ -216,6 +231,13 @@ public sealed class Main : MonoBehaviour
         }
         hit.collider.gameObject.GetComponent<Cub>().cubProfileUI.GetComponent<UpdateCubProfileUI>().ShowCanvas();
 
+    }
+
+    public GameObject fodderPrefab;
+
+    public void GetFodder()
+    {
+        Instantiate(fodderPrefab, mouseSelector.transform);
     }
 
     public void ReturnToMapCameraView()
@@ -238,8 +260,11 @@ public sealed class Main : MonoBehaviour
         // Keep holding to open up the cub's profile menu
         if(Input.GetMouseButtonDown(0)) 
         {
-            RaycastHit hit = RayCastCharacters();
-            if(!FilterCubHit(hit)) return;
+            RaycastHit hit = RayCastObjects("Cub");
+            if(!FilterObjectHit(hit, "Cub"))
+            {
+                return;
+            }
             if (tutorialState >= 4) // Stats can be seen after the Resting Lodge tutorial and above
             {
                 ShowCubStats(hit);
@@ -251,18 +276,24 @@ public sealed class Main : MonoBehaviour
             if(playerState != 2) { // Training Centre State
                 return;
             }
-            RaycastHit hit = RayCastCharacters();
-            if(!FilterCubHit(hit)) return;
-            GrabCub(hit);
+            // Grabbing cubs
+            RaycastHit cubHit = RayCastObjects("Cub");
+            if (FilterObjectHit(cubHit, "Cub"))
+            {
+                //SelectCub(cubHit);
+                Grab(cubHit);
+            }
+
         }
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
-            if(!cubMouseLock) {
+            if (!grabbedObjectMouseLock)
+            {
                 return;
-            }            
+            }
             PlaceCharacterOnNavMesh();
         }
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             ReturnToMapCameraView();
         }
@@ -274,7 +305,7 @@ public sealed class Main : MonoBehaviour
     */
     public void PlaceCharacterOnNavMesh()
     {
-        if(cubLifted) {
+        if(liftedGameObject) {
             agent.enabled = true;  
             agent.autoRepath = true;
             agent.autoBraking = true;
@@ -282,8 +313,8 @@ public sealed class Main : MonoBehaviour
             agent.Warp(oldCubPos);
         }      
         string[] fx = {"smokePuffFX", "brokenHeartFX"};
-        cubLifted.GetComponent<Cub>().PlayFXThenDie(fx);            
-        cubMouseLock = false;
+        liftedGameObject.GetComponent<Cub>().PlayFXThenDie(fx);            
+        grabbedObjectMouseLock = false;
     }
 
     private IEnumerator GameOverState()

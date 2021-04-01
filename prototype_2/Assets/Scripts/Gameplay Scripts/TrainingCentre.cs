@@ -112,6 +112,7 @@ public class TrainingCentre : Building
             c.gameObject.GetComponent<CubAI>().MoveToTrainingCentreRest();
             //c.transform.position = restSpawnPoint.transform.position;
         }
+        // Show input field
         Invoke("SwitchState", 3.0f);     
     }
 

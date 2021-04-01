@@ -48,7 +48,7 @@ public class TutorialController : MonoBehaviour
     {
         Debug.Log("Conversation Ended!");
         int len = System.Enum.GetNames(typeof(Main.TUTORIAL_STATES)).Length;
-        ++Main.tutorialState;
+        ++Main.tutorialState; // This variable is what gives control over conversations in a cluster
         if(Main.tutorialState >= len)
         {
             Main.tutorialState = (int)Main.TUTORIAL_STATES.COMPLETED_ALL;
@@ -72,36 +72,48 @@ public class TutorialController : MonoBehaviour
             {
                 case 0:
                     conversations.Add("Welcome to Momma Cub! I'm the Tutorial Girl, and I'm going to teach you how to play.");
-                    conversations.Add("This game is all about managing your Cub Academy. That's right, you're the boss here!");
+                    conversations.Add("This game is all about managing your Cub farming business. That's right, you're the boss here!");
+                    conversations.Add("But here's the catch: You were born mute, deaf, paraplegic, and nearly blind so you can only speak in programming languages! (I feel sorry for you. Really, I do.)");
+                    conversations.Add("Don't get me wrong. You are the Momma Cub, nonetheless. I will serve you until death follows.");
+                    conversations.Add("So, to summarize, your challenge will be to manage your slaves--I mean your workers--to grow your cub empire using only simple programming commands.");
                     conversations.Add("Let's begin!!!");
                     conversationTargets.Add(new List<string>() {""});
                     break;
                 case 1:
                     conversations.Add("First, you need to start checking for any new cubs who wish to enroll.");
                     conversations.Add("Click on Program Management now!");
-                    conversations.Add("Good job! Now click on any of the names of the cubs that you wish to admit.");
+                    conversations.Add("Good job! Now, write 'buy(1, chicken)' in the command line input field to buy a stupid chicken!");
+                    conversations.Add("@[WaitForCorrectInput] 'buy(1, chicken)'"); // Test
+                    conversations.Add("Amazing.");
+                    conversations.Add("This is going to be a shocker, but you cannot naturally program things out of existence, if they do not exist in the game.");
+                    conversations.Add("At least, not until you find the Supreme Elixir of Momma Creation, hidden away in Level 95995932.");
+                    conversations.Add("This means, only accepted commands will work in the input field. Nothing happens if you write something invalid. Don't even try to find cheat codes. Don't. Please. (This game barely holds together.)");
+                    conversations.Add("Ahem. You'll have to consult the online API to read all the commands, or wait until the developer adds them in-game.");
                     conversationTargets.Add(new List<string>() { "programManagementLabel" });
                     break;
                 case 2:
                     conversations.Add("It's time to visit the Training Centre.");
                     conversations.Add("Exit the Program Management view.");
-                    conversations.Add("@[SetGameObjectClickable] TrainingCentre");
+                    conversations.Add("@[SetGameObjectClickable] TrainingCentre"); // ACTION 0
                     conversations.Add("Now click on the Training Centre.");
-                    conversations.Add("@[TriggerTextByAlpha] buildingLabel");
-                    conversations.Add("@[WaitForMouseDown] trainingCentre");
-                    conversations.Add("This is the most important step, so listen up.");
+                    conversations.Add("@[TriggerTextByAlpha] buildingLabel"); // ACTION 1
+                    conversations.Add("@[WaitForMouseDown] trainingCentre"); // ACTION 2
+                    conversations.Add("This is the most important step, so listen up, Momma.");
                     conversations.Add("Your cubs need to eat, rest, and exercise. But YOU choose how often all of these actions happen.");
                     conversations.Add("Any cubs that you put in the feeding pen will feed, so long as there is fodder inside the feeding pen.");
-                    conversations.Add("Drag and drop fodder from the fodder bin to the pen to put it there. Cubs will automatically try to eat a nearby fodder at an interval of time.");
+                    conversations.Add("Write 'buy(2, fodder)' to put 2 fodders in the fodder bin. Cubs will automatically try to eat a nearby fodder at each interval of time.");
                     conversations.Add("Any cub that has just eaten will not eat for a while.");
+                    conversations.Add("It's evil, but you can also force feed cubs using 'feed()' to feed all cubs, or 'feed(cubnamehere, cubname2here)' to feed one or several cubs.");
+                    conversations.Add("By the way, a lot of commands can take the zero sized argument, like 'feed()' or examine(). This just runs your Will on each active cub. Cool, right?");
                     conversations.Add("Cubs that don't eat will starve and will underperform in exercises. Their monetary value will also drop!");
                     conversations.Add("Also, cubs that don't exercise will literally get fatter. Yes, this is a fact.");
-                    conversations.Add("That's either good or bad depending on your client's request. More on that later.");
+                    conversations.Add("The command for exercise is 'exercise(cubnamehere)'");
+                    conversations.Add("Is Exercising Good For Cubs? That's either good or bad depending on your client's request. More on that later.");
                     conversations.Add("But if you want to make your cub stronger, faster, and leaner, send them over to combat training exercises!");
                     conversations.Add("Again, this depends on what your client wants. Some prefer fatter cubs, some leaner ones.");
                     conversations.Add("Note that all these actions require you to spend budget money. Lose too much money, and you won't be able to keep up. We'll look at ways that you can make money next.");
                     conversations.Add("To summarize, you need to make sure your cubs eat, rest and exercise depending on your clients' needs. We will look at clients soon, so don't worry.");
-                    conversations.Add("Tip: You can see the cubs' hunger, resting and exercise stats at the Resting Lodge by holding the left mouse button over a cub. This will only work at the Resting Lodge!");
+                    conversations.Add("Tip: You can see the cubs' hunger, resting and exercise stats at the Resting Lodge by holding the left mouse button over a cub. This will only work at the Resting Lodge! Or, write 'examine(cubnamehere)'");
                     conversationTargets.Add(new List<string>() { "TrainingCentre", "trainingCentreLabel", "OnMouseDown" });
                     break;
                 case 3:
