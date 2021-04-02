@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 5879134415521007564}
   - component: {fileID: 5879134415521007565}
   - component: {fileID: 536494607}
-  - component: {fileID: 9032352084469539480}
   - component: {fileID: 7860806053934862921}
+  - component: {fileID: 3761791009439055887}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -66,7 +66,6 @@ MonoBehaviour:
   cubProfileUI: {fileID: 0}
   selectedCub: {fileID: 0}
   restartGameDelay: 3
-  globalCam: {fileID: 0}
   liftedGameObject: {fileID: 0}
   agent: {fileID: 0}
   grabbedObjectMouseLock: 0
@@ -194,18 +193,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2bc292949a891c45805c49f480a6f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &9032352084469539480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5879134415521007560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37fedea6f8748854eb98fde95dc4f133, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7860806053934862921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -218,3 +205,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 171d798d039864e70b0d5401a9388dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3761791009439055887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5879134415521007560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94b464bd122d94d228a18e446260dec2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TRAINING_CENTRE: {fileID: 0}
+  PROGRAM_MANAGEMENT: {fileID: 0}

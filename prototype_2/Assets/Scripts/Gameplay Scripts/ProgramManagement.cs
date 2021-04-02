@@ -34,7 +34,7 @@ public class ProgramManagement : Building
         exitProgramManagementButton.SetActive(true);
         // Disable box collider temporarily to handle other colliders
         Invoke("SwitchState", 3.0f);
-        UIController.pauseConversations = false;
+        ConversationController.pauseConversations = false;
     }
 
     public void SwitchState()

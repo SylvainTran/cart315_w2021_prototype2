@@ -66,8 +66,10 @@
     <Compile Include="Assets/Scripts/Misc/Item.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/BuildAtPoint.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_AutoRotate.cs" />
+    <Compile Include="Assets/DetectAgentOverArea.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_AutoStopLoopedEffect.cs" />
     <Compile Include="Assets/Scripts/AI Scripts/World.cs" />
+    <Compile Include="Assets/Scripts/CommandLineController.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/UpdateProgramManagementUI.cs" />
     <Compile Include="Assets/Scripts/Forms/GameAssetTable.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/UpdateCubProfileUI.cs" />
@@ -102,6 +104,7 @@
     <Compile Include="Assets/Scripts/3Cs/OrbitMouse.cs" />
     <Compile Include="Assets/Scripts/Characters/GameAssetsCharacters.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/OperateLevers.cs" />
+    <Compile Include="Assets/FooderController.cs" />
     <Compile Include="Assets/Scripts/AI Scripts/CubAI.cs" />
     <Compile Include="Assets/Scripts/Forms/GameAssetsForms.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RandomDirectionTranslate.cs" />
@@ -114,16 +117,13 @@
     <Compile Include="Assets/Scripts/Forms/GameAsset.cs" />
     <Compile Include="Assets/Scripts/Characters/Cub.cs" />
     <Compile Include="Assets/Scripts/Forms/Form.cs" />
-    <Compile Include="Assets/Scripts/UIController.cs" />
     <Compile Include="Assets/Scripts/Misc/SetupController.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_New.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/Building.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_LightFlicker.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/SceneController.cs" />
     <Compile Include="Assets/Scripts/Utilities/RespawnPlayer.cs" />
-    <Compile Include="Assets/DetectAgentOverArea.cs" />
-    <Compile Include="Assets/FooderController.cs" />
-    <Compile Include="Assets/Scripts/CommandLineController.cs" />
+    <Compile Include="Assets/Scripts/ConversationController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />

@@ -42,11 +42,11 @@ public class TrainingCentre : Building
     private void OnMouseDown() 
     {
         Debug.Log($"{buildingName} was clicked by player.");
-        if(!interactibleState) {
+        if (!interactibleState) {
             return;
         }
+        ConversationController.pauseConversations = false;
         SetBuildingActive();
-        UIController.pauseConversations = false;
     }
 
     public void SwitchState()

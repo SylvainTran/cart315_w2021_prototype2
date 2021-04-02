@@ -5,8 +5,7 @@ using TMPro;
 using static TutorialController;
 using System;
 
-// TODO rename to conversation controller or something
-public class UIController : MonoBehaviour
+public class ConversationController : MonoBehaviour
 {
     // Start is called before the first frame update
     public static GameObject tutorialCanvas;
@@ -159,8 +158,12 @@ public class UIController : MonoBehaviour
             dialogueAction = t.Conversations[dialogueNodeIterator].Substring(1, t.Conversations[dialogueNodeIterator].IndexOf("]")).Replace("[", "").Replace("]", "");
             actionTargetTag = t.Conversations[dialogueNodeIterator].Substring(t.Conversations[dialogueNodeIterator].IndexOf(" ") + 1);
             activeConversationGroupTargets = t.ConversationTargets;
-            dialogueActionExecutor.SetAction(dialogueAction, actionTargetTag, activeConversationGroupTargets);
-            ExecuteDialogueAction(dialogueActionExecutor);
+            // Only run actions if we haven't reached the end of the actions group yet
+            if(dialogueActionIterator < t.ConversationTargets[0].Count - 1)
+            {
+                dialogueActionExecutor.SetAction(dialogueAction, actionTargetTag, activeConversationGroupTargets);
+                ExecuteDialogueAction(dialogueActionExecutor);
+            }
             // Skip to the next conversation node
             ContinueDialogueFlow();
         } else

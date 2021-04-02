@@ -20,12 +20,12 @@ public class TutorialController : MonoBehaviour
 
     private void OnEnable()
     {
-        UIController.onConversationFlowEnded += OnConversationEnded;
+        ConversationController.onConversationFlowEnded += OnConversationEnded;
     }
 
     private void OnDisable()
     {
-        UIController.onConversationFlowEnded -= OnConversationEnded;
+        ConversationController.onConversationFlowEnded -= OnConversationEnded;
     }
 
     public struct TutorialData
@@ -167,7 +167,7 @@ public class TutorialController : MonoBehaviour
     public static void RunTutorial(TutorialData t)
     {
         // Trigger event to canvas handler with the conversations
-        UIController.TriggerTutorialConversation(t);
+        ConversationController.TriggerTutorialConversation(t);
     }
 
     public static void TeardownTutorial()

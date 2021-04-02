@@ -188,7 +188,6 @@ public class Cub : Character
     public override int GetHashCode()
     {
         // TODO: write your implementation of GetHashCode() here
-        throw new System.NotImplementedException();
         return base.GetHashCode();
     }
 }
