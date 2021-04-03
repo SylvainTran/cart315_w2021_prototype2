@@ -169,7 +169,9 @@ public class ConversationController : MonoBehaviour
             ContinueDialogueFlow();
         } else
         {
-            tutorialCanvas.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(t.Conversations[dialogueNodeIterator]);
+            if(tutorialCanvas) {
+                tutorialCanvas.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(t.Conversations[dialogueNodeIterator]);
+            } 
         }
     }
 

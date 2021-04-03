@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Workfield_1
   m_EditorClassIdentifier: 
   locationName: 
-  position: {x: 0, y: 0, z: 0}
+  position: {x: 0.42, y: 0.3, z: -0.07}
   instance: {fileID: 7183283497185089514, guid: ab33294c8c55be24a80dfc07eed18857, type: 3}

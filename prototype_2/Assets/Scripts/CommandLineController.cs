@@ -57,18 +57,23 @@ public class CommandLineController : MonoBehaviour
             print(WorkerManager.activeWorkers);
             List<GameObject> activeWorkers = WorkerManager.activeWorkers;
             int len = activeWorkers.Count;
+            if(len == 0) return;
+            
             if (args == null || args.Count == 0 || args[0].Equals(string.Empty))
             {
                 // Work all workers
                 for(int i = 0; i < len; i++)
                 {
                     Worker w = activeWorkers[i].GetComponent<Worker>();
+                    // Internal
                     w.InternalMoveToDestination("WORKFIELD_1");
                     print(w.ToString());
-                    w.CheckLocationAction();
+                    w.CheckLocationAction(); // 10 workbatches is default
+                    // Display
                     w.MoveToDestination(w.WORKFIELD_1.position);
                 }
             }
+            // second arg is usually the number of workbatches to complete 
         }
 
         public static void Sell(List<string> args)

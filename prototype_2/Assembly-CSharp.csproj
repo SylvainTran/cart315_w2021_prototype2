@@ -75,6 +75,7 @@
      <Compile Include="Assets\BrokenVector\LowPolyFencePack\Scripts\DoorController.cs" />
      <Compile Include="Assets\Scripts\Combat Scripts\Combatant.cs" />
      <Compile Include="Assets\Scripts\AI Scripts\MonsterAI.cs" />
+     <Compile Include="Assets\Resources\Locations\ScriptableObjects\Workfield.cs" />
      <Compile Include="Assets\Scripts\Gameplay Scripts\SlaughterHouse.cs" />
      <Compile Include="Assets\BrokenVector\LowPolyBrickHouses\Scripts\ModelCustomizer.cs" />
      <Compile Include="Assets\JMO Assets\Cartoon FX\Scripts\CFX_AutoDestructShuriken.cs" />
@@ -85,9 +86,11 @@
      <Compile Include="Assets\Scripts\3Cs\Drive.cs" />
      <Compile Include="Assets\Scripts\Utilities\TrippyMesh.cs" />
      <Compile Include="Assets\Scripts\Main.cs" />
+     <Compile Include="Assets\Scripts\WorkerManager.cs" />
      <Compile Include="Assets\Scripts\Gameplay Scripts\ProgramManagement.cs" />
      <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
      <Compile Include="Assets\Scripts\TutorialController.cs" />
+     <Compile Include="Assets\Worker.cs" />
      <Compile Include="Assets\Scripts\Characters\Character.cs" />
      <Compile Include="Assets\Scripts\Gameplay Scripts\TrainingCentre.cs" />
      <Compile Include="Assets\Scripts\Misc\ItemInventory.cs" />
