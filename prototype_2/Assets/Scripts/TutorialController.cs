@@ -97,11 +97,11 @@ public class TutorialController : MonoBehaviour
                     conversationTargets.Add(new List<string>() { "ProgramManagement", "programManagementLabel" });
                     break;
                 case 2:
-                    conversations.Add("It's time to visit the Training Centre.");
+                    conversations.Add("It's time to visit the Menagerie.");
                     conversations.Add("Exit the Program Management view by pressing Escape. You can always leave buildings by pressing that key.");
-                    conversations.Add("@[SetGameObjectClickable] TrainingCentre"); // ACTION 0
+                    conversations.Add("@[SetGameObjectClickable] Menagerie"); // ACTION 0
                     conversations.Add("@[TriggerTextByAlpha] buildingLabel"); // ACTION 1
-                    conversations.Add("Now click on the Training Centre. (You need to do it or you can't proceed, seriously.)");
+                    conversations.Add("Now click on the Menagerie. (You need to do it or you can't proceed, seriously.)");
                     conversations.Add("@[WaitForMouseDown] trainingCentre"); // ACTION 2
                     conversations.Add("This is the most important step, so listen up, Momma.");
                     conversations.Add("END OF DEMO ITERATION ON TUTORIAL AND COMMAND LINE. The rest is just text. It's not implemented yet. The developer lacks sleep, brlergh.");
@@ -120,7 +120,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("Note that all these actions require you to spend budget money. Lose too much money, and you won't be able to keep up. We'll look at ways that you can make money next.");
                     conversations.Add("To summarize, you need to make sure your cubs eat, rest and exercise depending on your clients' needs. We will look at clients soon, so don't worry.");
                     conversations.Add("Tip: You can see the cubs' hunger, resting and exercise stats at the Resting Lodge by holding the left mouse button over a cub. This will only work at the Resting Lodge! Or, write 'examine(cubnamehere)'");
-                    conversationTargets.Add(new List<string>() { "TrainingCentre", "trainingCentreLabel", "OnMouseDown" });
+                    conversationTargets.Add(new List<string>() { "Menagerie", "menagerieLabel", "OnMouseDown" });
                     break;
                 case 3:
                     conversations.Add("Ever wanted to make delicious meat sandwiches? I know I have!");

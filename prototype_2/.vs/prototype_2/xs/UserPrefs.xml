@@ -1,15 +1,11 @@
 ﻿<Properties StartupConfiguration="{67CC9819-92D7-58F7-CE2C-F302FC0031F7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/ConversationController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Gameplay Scripts/SceneController.cs">
     <Files>
-      <File FileName="Assets/Scripts/ConversationController.cs" Line="96" Column="1" />
-      <File FileName="Assets/Scripts/Main.cs" Line="22" Column="17" />
-      <File FileName="Assets/Scripts/Gameplay Scripts/ProgramManagement.cs" Line="37" Column="31" />
-      <File FileName="Assets/Scripts/TutorialController.cs" Line="105" Column="58" />
-      <File FileName="Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" Line="50" Column="1" />
-      <File FileName="Assets/Scripts/Gameplay Scripts/Building.cs" Line="13" Column="6" />
-      <File FileName="Assets/Scripts/Characters/Cub.cs" Line="190" Column="65" />
-      <File FileName="Assets/Scripts/CommandLineController.cs" Line="93" Column="1" />
-      <File FileName="../../../../../../../Applications/Unity/Hub/Editor/2020.2.2f1/Unity.app/Contents/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/EventSystem.cs" Line="351" Column="1" />
+      <File FileName="Assets/Scripts/CommandLineController.cs" Line="21" Column="1" />
+      <File FileName="Assets/Scripts/ConversationController.cs" />
+      <File FileName="Assets/Scripts/TutorialController.cs" />
+      <File FileName="Assets/Scripts/Main.cs" />
+      <File FileName="Assets/Scripts/Gameplay Scripts/SceneController.cs" Line="55" Column="26" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,24 +14,33 @@
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
                 <Node name="Characters" expanded="True" />
+                <Node name="Forms" expanded="True" />
                 <Node name="Gameplay Scripts" expanded="True" />
-                <Node name="ConversationController.cs" selected="True" />
+                <Node name="CommandLineController.cs" selected="True" />
               </Node>
             </Node>
           </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State>
+          <Value>targetGameObjects</Value>
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="b9a4b70d-9133-4008-a867-7c85b1f2de5f" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="dd05cd28-84ef-40e6-8531-322ab0cb0762" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint enabled="false" file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/AgentManager.cs" relfile="Assets/AgentManager.cs" line="29" column="1" />
       <Breakpoint enabled="false" file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/CommandLineController.cs" relfile="Assets/Scripts/CommandLineController.cs" line="93" column="7" />
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/ConversationController.cs" relfile="Assets/Scripts/ConversationController.cs" line="96" column="1" />
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" relfile="Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" line="48" column="1" />
+      <Breakpoint enabled="false" file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/ConversationController.cs" relfile="Assets/Scripts/ConversationController.cs" line="96" column="1" />
+      <Breakpoint enabled="false" file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" relfile="Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" line="48" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Main.cs" relfile="Assets/Scripts/Main.cs" line="137" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Gameplay Scripts/SceneController.cs" relfile="Assets/Scripts/Gameplay Scripts/SceneController.cs" line="59" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Gameplay Scripts/SceneController.cs" relfile="Assets/Scripts/Gameplay Scripts/SceneController.cs" line="60" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

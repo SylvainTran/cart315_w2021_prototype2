@@ -15,7 +15,7 @@ public class CommandLineController : MonoBehaviour
 
     public static void ParseCommand()
     {
-        string? validatedCommand = CommandLineExecutor.ValidateCommand(commandLine.text);
+        string validatedCommand = CommandLineExecutor.ValidateCommand(commandLine.text);
         if (validatedCommand != null)
         {
             CommandLineExecutor.ExecuteCommand(validatedCommand);

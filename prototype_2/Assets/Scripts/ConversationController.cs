@@ -143,6 +143,7 @@ public class ConversationController : MonoBehaviour
             dialogueNodeIterator = 0;
             dialogueActionIterator = 0;
             TutorialController.OnConversationEnded();
+            //onConversationFlowEnded();
             return;
         }
         if(pauseConversations)
@@ -194,6 +195,7 @@ public class ConversationController : MonoBehaviour
             dialogueNodeIterator = 0; // This variable needs to be reset so that the next conversation group starts at its beginning
             dialogueActionIterator = 0;
             TutorialController.OnConversationEnded();
+            //onConversationFlowEnded();
             return;
         }
         ++dialogueNodeIterator;

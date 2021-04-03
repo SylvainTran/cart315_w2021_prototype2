@@ -37,6 +37,8 @@ TagManager:
   - CommandLine
   - ProgramManagement
   - GlobalCam
+  - CubSpawnSpot
+  - Menagerie
   layers:
   - Default
   - TransparentFX

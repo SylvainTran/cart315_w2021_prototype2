@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class SceneController : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class SceneController : MonoBehaviour
     private float delay = 0.0f;
     private string aMOrPM;
     private string extraText;
+    public GameObject sun;
 
     private void Start()
     {
@@ -44,15 +46,21 @@ public class SceneController : MonoBehaviour
     // Event producer
     private void UpdateClockTickByInterval()
     {
-        minutes += 10;        
+        minutes += 30;        
         // Each 60 seconds, add 1 hour
         if(minutes % 60 == 0) {
             minutes = 0;
             hours++;
             Debug.Log("Hour: " + hours);
-            if(hours > 23) {
+            if(hours >= 7) {
                 Debug.Log("End of day reached");
                 dayClockText.SetText($"Season 1: Day {++days}");
+                // Show day summary screen
+                Image img = GetComponentInChildren<Image>();
+                while(img.color.a <= 255f)
+                {
+                    img.CrossFadeAlpha(0, 2.0f, false);
+                }
                 hours = 0;            
             }
         }
@@ -71,54 +79,19 @@ public class SceneController : MonoBehaviour
         }
         // Update listeners
         Debug.Log("Updating listeners clock tick");
-        onClockTicked();               
+        onClockTicked();
         // Check if lost condition is true (game over if player has a negative balance)
-        if(AccountBalanceAI.money <= 0) {
+        if (AccountBalanceAI.money <= 0) {
             AccountBalanceAI.gameOverUI.GetComponent<TextMeshProUGUI>().alpha = 255;
             // TODO Show stats
             StartCoroutine(StartChangeScene(3.0f));
         }                  
     }
-    // Naive
-    private void UpdateClockTickByFrame()
-    {
-        if(hours < 12) {
-            aMOrPM = "AM";
-        } else {
-            aMOrPM = "PM";
-        }
-        // minutes in float -- 1s = 1 min in game
-        timer += Time.deltaTime;
-        minutes = (int)(timer % 60);
-        // Each 10 seconds, add 10 minutes
-        if(minutes % 10 == 0) {
-            string extraText = "";
-            if(minutes == 0) {
-                extraText = "0";
-            }
-            minutesClockText.SetText(extraText + minutes + $" {aMOrPM}");
-        }
-        // Each 60 seconds, add 1 hour
-        if(minutes % 60 == 0) {
-            if(delay >= 10.0f) {
-                hours++;
-                delay = 0.0f;
-                Debug.Log("Hour: " + hours);
-                // Wrap in 24h, day starts at 6h                
-                if(hours > 23) {
-                    Debug.Log("End of day reached");
-                    hours = 6;            
-                }            
-            }
-            hoursClockText.SetText(hours + ":");                     
-        }
-        // Increment delay
-        delay += minutes;
-    }
-
+   
     void Update()
     {
-
+        // TODO move into clockcyclecontroller
+        sun.transform.Rotate(0.5f * Time.deltaTime, 0.5f * Time.deltaTime, 0f);
     }
 
     public static IEnumerator StartChangeScene(float delay)
