@@ -41,6 +41,14 @@ public class SceneController : MonoBehaviour
         // Using invoke repeating method, to avoid repeated polling in update
         InvokeRepeating("UpdateClockTickByInterval", 0f, 10.0f);
     }
+    public void FadeToBlack()
+    {
+        Image img = GetComponentInChildren<Image>();
+        Color fixedColor = img.color;
+        img.color = fixedColor;
+        img.CrossFadeAlpha(1, 2.0f, false);
+    }
+
     public delegate void OnClockTicked();
     public static event OnClockTicked onClockTicked;
     // Event producer
@@ -52,15 +60,11 @@ public class SceneController : MonoBehaviour
             minutes = 0;
             hours++;
             Debug.Log("Hour: " + hours);
-            if(hours >= 7) {
+            if(hours >= 6) {
                 Debug.Log("End of day reached");
                 dayClockText.SetText($"Season 1: Day {++days}");
                 // Show day summary screen
-                Image img = GetComponentInChildren<Image>();
-                while(img.color.a <= 255f)
-                {
-                    img.CrossFadeAlpha(0, 2.0f, false);
-                }
+                
                 hours = 0;            
             }
         }

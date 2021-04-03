@@ -18,7 +18,12 @@ public sealed class AccountBalanceAI : MonoBehaviour
     public static int totalGain; // Daily
     public static int totalUpcost = 8; // Each 10 seconds -- TODO count it per Building actual costs defined
     public static float netChange = 0;
-        
+    // Ledger variables
+    public static int foodEarnedToday = 0;
+    public static int moneyEarnedToday = 0;
+    public static int cubsSold = 0;
+    public static int workersTotalExperienceGained = 0;
+
     private void OnEnable() 
     {        
         SceneController.onClockTicked += UpdateTotalBalance;

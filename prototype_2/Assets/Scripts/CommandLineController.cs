@@ -52,7 +52,23 @@ public class CommandLineController : MonoBehaviour
 
         public static void Work(List<string> args)
         {
-            throw new NotImplementedException();
+            Debug.Log("Working");
+            Debug.Log(args);
+            print(WorkerManager.activeWorkers);
+            List<GameObject> activeWorkers = WorkerManager.activeWorkers;
+            int len = activeWorkers.Count;
+            if (args == null || args.Count == 0 || args[0].Equals(string.Empty))
+            {
+                // Work all workers
+                for(int i = 0; i < len; i++)
+                {
+                    Worker w = activeWorkers[i].GetComponent<Worker>();
+                    w.InternalMoveToDestination("WORKFIELD_1");
+                    print(w.ToString());
+                    w.CheckLocationAction();
+                    w.MoveToDestination(w.WORKFIELD_1.position);
+                }
+            }
         }
 
         public static void Sell(List<string> args)

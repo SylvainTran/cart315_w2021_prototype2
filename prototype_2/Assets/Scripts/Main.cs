@@ -188,7 +188,8 @@ public sealed class Main : MonoBehaviour
         Vector3 inputMousePos = Input.mousePosition;
         inputMousePos.z = Camera.main.nearClipPlane * 35;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
-        mouseSelector.transform.position = mouseWorldPos;
+        if(mouseSelector)
+            mouseSelector.transform.position = mouseWorldPos;
         return Camera.main.ScreenPointToRay(Input.mousePosition);
     }
 
