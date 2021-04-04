@@ -419,6 +419,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f7d21f8df4f55443a948ffee4780a54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WorkBatchProcessingSpeed: 0.2
+  IsWorking: 1
   WORKFIELD_1: {fileID: 11400000, guid: 88bfd81832c656049b55ce5f2bcdc613, type: 2}
 --- !u!195 &6720351534410422526
 NavMeshAgent:
@@ -429,7 +431,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 642844214192124970}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.56
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50

@@ -22,6 +22,8 @@ public class SceneController : MonoBehaviour
     private float delay = 0.0f;
     private string aMOrPM;
     private string extraText;
+    public static float tickInterval = 10.0f;
+    public static int minutesIncrementPerTick = 30;
     public GameObject sun;
 
     private void Start()
@@ -39,7 +41,7 @@ public class SceneController : MonoBehaviour
         hours = 6; // 6 AM
         minutes = 0;
         // Using invoke repeating method, to avoid repeated polling in update
-        InvokeRepeating("UpdateClockTickByInterval", 0f, 10.0f);
+        InvokeRepeating("UpdateClockTickByInterval", 0f, tickInterval);
     }
     public void FadeToBlack()
     {
@@ -54,7 +56,7 @@ public class SceneController : MonoBehaviour
     // Event producer
     private void UpdateClockTickByInterval()
     {
-        minutes += 30;        
+        minutes += minutesIncrementPerTick;        
         // Each 60 seconds, add 1 hour
         if(minutes % 60 == 0) {
             minutes = 0;

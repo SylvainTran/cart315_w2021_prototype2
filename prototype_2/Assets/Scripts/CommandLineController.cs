@@ -146,6 +146,9 @@ public class CommandLineController : MonoBehaviour
             List<string> args = new List<string>();
             int argsStartIndex = commandLineText.IndexOf('(');
             int argsEndIndex = commandLineText.IndexOf(')');
+            if(argsStartIndex == -1 || argsEndIndex == -1) {
+                return;
+            }
             int argsRange = argsEndIndex - argsStartIndex - 1;
             try
             {

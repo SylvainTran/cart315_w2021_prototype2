@@ -28,9 +28,13 @@ public class Worker : MonoBehaviour
     public int Stamina { get { return stamina;} }
     private float currentWorkBatchProgress = 0f;
     public float CurrentWorkBatchProgress { get { return currentWorkBatchProgress; } }
-    private float currentTaskProgressRequired = 100f;
-    public float CurrentTaskProgressRequired { get { return currentTaskProgressRequired; } }
-    
+    // This var is also set by the CLI, the player decides either a fixed amount of task progress required or a fixed amount of hours in-game to work
+    private float currentTaskProgressHoursRequired = 8.0f; // this is an arg set by the player
+    public float CurrentTaskProgressHoursRequired { get { return currentTaskProgressHoursRequired; } }
+    private bool isWorking = false;
+    public bool IsWorking = true;
+    private float workBatchNextTickDelay = 3.0f;
+
     /// SCRIPTABLE OBJECT Locations
     public Workfield WORKFIELD_1;
 
@@ -54,31 +58,64 @@ public class Worker : MonoBehaviour
         switch(location)
         {
             case "WORKFIELD_1":
+                isWorking = true;
                 StartCoroutine("StartWorking");            
             break;
             default:
             break;
         }
     }
+    // Should this be called every next tick delay? Maybe a reason to do it is if the player somehow buffs the worker's work speed, one needs to recalculate
+    // or if the player simply changes the number of progress hours required
+    public float CalculateCurrentTaskProgressRequired()
+    {   
+        // 1 clock tick / 10 seconds
+        // hence if nexttickdelay = 3s, then there are 3 1/3 work ticks / 1 clock tick or 10 seconds real time or 30 mins in-game
+        // hence 6 2/3 work ticks / 1 hour in-game
+        float workBatchesPerHour = SceneController.tickInterval / workBatchNextTickDelay * (60 / SceneController.minutesIncrementPerTick);
+        print("Work batches per hour: " + workBatchesPerHour);
+        float taskProgressPerHour = workBatchProcessingSpeed * rawBatchWorkPower * workBatchesPerHour;
+        print("Task Progress per hour: " + taskProgressPerHour);
+        print("Current Task Progress Required : " + taskProgressPerHour * currentTaskProgressHoursRequired);
+        return taskProgressPerHour * currentTaskProgressHoursRequired;
+    }
 
     public IEnumerator StartWorking()
     {
-        yield return new WaitForSeconds(3.0f);
+        if(!isWorking) {
+            yield break;
+        }
+        yield return new WaitForSeconds(workBatchNextTickDelay);
         float progress = workBatchProcessingSpeed * rawBatchWorkPower; // 0.2 * 1 at level 0
         currentWorkBatchProgress += progress;
         ++currentWorkBatch;
         --stamina;
-        print(name + $"Worker {id} work batch log:\n Actual Task Progress {currentWorkBatchProgress/currentTaskProgressRequired*100}%, \nBatch completion: {currentWorkBatch/currentWorkBatchLimit*100}% completed.");
+        print(name + $"Worker {id} work batch log:\n Actual Task Progress {currentWorkBatchProgress/CalculateCurrentTaskProgressRequired()*100}%, \nBatch completion: {currentWorkBatch/currentWorkBatchLimit*100}% completed.");
         // Check worker stamina before restarting
         if(HasStaminaLeft()) {
+            // Stop condition 1: task progress required calculated is met
+            if(currentWorkBatchProgress >= CalculateCurrentTaskProgressRequired()) {
+                StopWorking();
+                yield break;
+            }
+            // Stop condition 2: work batch limit is met
             if(currentWorkBatch < currentWorkBatchLimit) {
                 StartCoroutine("RestartWorking");
             } else
             {
                 print("Current work batch limit completed");
+                StopWorking();
             }
-        } else {
+        } else { // Stop condition 3: stamina out
             print("Out of stamina, MASTER");
+            StopWorking();
+        }
+    }
+
+    public void StopWorking()
+    {
+        if(isWorking) {
+            isWorking = false;
         }
     }
 
