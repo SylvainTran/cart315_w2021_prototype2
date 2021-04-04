@@ -9,7 +9,7 @@ public class Worker : MonoBehaviour
     private string location;
     public string Location { get { return location; } }
     private string name;
-    public string Name { get { return name;} }
+    public string Name { get { return name;} set { name = value;} }
     private static int id = 0;
     public int Id { get { return id;} }
     private int level = 0;
@@ -30,9 +30,9 @@ public class Worker : MonoBehaviour
     public float CurrentWorkBatchProgress { get { return currentWorkBatchProgress; } }
     // This var is also set by the CLI, the player decides either a fixed amount of task progress required or a fixed amount of hours in-game to work
     private float currentTaskProgressHoursRequired = 8.0f; // this is an arg set by the player
-    public float CurrentTaskProgressHoursRequired { get { return currentTaskProgressHoursRequired; } }
+    public float CurrentTaskProgressHoursRequired { get { return currentTaskProgressHoursRequired; } set { if(value > 0) currentTaskProgressHoursRequired = value; } }
     private bool isWorking = false;
-    public bool IsWorking = true;
+    public bool IsWorking { get { return isWorking; } set { isWorking = value; } }
     private float workBatchNextTickDelay = 3.0f;
 
     /// SCRIPTABLE OBJECT Locations

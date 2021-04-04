@@ -10,6 +10,7 @@ public class WorkerManager : MonoBehaviour
     {
         activeWorkers = new List<GameObject>();
         GameObject worker = Instantiate(Resources.Load("Characters/Workers/Brigitte", typeof(GameObject))) as GameObject;
+        worker.gameObject.GetComponent<Worker>().Name = "Brigitte"; // Test, otherwise the player sets the name or it's random
         AddWorker(worker);               
     }
 

@@ -49,17 +49,18 @@ public class CommandLineController : MonoBehaviour
         {
             throw new NotImplementedException();
         }
-
-        public static void Work(List<string> args)
+        // TODO make it a method call via Worker instance.Work() instead to get the worker's name -- just get the first part with substr, index of '.'
+        public static void Work(string methodCaller, List<string> args)
         {
             Debug.Log("Working");
             Debug.Log(args);
             print(WorkerManager.activeWorkers);
+            print($"{methodCaller}.work('{args[0]}', {args[1]})");
             List<GameObject> activeWorkers = WorkerManager.activeWorkers;
             int len = activeWorkers.Count;
             if(len == 0) return;
             
-            if (args == null || args.Count == 0 || args[0].Equals(string.Empty))
+            if (methodCaller.Length == 0 || args == null || args.Count == 0 || args[0].Equals(string.Empty))
             {
                 // Work all workers
                 for(int i = 0; i < len; i++)
@@ -72,8 +73,26 @@ public class CommandLineController : MonoBehaviour
                     // Display
                     w.MoveToDestination(w.WORKFIELD_1.position);
                 }
+            } else
+            { // second arg is usually the number of workbatches to complete 
+                // first arg would be the target work location
+                // find worker matching method caller name
+                for(int i = 0; i < len; i++)
+                {
+                    Worker w = activeWorkers[i].GetComponent<Worker>();
+                    string workerName = w.Name;
+                    if(Equals(workerName, methodCaller)) {
+                        // Internal
+                        string locationTarget = args[0];
+                        w.InternalMoveToDestination(locationTarget);
+                        w.CurrentTaskProgressHoursRequired = Single.Parse(args[1]);
+                        print(w.ToString());
+                        w.CheckLocationAction();
+                        // Display
+                        w.MoveToDestination(w.WORKFIELD_1.position);
+                    }
+                }
             }
-            // second arg is usually the number of workbatches to complete 
         }
 
         public static void Sell(List<string> args)
@@ -137,7 +156,7 @@ public class CommandLineController : MonoBehaviour
             {
                 return null;
             }
-            commandLineText = commandLineText.Trim().ToLower().Replace(" ", string.Empty);
+            commandLineText = commandLineText.Trim().Replace(" ", string.Empty);
             return commandLineText;
         }
 
@@ -149,6 +168,14 @@ public class CommandLineController : MonoBehaviour
             if(argsStartIndex == -1 || argsEndIndex == -1) {
                 return;
             }
+            // Get the method caller
+            int methodCallerIndex = commandLineText.IndexOf('.');
+            string methodCaller = "";
+            if(methodCallerIndex != -1) {
+                methodCaller = commandLineText.Substring(0, methodCallerIndex);   
+                print("Player invoked method on object: " + methodCaller);
+            }
+
             int argsRange = argsEndIndex - argsStartIndex - 1;
             try
             {
@@ -163,7 +190,7 @@ public class CommandLineController : MonoBehaviour
                             args.Add(commandLineText.Substring(argsStartIndex + 1, argsRange));
                         } else
                         {
-                            string[] _args = commandLineText.Substring(argsStartIndex + 1, argsRange).Split(',');
+                            string[] _args = commandLineText.Substring(argsStartIndex + 1, argsRange).Replace('"', ' ').Trim().Split(',');
                             args.AddRange(_args);
                         }
                     } else
@@ -179,7 +206,7 @@ public class CommandLineController : MonoBehaviour
                 Debug.LogError(e.Message);
             }
 
-            string methodCall = commandLineText.Substring(0, argsStartIndex);
+            string methodCall = methodCallerIndex != -1? commandLineText.Substring(methodCallerIndex + 1, argsStartIndex - methodCallerIndex - 1) : commandLineText.Substring(0, argsStartIndex);
             switch (methodCall)
             {
                 case "feed":
@@ -195,8 +222,8 @@ public class CommandLineController : MonoBehaviour
                     CommandLineActions.Exercise(args);
                     break;
                 case "work":
-                    Debug.Log("Working: ");
-                    CommandLineActions.Work(args);
+                    print("Working: ");
+                    CommandLineActions.Work(methodCaller, args);
                     break;
                 case "sell":
                     Debug.Log("Selling: ");
