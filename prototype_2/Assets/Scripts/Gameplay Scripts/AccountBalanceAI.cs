@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+
 public sealed class AccountBalanceAI : MonoBehaviour
 {
     private const int NB_DAYS_IN_WEEK = 7;
@@ -13,7 +14,9 @@ public sealed class AccountBalanceAI : MonoBehaviour
     public static GameObject totalBalanceUI;
     public static GameObject netChangeUI;    
     public static GameObject gameOverUI;
-    // Win condition related
+
+    // Gameloop
+    public static int cubFood; // Needed to feed cubs and therefore train them
     public static float money = 1000; // Start at 1000
     public static int totalGain; // Daily
     public static int totalUpcost = 8; // Each 10 seconds -- TODO count it per Building actual costs defined
@@ -23,6 +26,7 @@ public sealed class AccountBalanceAI : MonoBehaviour
     public static int moneyEarnedToday = 0;
     public static int cubsSold = 0;
     public static int workersTotalExperienceGained = 0;
+
 
     private void OnEnable() 
     {        

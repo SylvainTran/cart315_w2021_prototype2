@@ -5,38 +5,53 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Worker : MonoBehaviour
 {
-    private NavMeshAgent agent;
+    #region Basic information
     private string location;
     public string Location { get { return location; } }
     private string name;
     public string Name { get { return name;} set { name = value;} }
     private static int id = 0;
     public int Id { get { return id;} }
+    #endregion
+
+    #region Progression variables
     private int level = 0;
     public int Level { get { return level;} }    
     private int experience = 0;
     public int Experience { get { return experience;} }
-    private float currentWorkBatch = 0;
-    public float CurrentWorkBatch { get { return currentWorkBatch; } }
-    private float currentWorkBatchLimit = 10.0f;
-    public float CurrentWorkBatchLimit { get { return currentWorkBatchLimit; } set { if(value >= 0) currentWorkBatchLimit = value; } }
-    private float workBatchProcessingSpeed = 0.2f; // Very slow at work initially
-    public float WorkBatchProcessingSpeed = 0.2f;
-    private int rawBatchWorkPower = 1; // base tick per batch
-    public int RawBatchWorkPower { get {return rawBatchWorkPower;} }    
     private int stamina = 15; // Very weak workers initially, player needs to progress/upgrade!
     public int Stamina { get { return stamina;} }
-    private float currentWorkBatchProgress = 0f;
-    public float CurrentWorkBatchProgress { get { return currentWorkBatchProgress; } }
-    // This var is also set by the CLI, the player decides either a fixed amount of task progress required or a fixed amount of hours in-game to work
-    private float currentTaskProgressHoursRequired = 8.0f; // this is an arg set by the player
-    public float CurrentTaskProgressHoursRequired { get { return currentTaskProgressHoursRequired; } set { if(value > 0) currentTaskProgressHoursRequired = value; } }
+    #endregion
+
+    #region Task processing variables (can be progressed too)
+    private float workBatchProcessingSpeed = 0.2f; // Very slow at work initially => Progression
+    public float WorkBatchProcessingSpeed = 0.2f;
+    private int rawBatchWorkPower = 1; // base tick per batch => Progression
+    public int RawBatchWorkPower { get {return rawBatchWorkPower;} }    
+    public bool multiTaskEnabled = false; // Special ability?
+    #endregion
+
+    #region Status flags
     private bool isWorking = false;
     public bool IsWorking { get { return isWorking; } set { isWorking = value; } }
-    private float workBatchNextTickDelay = 3.0f;
+    // Can't have work without a task, can have a task and not be working
+    private Task currentTask;
+    public Task CurrentTask { get { return currentTask; } set { currentTask = value; } }
+    #endregion
 
-    /// SCRIPTABLE OBJECT Locations
+    #region Events
+    // Task finished event
+    public delegate void OnTaskFinished(Worker thisWorker, Task currentTask);
+    public static event OnTaskFinished onTaskFinished;
+    #endregion
+
+    #region Required components
+    private NavMeshAgent agent;
+    #endregion
+
+    #region SCRIPTABLE OBJECT Locations
     public Workfield WORKFIELD_1;
+    #endregion
 
     private void Start()
     {
@@ -53,11 +68,17 @@ public class Worker : MonoBehaviour
         this.location = location;
     }
 
+    public void SetTask(Task task)
+    {
+        currentTask = task;
+    }
+
     public void CheckLocationAction()
     {
         switch(location)
         {
             case "WORKFIELD_1":
+                // 1. Request task from TaskController, fetch any pending task if tasks exist
                 isWorking = true;
                 StartCoroutine("StartWorking");            
             break;
@@ -72,34 +93,38 @@ public class Worker : MonoBehaviour
         // 1 clock tick / 10 seconds
         // hence if nexttickdelay = 3s, then there are 3 1/3 work ticks / 1 clock tick or 10 seconds real time or 30 mins in-game
         // hence 6 2/3 work ticks / 1 hour in-game
-        float workBatchesPerHour = SceneController.tickInterval / workBatchNextTickDelay * (60 / SceneController.minutesIncrementPerTick);
-        print("Work batches per hour: " + workBatchesPerHour);
+        float workBatchesPerHour = SceneController.tickInterval / CurrentTask.WorkBatchNextTickDelay * (60 / SceneController.minutesIncrementPerTick);
         float taskProgressPerHour = workBatchProcessingSpeed * rawBatchWorkPower * workBatchesPerHour;
+        print("Work batches per hour: " + workBatchesPerHour);
         print("Task Progress per hour: " + taskProgressPerHour);
-        print("Current Task Progress Required : " + taskProgressPerHour * currentTaskProgressHoursRequired);
-        return taskProgressPerHour * currentTaskProgressHoursRequired;
+        print("Current Task Progress Required : " + taskProgressPerHour * currentTask.ProgressHoursRequired);
+        return taskProgressPerHour * currentTask.ProgressHoursRequired;
     }
 
     public IEnumerator StartWorking()
     {
-        if(!isWorking) {
+        if(!isWorking || currentTask == null) {
             yield break;
         }
-        yield return new WaitForSeconds(workBatchNextTickDelay);
+        yield return new WaitForSeconds(currentTask.WorkBatchNextTickDelay);
         float progress = workBatchProcessingSpeed * rawBatchWorkPower; // 0.2 * 1 at level 0
-        currentWorkBatchProgress += progress;
-        ++currentWorkBatch;
+        currentTask.CurrentWorkBatchProgress += progress;
+        ++currentTask.CurrentWorkBatch;
         --stamina;
-        print(name + $"Worker {id} work batch log:\n Actual Task Progress {currentWorkBatchProgress/CalculateCurrentTaskProgressRequired()*100}%, \nBatch completion: {currentWorkBatch/currentWorkBatchLimit*100}% completed.");
+
+        print(name + $"Worker {id} work batch log:\n Actual Task Progress {currentTask.CurrentWorkBatchProgress/CalculateCurrentTaskProgressRequired()*100}%, \nBatch completion: {currentTask.CurrentWorkBatch/currentTask.CurrentWorkBatchLimit*100}% completed.");
         // Check worker stamina before restarting
         if(HasStaminaLeft()) {
             // Stop condition 1: task progress required calculated is met
-            if(currentWorkBatchProgress >= CalculateCurrentTaskProgressRequired()) {
+            if(currentTask.CurrentWorkBatchProgress >= CalculateCurrentTaskProgressRequired()) 
+            {
+                onTaskFinished(this, currentTask);
                 StopWorking();
                 yield break;
             }
             // Stop condition 2: work batch limit is met
-            if(currentWorkBatch < currentWorkBatchLimit) {
+            if(currentTask.CurrentWorkBatch < currentTask.CurrentWorkBatchLimit) 
+            {
                 StartCoroutine("RestartWorking");
             } else
             {

@@ -49,50 +49,43 @@ public class CommandLineController : MonoBehaviour
         {
             throw new NotImplementedException();
         }
-        // TODO make it a method call via Worker instance.Work() instead to get the worker's name -- just get the first part with substr, index of '.'
+
+        public static void CreateTask(List<string> args)
+        {
+            TaskController.InitTask(new Task(), args);
+        }
+
         public static void Work(string methodCaller, List<string> args)
         {
             Debug.Log("Working");
             Debug.Log(args);
             print(WorkerManager.activeWorkers);
-            print($"{methodCaller}.work('{args[0]}', {args[1]})");
             List<GameObject> activeWorkers = WorkerManager.activeWorkers;
             int len = activeWorkers.Count;
             if(len == 0) return;
-            
-            if (methodCaller.Length == 0 || args == null || args.Count == 0 || args[0].Equals(string.Empty))
+
+            // Work all workers
+            for(int i = 0; i < len; i++)
             {
-                // Work all workers
-                for(int i = 0; i < len; i++)
+                Worker w = activeWorkers[i].GetComponent<Worker>();
+                // General case irrespective of methodCaller found or not
+                if(args == null || args.Count == 0 || args[0].Equals(string.Empty))
                 {
-                    Worker w = activeWorkers[i].GetComponent<Worker>();
                     // Internal
                     w.InternalMoveToDestination("WORKFIELD_1");
-                    print(w.ToString());
-                    w.CheckLocationAction(); // 10 workbatches is default
                     // Display
                     w.MoveToDestination(w.WORKFIELD_1.position);
-                }
-            } else
-            { // second arg is usually the number of workbatches to complete 
-                // first arg would be the target work location
-                // find worker matching method caller name
-                for(int i = 0; i < len; i++)
-                {
-                    Worker w = activeWorkers[i].GetComponent<Worker>();
-                    string workerName = w.Name;
-                    if(Equals(workerName, methodCaller)) {
-                        // Internal
-                        string locationTarget = args[0];
-                        w.InternalMoveToDestination(locationTarget);
-                        w.CurrentTaskProgressHoursRequired = Single.Parse(args[1]);
-                        print(w.ToString());
-                        w.CheckLocationAction();
-                        // Display
-                        w.MoveToDestination(w.WORKFIELD_1.position);
+                } 
+
+                if(w.Name.Equals(methodCaller))
+                { 
+                    if(!args[0].Equals(string.Empty)) {
+                        w.InternalMoveToDestination(args[0]);
                     }
                 }
-            }
+                w.CheckLocationAction(); // 10 workbatches is default                        
+                print(w.ToString());
+            }            
         }
 
         public static void Sell(List<string> args)
@@ -196,6 +189,7 @@ public class CommandLineController : MonoBehaviour
                     } else
                     {
                         commandLineText = commandLineText.Replace('(', ' ').Replace(')', ' ');
+                        args = null;
                     }
                 }
             } catch(System.ArgumentOutOfRangeException e)
@@ -209,19 +203,14 @@ public class CommandLineController : MonoBehaviour
             string methodCall = methodCallerIndex != -1? commandLineText.Substring(methodCallerIndex + 1, argsStartIndex - methodCallerIndex - 1) : commandLineText.Substring(0, argsStartIndex);
             switch (methodCall)
             {
-                case "feed":
-                    Debug.Log("Feeding: ");
-                    CommandLineActions.Feed(args);
+                //We need to distinguish subroutines that are part of tasks from the high-level management stuff we're interested in
+                case "createTask":
+                    if(args != null) CommandLineActions.CreateTask(args);                
+                    else {
+                        print("Need to provide required progress hours, or work batch limit to create a new task.");
+                    }
                     break;
-                case "rest":
-                    Debug.Log("Resting: ");
-                    CommandLineActions.Rest(args);
-                    break;
-                case "exercise":
-                    Debug.Log("Exercising: ");
-                    CommandLineActions.Exercise(args);
-                    break;
-                case "work":
+                case "work":// this is essentially dispatch
                     print("Working: ");
                     CommandLineActions.Work(methodCaller, args);
                     break;

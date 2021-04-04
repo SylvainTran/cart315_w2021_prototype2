@@ -90,7 +90,7 @@
      <Compile Include="Assets\Scripts\Gameplay Scripts\ProgramManagement.cs" />
      <Compile Include="Assets\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_RotateCamera.cs" />
      <Compile Include="Assets\Scripts\TutorialController.cs" />
-     <Compile Include="Assets\Worker.cs" />
+     <Compile Include="Assets\Scripts\Worker.cs" />
      <Compile Include="Assets\Scripts\Characters\Character.cs" />
      <Compile Include="Assets\Scripts\Gameplay Scripts\TrainingCentre.cs" />
      <Compile Include="Assets\Scripts\Misc\ItemInventory.cs" />
