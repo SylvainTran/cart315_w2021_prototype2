@@ -1225,6 +1225,7 @@ MonoBehaviour:
   luck: 0
   happiness: 0
   performanceLevel: 0
+  valueRating: 0
   talents: []
   acquiredExperienceSlots: []
   trainingCost: 0
@@ -1233,10 +1234,8 @@ MonoBehaviour:
   isMouseSelected: 0
   mouseSelector: {fileID: 0}
   currentBuildingAt: 
-  complainSound: {fileID: 0}
-  levelUpSound: {fileID: 0}
-  hitSound: {fileID: 0}
-  deathSound: {fileID: 0}
+  cubLiftUpSound: {fileID: 0}
+  cubProfileUI: {fileID: 0}
   MAX_BASE_CHARACTER_POINTS: 25
 --- !u!195 &7419180396550174388
 NavMeshAgent:
@@ -1272,13 +1271,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6bbec91540c9b499474455403d8268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
   target: {fileID: 0}
   wanderRadius: 2
   wanderDistance: 2
   wanderJitter: 2
   maxFollowDistance: 2
-  trainingCentreRest: {fileID: 0}
+  trainingCentreRest: {fileID: 7395791254400893311, guid: df95ccd506d6e4abfa13ff9222b22096, type: 3}
   headingToTrainingCentreRestTarget: 0
+  selectedByPlayer: 0
 --- !u!65 &8697769443888637013
 BoxCollider:
   m_ObjectHideFlags: 0
