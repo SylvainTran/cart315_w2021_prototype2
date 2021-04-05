@@ -21,6 +21,12 @@ public class TaskController : MonoBehaviour
     private void OnDisable() {
         Worker.onTaskFinished += TaskFinished;
     }
+
+    public static Task GetTaskFromQueue()
+    {
+        return tasksQueue.Dequeue();
+    }
+
     // Management -> Create task -> Dispatch/Work
     public static void InitTask(Task task, List<string> args)
     {

@@ -57,35 +57,59 @@ public class CommandLineController : MonoBehaviour
 
         public static void Work(string methodCaller, List<string> args)
         {
-            Debug.Log("Working");
+            if(TaskController.tasksQueue.Count == 0) 
+            {
+                return;
+            }
+            Debug.Log("New work process initiated.");
             Debug.Log(args);
             print(WorkerManager.activeWorkers);
             List<GameObject> activeWorkers = WorkerManager.activeWorkers;
             int len = activeWorkers.Count;
-            if(len == 0) return;
-
-            // Work all workers
+            if(len == 0) 
+            {
+                return;
+            }
             for(int i = 0; i < len; i++)
             {
                 Worker w = activeWorkers[i].GetComponent<Worker>();
                 // General case irrespective of methodCaller found or not
-                if(args == null || args.Count == 0 || args[0].Equals(string.Empty))
+                if(args == null || args[0].Equals(string.Empty))
                 {
-                    // Internal
-                    w.InternalMoveToDestination("WORKFIELD_1");
-                    // Display
-                    w.MoveToDestination(w.WORKFIELD_1.position);
-                } 
-
-                if(w.Name.Equals(methodCaller))
-                { 
-                    if(!args[0].Equals(string.Empty)) {
-                        w.InternalMoveToDestination(args[0]);
+                    // Work all workers
+                    // It grabs a task from the tasks queue... if no arg. With default work hours = 8.
+                    // Maybe can set number of hours to work too, if arg. Cannot chose which task yet.                    
+                    // Grab the oldest task in the queue?
+                    if(w.CurrentTask == null && TaskController.tasksQueue.Count > 0)
+                    {
+                        w.CurrentTask = TaskController.GetTaskFromQueue();
+                    } else 
+                    {
+                        print("No tasks left. Please create a new task with createTask(hours, workbatchlimit)");
                     }
-                }
+                } 
+                else
+                {
+                    if(w.Name.Equals(methodCaller))
+                    { 
+                        if(!args[0].Equals(string.Empty)) // dude.work(5) // work 5 hours dude
+                        {
+                            if(w.CurrentTask == null && TaskController.tasksQueue.Count > 0) 
+                            {
+                                w.CurrentTask = TaskController.GetTaskFromQueue();
+                                w.CurrentTask.ProgressHoursRequired = Single.Parse(args[0]); // currently just hours, could add batch limits later
+                            } else 
+                            {
+                                print("No tasks left. Please create a new task with createTask(hours, workbatchlimit)");
+                            }
+                        }
+                    }
+                } 
+                w.InternalMoveToDestination("WORKFIELD_1");
+                w.MoveToDestination(w.WORKFIELD_1.position);
                 w.CheckLocationAction(); // 10 workbatches is default                        
-                print(w.ToString());
-            }            
+                print(w.ToString());          
+            }
         }
 
         public static void Sell(List<string> args)
@@ -211,15 +235,12 @@ public class CommandLineController : MonoBehaviour
                     }
                     break;
                 case "work":// this is essentially dispatch
-                    print("Working: ");
                     CommandLineActions.Work(methodCaller, args);
                     break;
                 case "sell":
-                    Debug.Log("Selling: ");
                     CommandLineActions.Sell(args);
                     break;
                 case "buy":
-                    Debug.Log("Buying: ");
                     CommandLineActions.Buy(args);
                     break;
                 default:

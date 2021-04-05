@@ -11,6 +11,8 @@ public class Task : ITask
 {
     private string name;
     private static int id;
+    private int taskId;
+    public int TaskId { get { return taskId; } }    
 
     private int taskRewardTier = 1; // reward tiers progress in the game
     public int TaskRewardTier { get { return taskRewardTier; } private set { taskRewardTier = value; } }
@@ -34,6 +36,7 @@ public class Task : ITask
     public Task()
     {
         ++id;
+        taskId = id;
     }
 
     public override string ToString()

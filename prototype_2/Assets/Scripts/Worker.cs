@@ -78,12 +78,24 @@ public class Worker : MonoBehaviour
         switch(location)
         {
             case "WORKFIELD_1":
-                // 1. Request task from TaskController, fetch any pending task if tasks exist
+                if(currentTask == null) 
+                {
+                    // 1. Request task from TaskController, fetch any pending task if tasks exist
+                    if(TaskController.tasksQueue.Count > 0) 
+                    {
+                        currentTask = TaskController.GetTaskFromQueue();
+                    } 
+                    else
+                    {
+                        print("No tasks in queue. Please create a new task first before dispatching a worker to work any tasks.");
+                        return;
+                    }
+                }            
                 isWorking = true;
-                StartCoroutine("StartWorking");            
-            break;
+                StartCoroutine("StartWorking");
+                break;
             default:
-            break;
+                break;
         }
     }
     // Should this be called every next tick delay? Maybe a reason to do it is if the player somehow buffs the worker's work speed, one needs to recalculate
@@ -112,7 +124,7 @@ public class Worker : MonoBehaviour
         ++currentTask.CurrentWorkBatch;
         --stamina;
 
-        print(name + $"Worker {id} work batch log:\n Actual Task Progress {currentTask.CurrentWorkBatchProgress/CalculateCurrentTaskProgressRequired()*100}%, \nBatch completion: {currentTask.CurrentWorkBatch/currentTask.CurrentWorkBatchLimit*100}% completed.");
+        print(name + $"Worker {id} work batch log:\nWorking on task ID: {currentTask.TaskId}\nActual Task Progress {currentTask.CurrentWorkBatchProgress/CalculateCurrentTaskProgressRequired()*100}%, \nBatch completion: {currentTask.CurrentWorkBatch/currentTask.CurrentWorkBatchLimit*100}% completed.");
         // Check worker stamina before restarting
         if(HasStaminaLeft()) {
             // Stop condition 1: task progress required calculated is met
@@ -140,6 +152,7 @@ public class Worker : MonoBehaviour
     public void StopWorking()
     {
         if(isWorking) {
+            currentTask = null;
             isWorking = false;
         }
     }
