@@ -27,11 +27,14 @@ public class Task : ITask
     private float workBatchNextTickDelay = 3.0f;
     public float WorkBatchNextTickDelay { get { return workBatchNextTickDelay; } private set { if(value > 0) workBatchNextTickDelay = value; } }    
 
-    private float currentWorkBatch = 0;
+    private float currentWorkBatch = 0f;
     public float CurrentWorkBatch { get { return currentWorkBatch; } set { currentWorkBatch = value; } }
 
     private float currentWorkBatchLimit = 10.0f;
     public float CurrentWorkBatchLimit { get { return currentWorkBatchLimit; } set { if(value >= 0) currentWorkBatchLimit = value; } }
+
+    private float workBatchCooldown = 10.0f;
+    public float WorkBatchCooldown { get { return workBatchCooldown; } set { if(value >= 0) workBatchCooldown = value; } }
 
     public Task()
     {

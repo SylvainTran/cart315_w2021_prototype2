@@ -16,10 +16,12 @@ public class TaskController : MonoBehaviour
 
     private void OnEnable() {
         Worker.onTaskFinished += TaskFinished;
+        Worker.onBatchFinished += BatchFinished;
     }
 
     private void OnDisable() {
         Worker.onTaskFinished += TaskFinished;
+        Worker.onBatchFinished += BatchFinished;
     }
 
     public static Task GetTaskFromQueue()
@@ -48,6 +50,19 @@ public class TaskController : MonoBehaviour
         }
         print(task.ToString());
         tasksQueue.Enqueue(task);
+    }
+
+    public void BatchFinished(Worker worker, Task task)
+    {
+        // Could end before task is completely finished, but here the AI goes to check out the gathered materials to the storehouse
+        StartCoroutine(StartNewWorkBatch(worker, task));
+    }
+
+    public IEnumerator StartNewWorkBatch(Worker worker, Task task)
+    {
+        yield return new WaitForSeconds(task.WorkBatchCooldown);
+        worker.CurrentTask.CurrentWorkBatch = 0f;
+        worker.CheckLocationAction();
     }
 
     public void TaskFinished(Worker worker, Task task)

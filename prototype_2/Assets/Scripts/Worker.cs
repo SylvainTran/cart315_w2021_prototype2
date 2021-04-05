@@ -40,9 +40,14 @@ public class Worker : MonoBehaviour
     #endregion
 
     #region Events
+    // Batch finished
+    public delegate void OnBatchFinished(Worker thisWorker, Task currentTask);
+    public static event OnBatchFinished onBatchFinished;
+
     // Task finished event
     public delegate void OnTaskFinished(Worker thisWorker, Task currentTask);
     public static event OnTaskFinished onTaskFinished;
+
     #endregion
 
     #region Required components
@@ -141,7 +146,8 @@ public class Worker : MonoBehaviour
             } else
             {
                 print("Current work batch limit completed");
-                StopWorking();
+                // Emit signal to Task Controller to restart process if needed
+                onBatchFinished(this, currentTask);
             }
         } else { // Stop condition 3: stamina out
             print("Out of stamina, MASTER");
@@ -151,7 +157,8 @@ public class Worker : MonoBehaviour
 
     public void StopWorking()
     {
-        if(isWorking) {
+        if(isWorking) 
+        {
             currentTask = null;
             isWorking = false;
         }
