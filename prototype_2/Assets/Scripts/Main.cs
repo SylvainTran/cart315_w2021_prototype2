@@ -295,7 +295,7 @@ public sealed class Main : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return))
+        if(Input.GetKeyDown(KeyCode.Slash))
         {
             ConversationController.ContinueDialogueFlow();
         }

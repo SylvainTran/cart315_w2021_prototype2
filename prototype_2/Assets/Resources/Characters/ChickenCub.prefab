@@ -154,7 +154,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5658314216734593303}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -284,7 +284,7 @@ MonoBehaviour:
   wanderDistance: 2
   wanderJitter: 2
   maxFollowDistance: 2
-  trainingCentreRest: {fileID: 0}
+  trainingCentreRest: {fileID: 7395791254400893311, guid: df95ccd506d6e4abfa13ff9222b22096, type: 3}
   headingToTrainingCentreRestTarget: 0
   selectedByPlayer: 0
 --- !u!65 &5447335074182771309

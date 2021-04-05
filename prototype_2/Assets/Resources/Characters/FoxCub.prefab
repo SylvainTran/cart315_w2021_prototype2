@@ -187,13 +187,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed6bbec91540c9b499474455403d8268, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
   target: {fileID: 0}
   wanderRadius: 2
   wanderDistance: 2
   wanderJitter: 2
   maxFollowDistance: 2
-  trainingCentreRest: {fileID: 0}
+  trainingCentreRest: {fileID: 7395791254400893311, guid: df95ccd506d6e4abfa13ff9222b22096, type: 3}
   headingToTrainingCentreRestTarget: 0
+  selectedByPlayer: 0
 --- !u!195 &3642586441011636350
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -344,7 +346,7 @@ SkinnedMeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1962376097806917195}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1257,14 +1259,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
---- !u!224 &1719209694677077106 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4045147016447063887, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
-  m_PrefabInstance: {fileID: 3456763249283595069}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1719209694677077110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4045147016447063883, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
+  m_PrefabInstance: {fileID: 3456763249283595069}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1719209694677077106 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4045147016447063887, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
   m_PrefabInstance: {fileID: 3456763249283595069}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4162174177074068056

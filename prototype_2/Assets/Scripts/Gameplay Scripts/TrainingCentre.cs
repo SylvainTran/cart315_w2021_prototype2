@@ -65,8 +65,8 @@ public class TrainingCentre : Building
         }    
         OpenRestGate();
         closeGateButton.SetActive(false);
-        restRooster.SetActive(false);  
-        trainRooster.SetActive(false);     
+        //restRooster.SetActive(false);  
+        //trainRooster.SetActive(false);     
         exitTrainingCentreButton.SetActive(false);    
         foreach(Cub c in Main.currentCubRooster)
         {
