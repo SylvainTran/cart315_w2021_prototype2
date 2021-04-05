@@ -23,10 +23,11 @@ public sealed class Main : MonoBehaviour
     public AudioSource cubLiftUpSound;
     public GameObject cubProfileUI; // the menu that shows a cub's statistics
     public GameObject selectedCub;
+    public static GameObject cubSpawnSpot;
 
     public enum GAME_STATES { TUTORIAL, NORMAL, END };
-    public enum PLAYER_STATES { MAP, RESTING_LODGE, TRAINING_CENTRE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT, CLIENTS };
-    public enum TUTORIAL_STATES { GREETINGS, PROGRAM_MANAGEMENT, TRAINING_CENTRE, SLAUGHTERHOUSE, RESTING_LODGE, CLIENTS, COMPLETED_ALL };
+    public enum PLAYER_STATES { MAP, RESTING_LODGE, MENAGERIE, SLAUGHTERHOUSE, PROGRAM_MANAGEMENT, CLIENTS };
+    public enum TUTORIAL_STATES { GREETINGS, PROGRAM_MANAGEMENT, MENAGERIE, SLAUGHTERHOUSE, RESTING_LODGE, CLIENTS, COMPLETED_ALL };
     public static int gameState = default;
     public static int playerState = default;
     public static int tutorialState = default;
@@ -63,7 +64,7 @@ public sealed class Main : MonoBehaviour
         public static Cub GenerateNewCubByType(string cubType)
         {
             currentCubRoosterFull = currentCubRooster.Count >= MAX_CUB_CAPACITY ? true : false;
-            return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(-1.7f, 0.4f, -2.7f), Quaternion.identity);
+            return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(-4.55f, -2.44f, -4.98f), Quaternion.identity);
         }
     }
     // For UI
@@ -115,6 +116,7 @@ public sealed class Main : MonoBehaviour
             yield return new WaitForSeconds(3.0f);
             globalCam.GetComponent<CinemachineVirtualCamera>().Priority = 400;
         }
+
         public static void InitLevel()
         {
             int nbCubs;
@@ -129,18 +131,25 @@ public sealed class Main : MonoBehaviour
         }
     }
 
+    public static void InitResources()
+    {
+        //cubSpawnSpot = Resources.Load<GameObject>("/SpawnSpots/CubSpawnSpot");
+        //Instantiate(cubSpawnSpot);
+        //Debug.Log(cubSpawnSpot.transform.position);
+    }
+
     public static void LoadMain()
     {
         GameObject main = GameObject.Instantiate(Resources.Load("Initializer")) as GameObject;
         GameObject.DontDestroyOnLoad(main);
-
+        InitResources();
         // Momma Cub Club! Mobile Game
         // TODO LOAD GAME STATE and data from save file
         gameState = (int) GAME_STATES.TUTORIAL;
         playerState = (int) PLAYER_STATES.MAP;
         tutorialState = (int) TUTORIAL_STATES.GREETINGS;
         // Starts the level controller subroutine
-        // LevelController.InitLevel();
+        LevelController.InitLevel();
         // Start tutorials
         LevelController.SetupActors(2);
         TutorialController.InitConversationGroups();
@@ -179,7 +188,8 @@ public sealed class Main : MonoBehaviour
         Vector3 inputMousePos = Input.mousePosition;
         inputMousePos.z = Camera.main.nearClipPlane * 35;
         Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
-        mouseSelector.transform.position = mouseWorldPos;
+        if(mouseSelector)
+            mouseSelector.transform.position = mouseWorldPos;
         return Camera.main.ScreenPointToRay(Input.mousePosition);
     }
 
@@ -285,6 +295,10 @@ public sealed class Main : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            ConversationController.ContinueDialogueFlow();
+        }
         // Keep holding to open up the cub's profile menu
         if(Input.GetMouseButtonDown(0)) 
         {
@@ -300,8 +314,8 @@ public sealed class Main : MonoBehaviour
         }
         if(Input.GetMouseButton(0)) 
         {
-            // Only allow this dragging behaviour in the training centre game state
-            if(playerState != 2) { // Training Centre State
+            // Only allow this dragging behaviour in the Menagerie game state
+            if(playerState != 2) { // Menagerie State
                 return;
             }
             // Grabbing cubs

@@ -11,7 +11,7 @@ public class CubAI : Bot
     public bool headingToTrainingCentreRestTarget = false;
     public bool selectedByPlayer = false; // If true, then use Setdestination command to move
 
-    private void Start() {
+    private new void Start() {
         trainingCentreRest = GameObject.FindGameObjectWithTag("trainingCentreRestTarget");    
         agent = this.GetComponent<NavMeshAgent>();      
     }

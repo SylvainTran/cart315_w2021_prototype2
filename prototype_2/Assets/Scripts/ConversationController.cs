@@ -13,6 +13,7 @@ public class ConversationController : MonoBehaviour
     public static int dialogueNodeIterator = 0;
     public static int dialogueActionIterator = 0;
     public static bool pauseConversations = false;
+    public static bool iteratorTriggeredLastActionYet = false;
     public delegate void ConversationFlowEnded();
     public static event ConversationFlowEnded onConversationFlowEnded;
     public static IDialogueActionExecutor dialogueActionExecutor = new DialogueActionExecutor();
@@ -143,6 +144,7 @@ public class ConversationController : MonoBehaviour
             dialogueNodeIterator = 0;
             dialogueActionIterator = 0;
             TutorialController.OnConversationEnded();
+            //onConversationFlowEnded();
             return;
         }
         if(pauseConversations)
@@ -168,7 +170,9 @@ public class ConversationController : MonoBehaviour
             ContinueDialogueFlow();
         } else
         {
-            tutorialCanvas.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(t.Conversations[dialogueNodeIterator]);
+            if(tutorialCanvas) {
+                tutorialCanvas.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(t.Conversations[dialogueNodeIterator]);
+            } 
         }
     }
 
@@ -194,6 +198,7 @@ public class ConversationController : MonoBehaviour
             dialogueNodeIterator = 0; // This variable needs to be reset so that the next conversation group starts at its beginning
             dialogueActionIterator = 0;
             TutorialController.OnConversationEnded();
+            //onConversationFlowEnded();
             return;
         }
         ++dialogueNodeIterator;

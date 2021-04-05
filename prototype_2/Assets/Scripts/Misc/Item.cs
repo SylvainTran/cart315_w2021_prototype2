@@ -50,4 +50,9 @@ public class Item : ScriptableObject
             return (itemID == i.itemID);
         }
     }
+
+    public override int GetHashCode()
+    {
+        return -1;
+    }
 }

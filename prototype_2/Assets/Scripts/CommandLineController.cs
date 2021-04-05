@@ -15,7 +15,8 @@ public class CommandLineController : MonoBehaviour
 
     public static void ParseCommand()
     {
-        string? validatedCommand = CommandLineExecutor.ValidateCommand(commandLine.text);
+        if (!commandLine) return;
+        string validatedCommand = CommandLineExecutor.ValidateCommand(commandLine.text);
         if (validatedCommand != null)
         {
             CommandLineExecutor.ExecuteCommand(validatedCommand);
@@ -40,9 +41,35 @@ public class CommandLineController : MonoBehaviour
             }
         }
 
-        public static void Rest(List<string> args)
+        public static void Rest(string methodCaller, List<string> args)
         {
-            throw new NotImplementedException();
+            List<GameObject> activeWorkers = WorkerManager.activeWorkers;
+            int len = activeWorkers.Count;
+            if (len == 0)
+            {
+                return;
+            }
+            for (int i = 0; i < len; i++)
+            {
+                Worker w = activeWorkers[i].GetComponent<Worker>();
+
+                if (w.Name.Equals(methodCaller))
+                {
+                    if (!args[0].Equals(string.Empty)) // dude.rest(5) // dude, rest 5 hours
+                    {
+                        w.PauseWorking(Single.Parse(args[0]));
+                    }
+                    else
+                    {
+                        // Default pause time is one tick
+                        w.PauseWorking();
+                    }
+                }
+                w.InternalMoveToDestination("RESTING_SANCTUARY");
+                w.MoveToDestination(w.RESTING_SANCTUARY.instance.gameObject.transform.position);
+                w.CheckLocationAction();                       
+                print(w.ToString());
+            }
         }
 
         public static void Exercise(List<string> args)
@@ -50,9 +77,66 @@ public class CommandLineController : MonoBehaviour
             throw new NotImplementedException();
         }
 
-        public static void Work(List<string> args)
+        public static void CreateTask(List<string> args)
         {
-            throw new NotImplementedException();
+            TaskController.InitTask(new Task(), args);
+        }
+
+        public static void Work(string methodCaller, List<string> args)
+        {
+            if(TaskController.tasksQueue.Count == 0) 
+            {
+                return;
+            }
+            Debug.Log("New work process initiated.");
+            Debug.Log(args);
+            print(WorkerManager.activeWorkers);
+            List<GameObject> activeWorkers = WorkerManager.activeWorkers;
+            int len = activeWorkers.Count;
+            if(len == 0) 
+            {
+                return;
+            }
+            for(int i = 0; i < len; i++)
+            {
+                Worker w = activeWorkers[i].GetComponent<Worker>();
+                // General case irrespective of methodCaller found or not
+                if(args == null || args[0].Equals(string.Empty))
+                {
+                    // Work all workers
+                    // It grabs a task from the tasks queue... if no arg. With default work hours = 8.
+                    // Maybe can set number of hours to work too, if arg. Cannot chose which task yet.                    
+                    // Grab the oldest task in the queue?
+                    if(w.CurrentTask == null && TaskController.tasksQueue.Count > 0)
+                    {
+                        w.CurrentTask = TaskController.GetTaskFromQueue();
+                    } else 
+                    {
+                        print("No tasks left. Please create a new task with createTask(hours, workbatchlimit)");
+                    }
+                } 
+                else
+                {
+                    if(w.Name.Equals(methodCaller))
+                    { 
+                        if(!args[0].Equals(string.Empty)) // dude.work(5) // work 5 hours dude
+                        {
+                            if(w.CurrentTask == null && TaskController.tasksQueue.Count > 0) 
+                            {
+                                w.CurrentTask = TaskController.GetTaskFromQueue();
+                                w.CurrentTask.ProgressHoursRequired = Single.Parse(args[0]); // currently just hours, could add batch limits later
+                            } else 
+                            {
+                                print("No tasks left. Please create a new task with createTask(hours, workbatchlimit)");
+                            }
+                        }
+                    }
+                } 
+                w.InternalMoveToDestination("WORKFIELD_1");
+                w.MoveToDestination(w.WORKFIELD_1.instance.gameObject.transform.position);
+                w.CheckLocationAction(); // 10 workbatches is default                        
+                print(w.ToString());          
+            }
         }
 
         public static void Sell(List<string> args)
@@ -116,7 +200,7 @@ public class CommandLineController : MonoBehaviour
             {
                 return null;
             }
-            commandLineText = commandLineText.Trim().ToLower().Replace(" ", string.Empty);
+            commandLineText = commandLineText.Trim().Replace(" ", string.Empty);
             return commandLineText;
         }
 
@@ -125,6 +209,17 @@ public class CommandLineController : MonoBehaviour
             List<string> args = new List<string>();
             int argsStartIndex = commandLineText.IndexOf('(');
             int argsEndIndex = commandLineText.IndexOf(')');
+            if(argsStartIndex == -1 || argsEndIndex == -1) {
+                return;
+            }
+            // Get the method caller
+            int methodCallerIndex = commandLineText.IndexOf('.');
+            string methodCaller = "";
+            if(methodCallerIndex != -1) {
+                methodCaller = commandLineText.Substring(0, methodCallerIndex);   
+                print("Player invoked method on object: " + methodCaller);
+            }
+
             int argsRange = argsEndIndex - argsStartIndex - 1;
             try
             {
@@ -139,12 +234,13 @@ public class CommandLineController : MonoBehaviour
                             args.Add(commandLineText.Substring(argsStartIndex + 1, argsRange));
                         } else
                         {
-                            string[] _args = commandLineText.Substring(argsStartIndex + 1, argsRange).Split(',');
+                            string[] _args = commandLineText.Substring(argsStartIndex + 1, argsRange).Replace('"', ' ').Trim().Split(',');
                             args.AddRange(_args);
                         }
                     } else
                     {
                         commandLineText = commandLineText.Replace('(', ' ').Replace(')', ' ');
+                        args = null;
                     }
                 }
             } catch(System.ArgumentOutOfRangeException e)
@@ -155,31 +251,26 @@ public class CommandLineController : MonoBehaviour
                 Debug.LogError(e.Message);
             }
 
-            string methodCall = commandLineText.Substring(0, argsStartIndex);
+            string methodCall = methodCallerIndex != -1? commandLineText.Substring(methodCallerIndex + 1, argsStartIndex - methodCallerIndex - 1) : commandLineText.Substring(0, argsStartIndex);
             switch (methodCall)
             {
-                case "feed":
-                    Debug.Log("Feeding: ");
-                    CommandLineActions.Feed(args);
+                //We need to distinguish subroutines that are part of tasks from the high-level management stuff we're interested in
+                case "createTask":
+                    if(args != null) CommandLineActions.CreateTask(args);                
+                    else {
+                        print("Need to provide required progress hours, or work batch limit to create a new task.");
+                    }
                     break;
-                case "rest":
-                    Debug.Log("Resting: ");
-                    CommandLineActions.Rest(args);
+                case "work": // this is essentially dispatch
+                    CommandLineActions.Work(methodCaller, args);
                     break;
-                case "exercise":
-                    Debug.Log("Exercising: ");
-                    CommandLineActions.Exercise(args);
-                    break;
-                case "work":
-                    Debug.Log("Working: ");
-                    CommandLineActions.Work(args);
+                case "rest": // sadly people have to do this shameful thing
+                    CommandLineActions.Rest(methodCaller, args);
                     break;
                 case "sell":
-                    Debug.Log("Selling: ");
                     CommandLineActions.Sell(args);
                     break;
                 case "buy":
-                    Debug.Log("Buying: ");
                     CommandLineActions.Buy(args);
                     break;
                 default:
