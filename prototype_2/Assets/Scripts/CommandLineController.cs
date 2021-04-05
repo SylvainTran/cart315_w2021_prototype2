@@ -15,6 +15,7 @@ public class CommandLineController : MonoBehaviour
 
     public static void ParseCommand()
     {
+        if (!commandLine) return;
         string validatedCommand = CommandLineExecutor.ValidateCommand(commandLine.text);
         if (validatedCommand != null)
         {
@@ -40,9 +41,35 @@ public class CommandLineController : MonoBehaviour
             }
         }
 
-        public static void Rest(List<string> args)
+        public static void Rest(string methodCaller, List<string> args)
         {
-            throw new NotImplementedException();
+            List<GameObject> activeWorkers = WorkerManager.activeWorkers;
+            int len = activeWorkers.Count;
+            if (len == 0)
+            {
+                return;
+            }
+            for (int i = 0; i < len; i++)
+            {
+                Worker w = activeWorkers[i].GetComponent<Worker>();
+
+                if (w.Name.Equals(methodCaller))
+                {
+                    if (!args[0].Equals(string.Empty)) // dude.rest(5) // dude, rest 5 hours
+                    {
+                        w.PauseWorking(Single.Parse(args[0]));
+                    }
+                    else
+                    {
+                        // Default pause time is one tick
+                        w.PauseWorking();
+                    }
+                }
+                w.InternalMoveToDestination("RESTING_SANCTUARY");
+                w.MoveToDestination(w.RESTING_SANCTUARY.instance.gameObject.transform.position);
+                w.CheckLocationAction();                       
+                print(w.ToString());
+            }
         }
 
         public static void Exercise(List<string> args)
@@ -106,7 +133,7 @@ public class CommandLineController : MonoBehaviour
                     }
                 } 
                 w.InternalMoveToDestination("WORKFIELD_1");
-                w.MoveToDestination(w.WORKFIELD_1.position);
+                w.MoveToDestination(w.WORKFIELD_1.instance.gameObject.transform.position);
                 w.CheckLocationAction(); // 10 workbatches is default                        
                 print(w.ToString());          
             }
@@ -234,8 +261,11 @@ public class CommandLineController : MonoBehaviour
                         print("Need to provide required progress hours, or work batch limit to create a new task.");
                     }
                     break;
-                case "work":// this is essentially dispatch
+                case "work": // this is essentially dispatch
                     CommandLineActions.Work(methodCaller, args);
+                    break;
+                case "rest": // sadly people have to do this shameful thing
+                    CommandLineActions.Rest(methodCaller, args);
                     break;
                 case "sell":
                     CommandLineActions.Sell(args);

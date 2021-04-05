@@ -55,7 +55,10 @@ public class TaskController : MonoBehaviour
     public void BatchFinished(Worker worker, Task task)
     {
         // Could end before task is completely finished, but here the AI goes to check out the gathered materials to the storehouse
-        StartCoroutine(StartNewWorkBatch(worker, task));
+        if(this)
+        {
+            StartCoroutine(StartNewWorkBatch(worker, task));
+        }
     }
 
     public IEnumerator StartNewWorkBatch(Worker worker, Task task)

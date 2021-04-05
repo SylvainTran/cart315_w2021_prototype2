@@ -420,8 +420,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WorkBatchProcessingSpeed: 0.2
-  IsWorking: 1
+  multiTaskEnabled: 0
   WORKFIELD_1: {fileID: 11400000, guid: 88bfd81832c656049b55ce5f2bcdc613, type: 2}
+  RESTING_SANCTUARY: {fileID: 11400000, guid: e9875270054fd4bc7b4830f60ecf3d9d, type: 2}
 --- !u!195 &6720351534410422526
 NavMeshAgent:
   m_ObjectHideFlags: 0

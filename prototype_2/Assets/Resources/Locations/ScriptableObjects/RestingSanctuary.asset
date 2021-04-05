@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04c4ad69fa9c62f41b12c94e84742d90, type: 3}
-  m_Name: Workfield_1
+  m_Script: {fileID: 11500000, guid: 5c797899ce3344e448da3a33c90069be, type: 3}
+  m_Name: RestingSanctuary
   m_EditorClassIdentifier: 
-  locationName: 
-  position: {x: 0.42, y: 0.3, z: -0.07}
-  instance: {fileID: 7807756741672232913, guid: 2f37397e147c37d4591a2bf8c3d4ee04, type: 3}
+  locationName: RestingSanctuaryMainHall
+  position: {x: 0, y: 0, z: 0}
+  instance: {fileID: 6700379320173951207, guid: b5958b9c191c9469d9c12daf62c36ef8, type: 3}

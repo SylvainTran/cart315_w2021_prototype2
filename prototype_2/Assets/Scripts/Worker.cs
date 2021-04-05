@@ -19,8 +19,8 @@ public class Worker : MonoBehaviour
     public int Level { get { return level;} }    
     private int experience = 0;
     public int Experience { get { return experience;} }
-    private int stamina = 15; // Very weak workers initially, player needs to progress/upgrade!
-    public int Stamina { get { return stamina;} }
+    private float stamina = 15.0f; // Very weak workers initially, player needs to progress/upgrade!
+    public float Stamina { get { return stamina;} }
     #endregion
 
     #region Task processing variables (can be progressed too)
@@ -56,6 +56,9 @@ public class Worker : MonoBehaviour
 
     #region SCRIPTABLE OBJECT Locations
     public Workfield WORKFIELD_1;
+    public RestingSanctuary RESTING_SANCTUARY;
+    private float staminaRegenPerTimeTick = 10;
+
     #endregion
 
     private void Start()
@@ -164,6 +167,41 @@ public class Worker : MonoBehaviour
         }
     }
 
+    public void PauseWorking(float restTime)
+    {
+        if(isWorking)
+        {
+            isWorking = false;
+            // Go rest
+            StopCoroutine("StartWorking");
+            StartCoroutine(RestForFixedTime(restTime));
+        }
+    }
+
+    public void PauseWorking()
+    {
+        if (isWorking)
+        {
+            isWorking = false;
+            // Go rest
+            StopCoroutine("StartWorking");
+            StartCoroutine(RestForFixedTime(1f));
+        }
+    }
+
+    public IEnumerator RestForFixedTime(float restTime)
+    {
+        yield return new WaitForSeconds(restTime); // TODO make regen stamina cooldown var
+        // Regen stamina
+        stamina += staminaRegenPerTimeTick * restTime;
+        // Done resting
+        isWorking = true;
+        StopCoroutine("RestForFixedTime");
+        InternalMoveToDestination("WORKFIELD_1");
+        MoveToDestination(WORKFIELD_1.position);
+        CheckLocationAction();
+    }
+
     public bool HasStaminaLeft()
     {
         return stamina > 0;
@@ -175,7 +213,7 @@ public class Worker : MonoBehaviour
         StartCoroutine("StartWorking");
     }
 
-    public string ToString()
+    public override string ToString()
     {
         return $"Name: {name} \nId: {id} \nLevel: {level} \nExperience: {experience} \nLocation: {location}";
     }
