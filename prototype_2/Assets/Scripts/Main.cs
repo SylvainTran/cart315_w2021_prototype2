@@ -149,7 +149,7 @@ public sealed class Main : MonoBehaviour
         playerState = (int) PLAYER_STATES.MAP;
         tutorialState = (int) TUTORIAL_STATES.GREETINGS;
         // Starts the level controller subroutine
-        // LevelController.InitLevel();
+        LevelController.InitLevel();
         // Start tutorials
         LevelController.SetupActors(2);
         TutorialController.InitConversationGroups();
@@ -295,6 +295,10 @@ public sealed class Main : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            ConversationController.ContinueDialogueFlow();
+        }
         // Keep holding to open up the cub's profile menu
         if(Input.GetMouseButtonDown(0)) 
         {

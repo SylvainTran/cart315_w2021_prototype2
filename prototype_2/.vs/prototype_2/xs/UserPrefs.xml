@@ -1,15 +1,10 @@
 ﻿<Properties StartupConfiguration="{67CC9819-92D7-58F7-CE2C-F302FC0031F7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Gameplay Scripts/AccountBalanceAI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Misc/SetupController.cs">
     <Files>
-      <File FileName="Assets/Scripts/Worker.cs" Line="153" Column="1" />
-      <File FileName="Assets/Scripts/TaskController.cs" Line="60" Column="61" />
-      <File FileName="Assets/Scripts/CommandLineController.cs" Line="136" Column="90" />
-      <File FileName="Assets/Scripts/Task.cs" Line="35" Column="1" />
-      <File FileName="Assets/Scripts/RestingSanctuary.cs" Line="7" Column="2" />
-      <File FileName="Assets/Resources/Locations/ScriptableObjects/Workfield.cs" Line="5" Column="9" />
-      <File FileName="Library/PackageCache/com.unity.2d.animation@5.0.4/IK/Runtime/IKEditorManagerHelper.cs" Line="28" Column="1" />
-      <File FileName="Library/PackageCache/com.unity.textmeshpro@3.0.1/Scripts/Runtime/TMP_InputField.cs" Line="1398" Column="1" />
-      <File FileName="Assets/Scripts/Gameplay Scripts/AccountBalanceAI.cs" Line="68" Column="1" />
+      <File FileName="Assets/Scripts/TutorialController.cs" Line="164" Column="13" />
+      <File FileName="Assets/Scripts/Main.cs" Line="149" Column="46" />
+      <File FileName="Assets/Scripts/ConversationController.cs" Line="184" Column="44" />
+      <File FileName="Assets/Scripts/Misc/SetupController.cs" Line="10" Column="11" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -23,8 +18,9 @@
               </Node>
               <Node name="Scripts" expanded="True">
                 <Node name="Characters" expanded="True" />
-                <Node name="Gameplay Scripts" expanded="True">
-                  <Node name="AccountBalanceAI.cs" selected="True" />
+                <Node name="Gameplay Scripts" expanded="True" />
+                <Node name="Misc" expanded="True">
+                  <Node name="SetupController.cs" selected="True" />
                 </Node>
               </Node>
             </Node>
@@ -40,18 +36,17 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="ead24c88-6b79-4f67-9dc7-014cac749eda" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="224ba217-b15f-4af7-bc86-189cccdf68ab" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint enabled="false" file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/AgentManager.cs" relfile="Assets/AgentManager.cs" line="29" column="1" />
       <Breakpoint enabled="false" file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/ConversationController.cs" relfile="Assets/Scripts/ConversationController.cs" line="96" column="1" />
       <Breakpoint enabled="false" file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" relfile="Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" line="48" column="1" />
       <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Main.cs" relfile="Assets/Scripts/Main.cs" line="137" column="1" />
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Worker.cs" relfile="Assets/Scripts/Worker.cs" line="194" column="1" />
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Worker.cs" relfile="Assets/Scripts/Worker.cs" line="196" column="1" />
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Worker.cs" relfile="Assets/Scripts/Worker.cs" line="198" column="1" />
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Worker.cs" relfile="Assets/Scripts/Worker.cs" line="197" column="1" />
       <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/CommandLineController.cs" relfile="Assets/Scripts/CommandLineController.cs" line="60" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Worker.cs" relfile="Assets/Scripts/Worker.cs" line="200" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/ConversationController.cs" relfile="Assets/Scripts/ConversationController.cs" line="193" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/ConversationController.cs" relfile="Assets/Scripts/ConversationController.cs" line="188" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

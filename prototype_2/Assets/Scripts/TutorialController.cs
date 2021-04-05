@@ -75,7 +75,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("This game is all about managing your Cub farming business. That's right, you're the boss here!");
                     conversations.Add("Also, you were born mute, deaf, paraplegic except for the hands, and nearly blind so you can only speak in programming languages.");
                     conversations.Add("Don't get me wrong. You are the Momma Cub, nonetheless. I will serve you until death follows, and since I don't really exist, that means forever.");
-                    conversations.Add("To summarize, your challenge will be to manage your slaves--I mean your workers--to grow your cub empire using only simple programming commands.");
+                    conversations.Add("To summarize, your challenge will be to manage your workers with only simple programming commands.");
                     conversations.Add("Let's begin!!!");
                     conversationTargets.Add(new List<string>() {""});
                     break;
@@ -87,14 +87,13 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("Good job! Now, write 'buy(1, chicken)' in the MommaCub Interface 1.0 input field to buy a stupid chicken!");
                     conversations.Add("@[WaitForCorrectInput] 'buy(1, chicken)'"); // Test
                     conversations.Add("Amazing.");
-                    conversations.Add("That felt amazing, master. I am truly your deeply personal interface into this world. ...What did I just say? N-Nothing.");
                     conversations.Add("It goes without saying, but the chicken is somewhere on the map. A camera will zoom on it in a future patch of the game. Anyways, you'll have to trust me it's there. (Check the console log).");
-                    conversations.Add("You'll be able to create many more slaves for your benefit, when the game will be completed.");
+                    conversations.Add("You'll be able to create many more workers for your benefit, when the game will be completed.");
                     conversations.Add("This is going to be a shocker, but you cannot naturally program things out of existence, if they do not exist in the game.");
                     conversations.Add("At least, not until you find the Supreme Elixir of Momma Creation, hidden away in Level 95995932.");
                     conversations.Add("You don't need to thank me for this. Just remember me when you're that far off in life.");
                     conversations.Add("Anyways, this means only accepted commands will work in the MommaCub Interface. Nothing happens if you write something invalid. Please be gentle.");
-                    conversationTargets.Add(new List<string>() { "ProgramManagement", "programManagementLabel" });
+                    conversationTargets.Add(new List<string>() { "ProgramManagement", "programManagementLabel", "endCondition"});
                     break;
                 case 2:
                     conversations.Add("It's time to visit the Menagerie.");
@@ -104,7 +103,21 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("Now click on the Menagerie. (You need to do it or you can't proceed, seriously.)");
                     conversations.Add("@[WaitForMouseDown] trainingCentre"); // ACTION 2
                     conversations.Add("This is the most important step, so listen up, Momma.");
-                    conversations.Add("END OF DEMO ITERATION ON TUTORIAL AND COMMAND LINE. The rest is just text. It's not implemented yet. The developer lacks sleep, brlergh.");
+                    conversations.Add("Your job is to create tasks for your workers, then dispatch them to individual or several workers.");
+                    conversations.Add("Write, createTask(5, 10) in the command line to try it out.");
+                    conversations.Add("You've just created a task that should last for 5 hours worth of experience, with a work batch limit of 10.");
+                    conversations.Add("Each individual worker has a work speed. Depending on the task, every set interval of time they will finish a work batch up to the limit you set previously. Workers pause after they finish a work batch.");
+                    conversations.Add("If you create shorter tasks, then they'll finish faster but you'll have to create another again sooner. If you create longer tasks, they will last longer but you'll have to manage your worker's stamina.");
+                    conversations.Add("This brings us to reality. People can't work forever. So once a worker says they're fatigued (in the console log for now), you'll have to let them rest.");
+                    conversations.Add("You'll have to write, your worker's name followed by the rest(hours) command. Try it now: Brigitte.rest(8).");
+                    conversations.Add("This will make the worker named Brigitte rest for 8 hours in-game. By the way, 10 seconds in real life is 30 minutes in-game.");
+                    conversations.Add("Once Brigitte has recuperated, she'll go back to the task that she took previously, if it isn't completed.");
+                    conversations.Add("You can see your progress on each Task in the console log.");
+                    conversations.Add("Workers won't just do what you command, however. They can get lazy, or defect, or run into various obstacles called 'Work Obstacle Events'.");
+                    conversations.Add("Your job will be to manage many workers simultaneously like that with those occurring.");
+                    conversations.Add("Once workers finish a task completely, you will gain what they worked on. In this case, you'll get food for your cubs, which you can use to feed them and then train them.");
+                    conversations.Add("END OF DEMO ITERATION ON TUTORIAL AND COMMAND LINE. The rest is just text. It's not implemented yet.");
+
                     conversations.Add("Your cubs need to eat, rest, and exercise. But YOU choose how often all of these actions happen.");
                     conversations.Add("Any cubs that you put in the feeding pen will feed, so long as there is fodder inside the feeding pen.");
                     conversations.Add("Write 'buy(2, fodder)' to put 2 fodders in the fodder bin. Cubs will automatically try to eat a nearby fodder at each interval of time.");

@@ -13,6 +13,7 @@ public class ConversationController : MonoBehaviour
     public static int dialogueNodeIterator = 0;
     public static int dialogueActionIterator = 0;
     public static bool pauseConversations = false;
+    public static bool iteratorTriggeredLastActionYet = false;
     public delegate void ConversationFlowEnded();
     public static event ConversationFlowEnded onConversationFlowEnded;
     public static IDialogueActionExecutor dialogueActionExecutor = new DialogueActionExecutor();
