@@ -47,7 +47,7 @@ public class ProgramManagement : Building
         }
         closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
         //buildingMenu.GetComponent<UpdateProgramManagementUI>().ShowCanvas(true);        
-        exitProgramManagementButton.SetActive(true);
+        //exitProgramManagementButton.SetActive(true);
         // Disable box collider temporarily to handle other colliders
         Invoke("SwitchState", 3.0f);
         ConversationController.pauseConversations = false;

@@ -85,12 +85,11 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("@[TriggerTextByAlpha] buildingLabel"); // ACTION 1
                     conversations.Add("Click on Program Management now!");
                     conversations.Add("@[WaitForMouseDown] ProgramManagement"); // ACTION 2
-                    conversations.Add("Good job! Now, write 'buy(1, chicken)' in the MommaCub Interface 1.0 input field to buy a stupid chicken!");
+                    conversations.Add("Good job! Now, write 'buy(1, chicken)' in the MommaCub Interface 1.0 input field to buy a chicken!");
                     conversations.Add("@[WaitForCorrectInput] buy(1, chicken)"); // Test
                     conversations.Add("Amazing.");
                     conversations.Add("It goes without saying, but the chicken is somewhere on the map. A camera will zoom on it in a future patch of the game. (You can see the cub skimping around happily as we speak.)");
-                    conversations.Add("You'll be able to create many more workers for your benefit, when the game will be completed.");
-                    conversations.Add("This is going to be a shocker, but you cannot naturally program things out of existence, if they do not exist in the game.");
+                    conversations.Add("This is going to be a shocker, but chickens and other cubs cost Coins. You earn coins by training and selling cubs only. Also, you cannot naturally program things out of existence, if they do not exist in the game.");
                     conversations.Add("At least, not until you find the Supreme Elixir of Momma Creation, hidden away in Level 95995932.");
                     conversations.Add("You don't need to thank me for this. Just remember me when you're that far off in life.");
                     conversations.Add("Anyways, this means only accepted commands will work in the MommaCub Interface. Nothing happens if you write something invalid. Please be gentle.");
@@ -109,7 +108,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("@[WaitForCorrectInput] createTask(5, 10)");
                     conversations.Add("You've just created a task that should last for 5 hours worth of experience, with a work batch limit of 10.");
                     conversations.Add("Each individual worker has a work speed. Depending on the task, every set interval of time they will finish a work batch up to the limit you set previously. Workers pause after they finish a work batch.");
-                    conversations.Add("If you create shorter tasks, then they'll finish faster but you'll have to create another again sooner. If you create longer tasks, they will last longer but you'll have to manage your worker's stamina.");
+                    conversations.Add("If you create shorter tasks, then they'll finish faster but you'll have to create another again sooner on top of rewarding you less. If you create longer tasks, they will last longer and reward you more, but you'll have to manage your worker's stamina.");
                     conversations.Add("This brings us to reality. People can't work forever. So once a worker says they're fatigued (in the console log for now), you'll have to let them rest.");
                     conversations.Add("You'll have to write your worker's name followed by the rest(hours) command. Try it now: Brigitte.work(24). Press Escape to see Brigitte go to the corn fields.");
                     conversations.Add("@[WaitForCorrectInput] Brigitte.work(24)");
@@ -121,23 +120,16 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("Workers won't just do what you command, however. They can get lazy, or defect, or run into various obstacles called 'Work Obstacle Events'.");
                     conversations.Add("Your job will be to manage many workers simultaneously like that with those occurring.");
                     conversations.Add("Once workers finish a task completely, you will gain what they worked on. In this case, you'll get food for your cubs, which you can use to feed them and then train them.");
-                    conversations.Add("END OF DEMO ITERATION ON TUTORIAL AND COMMAND LINE. The rest is just text. It's not implemented yet.");
-
-                    conversations.Add("Your cubs need to eat, rest, and exercise. But YOU choose how often all of these actions happen.");
-                    conversations.Add("Any cubs that you put in the feeding pen will feed, so long as there is fodder inside the feeding pen.");
-                    conversations.Add("Write 'buy(2, fodder)' to put 2 fodders in the fodder bin. Cubs will automatically try to eat a nearby fodder at each interval of time.");
+                    conversations.Add("After each finished task, workers also get experience... and level up, making them better at overcoming obstacles.");
+                    conversations.Add("Any food that you put in the feeding pen will feed any hungry cub.");
+                    conversations.Add("Write 'feed()' to feed cubs.");
+                    conversations.Add("When food dragging will be implemented, cubs will automatically try to eat a nearby fodder at each interval of time.");
                     conversations.Add("Any cub that has just eaten will not eat for a while.");
-                    conversations.Add("It's evil, but you can also force feed cubs using 'feed()' to feed all cubs, or 'feed(cubnamehere, cubname2here)' to feed one or several cubs.");
-                    conversations.Add("By the way, a lot of commands can take the zero sized argument, like 'feed()' or examine(). This just runs your Will on each active cub. Cool, right?");
-                    conversations.Add("Cubs that don't eat will starve and will underperform in exercises. Their monetary value will also drop!");
+                    conversations.Add("By the way, a lot of commands can take the zero sized argument, like 'feed()' or work().");
+                    conversations.Add("Cubs that don't eat will starve and will underperform in exercises. Their monetary value will also drop! Also, cubs may die if their hunger reach zero. You can check their hunger by clicking them while in the Menagerie.");
                     conversations.Add("Also, cubs that don't exercise will literally get fatter. Yes, this is a fact.");
-                    conversations.Add("The command for exercise is 'exercise(cubnamehere)'");
-                    conversations.Add("Is Exercising Good For Cubs? That's either good or bad depending on your client's request. More on that later.");
-                    conversations.Add("But if you want to make your cub stronger, faster, and leaner, send them over to combat training exercises!");
-                    conversations.Add("Again, this depends on what your client wants. Some prefer fatter cubs, some leaner ones.");
-                    conversations.Add("Note that all these actions require you to spend budget money. Lose too much money, and you won't be able to keep up. We'll look at ways that you can make money next.");
-                    conversations.Add("To summarize, you need to make sure your cubs eat, rest and exercise depending on your clients' needs. We will look at clients soon, so don't worry.");
-                    conversations.Add("Tip: You can see the cubs' hunger, resting and exercise stats at the Resting Lodge by holding the left mouse button over a cub. This will only work at the Resting Lodge! Or, write 'examine(cubnamehere)'");
+                    conversations.Add("To summarize, you need to make sure your cubs eat. To get food, you need to make your workers work. To make your workers work, you need to create and assign tasks to them.");
+                    conversations.Add("END OF DEMO ITERATION ON TUTORIAL AND COMMAND LINE. The rest is just text. It's not implemented yet.");
                     conversationTargets.Add(new List<string>() { "Menagerie", "menagerieLabel", "WaitForMouseDownCondition", "waitForCorrectInputCondition", "waitForCorrectInputCondition", "waitForCorrectInputCondition", "endCondition" });
                     break;
                 case 3:

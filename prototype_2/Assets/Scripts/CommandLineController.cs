@@ -25,13 +25,20 @@ public class CommandLineController : MonoBehaviour
 
     public class CommandLineActions
     {
-        public static void Feed(List<string> args)
+        public static void Feed(string methodCaller, List<string> args)
         {
             if(args == null)
             {
                 // Feed all case
                 Debug.Log("Feeding all cubs");
-                
+                if(AccountBalanceAI.cubFood >= 10)
+                {
+                    for(int i = 0; i < Main.currentCubRooster.Count; i++)
+                    {
+                        Main.currentCubRooster[i].Satiety += 10;
+                        AccountBalanceAI.cubFood -= 10;
+                    }
+                }
             } else
             {
                 foreach(string arg in args)
@@ -59,8 +66,11 @@ public class CommandLineController : MonoBehaviour
                     {
                         print("Pause working hours specific rom CLI called");
                         print($"Pause time: {Single.Parse(args[0])}");
-                        w.StopCoroutine("StartWorking");
-                        w.StopWorkCoroutine = null;
+                        if (w.StartWorkCoroutine != null)
+                        {
+                            w.StopCoroutine("StartWorking");
+                            w.StartWorkCoroutine = null;
+                        }
                         w.StopWorkCoroutine = w.StartCoroutine("PauseWorking", Single.Parse(args[0]));
                         UpdateRestStatus(w);
                     }
@@ -68,8 +78,11 @@ public class CommandLineController : MonoBehaviour
                     {
                         // Default pause time is one tick
                         print("Pause working generic from CLI called");
-                        w.StopCoroutine("StartWorking");
-                        w.StopWorkCoroutine = null;
+                        if (w.StartWorkCoroutine != null)
+                        {
+                            w.StopCoroutine("StartWorking");
+                            w.StartWorkCoroutine = null;
+                        }
                         w.StopWorkCoroutine = w.StartCoroutine("PauseWorking", 1.0f); // 1 hour default test
                         UpdateRestStatus(w);
                     }
@@ -284,6 +297,9 @@ public class CommandLineController : MonoBehaviour
                     break;
                 case "rest": // sadly people have to do this shameful thing
                     CommandLineActions.Rest(methodCaller, args);
+                    break;
+                case "feed":
+                    CommandLineActions.Feed(methodCaller, args);
                     break;
                 case "sell":
                     CommandLineActions.Sell(args);

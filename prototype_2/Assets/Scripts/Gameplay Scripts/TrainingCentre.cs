@@ -79,10 +79,10 @@ public class TrainingCentre : Building
             go.SetActive(true);
         }    
         OpenRestGate();
-        closeGateButton.SetActive(false);
+        //closeGateButton.SetActive(false);
         //restRooster.SetActive(false);  
         //trainRooster.SetActive(false);     
-        exitTrainingCentreButton.SetActive(false);    
+        //exitTrainingCentreButton.SetActive(false);    
         foreach(Cub c in Main.currentCubRooster)
         {
             if(!c.isInTrainingProgram) {
@@ -112,7 +112,7 @@ public class TrainingCentre : Building
         // Show the cubs rooster hanging in the building REST pen.
         restRooster.SetActive(true);
         trainRooster.SetActive(true);    
-        exitTrainingCentreButton.SetActive(true);
+        //exitTrainingCentreButton.SetActive(true);
         // Disable box collider temporarily to handle other colliders
         //GetComponent<BoxCollider>().enabled = false;
         OpenRestGate();
@@ -138,8 +138,8 @@ public class TrainingCentre : Building
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().enabled = true;
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().carving = true;
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().carveOnlyStationary = true;
-        closeGateButton.SetActive(false);
-        openGateButton.SetActive(true);
+        //closeGateButton.SetActive(false);
+        //openGateButton.SetActive(true);
         Quaternion target = Quaternion.Euler(0, -60.29f, 0);                   
         trainingCentreRestGate.transform.rotation = target;
     }
@@ -149,8 +149,8 @@ public class TrainingCentre : Building
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().carving = false;
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().carveOnlyStationary = false;
         trainingCentreRestGate.GetComponent<NavMeshObstacle>().enabled = false;
-        closeGateButton.SetActive(true);
-        openGateButton.SetActive(false);
+        //closeGateButton.SetActive(true);
+        //openGateButton.SetActive(false);
         Quaternion target = Quaternion.Euler(0, 57.15f, 0);            
         trainingCentreRestGate.transform.rotation = target;
     }

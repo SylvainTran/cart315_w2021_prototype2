@@ -228,6 +228,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2305260175745285433}
     m_Modifications:
+    - target: {fileID: 2203962328437416257, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
+      propertyPath: satiety
+      value: 
+      objectReference: {fileID: 1783441454480591940}
     - target: {fileID: 4045147016447063880, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -334,6 +338,11 @@ GameObject:
 --- !u!224 &3577100405983493683 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4045147016447063887, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
+  m_PrefabInstance: {fileID: 686612139796056444}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1783441454480591940 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1245061230625178936, guid: d3f5931570e952545924450bfe9e57e5, type: 3}
   m_PrefabInstance: {fileID: 686612139796056444}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3033446490568490535

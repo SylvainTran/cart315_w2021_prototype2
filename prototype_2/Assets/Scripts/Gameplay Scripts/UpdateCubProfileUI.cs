@@ -7,7 +7,9 @@ public class UpdateCubProfileUI : MonoBehaviour
 {
     public GameObject characterName;
     public GameObject characterVariant;
-    public GameObject performanceLevel;   
+    public GameObject performanceLevel;
+    public GameObject satiety;
+
     Cub cubData;
 
     private void OnEnable() {
@@ -24,12 +26,16 @@ public class UpdateCubProfileUI : MonoBehaviour
         cubData = transform.parent.GetComponent<Cub>();
         characterName.GetComponent<TextMeshProUGUI>().SetText(cubData.characterName);
         characterVariant.GetComponent<TextMeshProUGUI>().SetText(cubData.characterVariant);        
-        performanceLevel.GetComponent<TextMeshProUGUI>().SetText($"Performance Level (0-10): {cubData.performanceLevel}");        
+        performanceLevel.GetComponent<TextMeshProUGUI>().SetText($"Performance Level (0-10): {cubData.performanceLevel}");
+        satiety.GetComponent<TextMeshProUGUI>().SetText($"Hunger: {1 - cubData.Satiety}");
     }
-
+    /**
+     * Update performance level and hunger on clock tick.
+     */
     public void UpdatePerformanceLevelUI()
     {
-        performanceLevel.GetComponent<TextMeshProUGUI>().SetText($"Performance Level (0-10): {cubData.performanceLevel}");        
+        performanceLevel.GetComponent<TextMeshProUGUI>().SetText($"Performance Level (0-10): {cubData.performanceLevel}");
+        satiety.GetComponent<TextMeshProUGUI>().SetText($"Hunger: {1 - cubData.Satiety}");
     }
 
     public void ShowCanvas()
