@@ -40,6 +40,9 @@ TagManager:
   - CubSpawnSpot
   - Menagerie
   - foodCount
+  - taskCount
+  - workerCount
+  - cubCount
   layers:
   - Default
   - TransparentFX

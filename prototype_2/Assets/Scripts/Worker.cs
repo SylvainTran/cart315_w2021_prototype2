@@ -27,7 +27,7 @@ public class Worker : MonoBehaviour
     private float workBatchProcessingSpeed = 0.2f; // Very slow at work initially => Progression
     public float WorkBatchProcessingSpeed = 0.2f;
     private int rawBatchWorkPower = 1; // base tick per batch => Progression
-    public int RawBatchWorkPower { get {return rawBatchWorkPower;} }    
+    public int RawBatchWorkPower { get {return rawBatchWorkPower; } set { rawBatchWorkPower = value; } }    
     public bool multiTaskEnabled = false; // Special ability?
     #endregion
 
@@ -100,10 +100,12 @@ public class Worker : MonoBehaviour
                     }
                 }            
                 isWorking = true;
+                print($"IS WORKING STATUS: {isWorking}");
                 StartCoroutine("StartWorking");
                 break;
             case "RESTING_SANCTUARY":
                 isWorking = false;
+                print($"IS WORKING STATUS: {isWorking}");
                 StartCoroutine("PauseWorking");
                 break;
             default:
@@ -128,6 +130,7 @@ public class Worker : MonoBehaviour
     public IEnumerator StartWorking()
     {
         if(!isWorking || currentTask == null) {
+            print("Not working or no current task. Cannot work :(");
             yield break;
         }
         yield return new WaitForSeconds(currentTask.WorkBatchNextTickDelay);

@@ -157,6 +157,10 @@ public class TrainingCentre : Building
     
     public override void OnClockTick()
     {
+        if(Main.currentCubRooster == null)
+        {
+            return;
+        }
         if(Main.currentCubRooster.Count == 0)
         {
             return;

@@ -50,6 +50,7 @@ public class TaskController : MonoBehaviour
         }
         print(task.ToString());
         tasksQueue.Enqueue(task);
+        AccountBalanceAI.UpdateTaskCount(1);
     }
 
     public void BatchFinished(Worker worker, Task task)
@@ -76,6 +77,7 @@ public class TaskController : MonoBehaviour
         Reward(worker, task, 1f);
 
         // Do other things too
+        AccountBalanceAI.UpdateTaskCount(-1);
     }
 
     /**
