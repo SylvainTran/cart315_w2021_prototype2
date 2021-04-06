@@ -10,7 +10,7 @@ public class ProgramManagement : Building
     public GameObject inactiveTrainingPrograms;
     public GameObject activeTrainingPrograms;    
     protected GameObject[] labels;
-    public GameObject exitProgramManagementButton;    
+    public GameObject exitProgramManagementButton;
 
     private void Awake()
     {
@@ -29,6 +29,22 @@ public class ProgramManagement : Building
             return;
         }
         Debug.Log($"{buildingName} was clicked by player.");
+        if(CustomEventController.eventLookedFor != null)
+        {
+            switch (CustomEventController.eventLookedFor)
+            {
+                case "ValidateOnMouseDownTarget":
+                    if (ConversationController.dialogueActionExecutor.ActionTargetTag == this.gameObject.name)
+                    {
+                        print("We have a mousedown winner on the ProgramManagement building!");
+                        CustomEventController.EnableConversationFlow();
+                        //CustomEventController.Flush();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
         //buildingMenu.GetComponent<UpdateProgramManagementUI>().ShowCanvas(true);        
         exitProgramManagementButton.SetActive(true);

@@ -45,7 +45,22 @@ public class TrainingCentre : Building
         if (!interactibleState) {
             return;
         }
-        ConversationController.pauseConversations = false;
+        if (CustomEventController.eventLookedFor != null)
+        {
+            switch (CustomEventController.eventLookedFor)
+            {
+                case "ValidateOnMouseDownTarget":
+                    if (ConversationController.dialogueActionExecutor.ActionTargetTag == this.gameObject.name)
+                    {
+                        print("We have a mousedown winner on the ProgramManagement building!");
+                        CustomEventController.EnableConversationFlow();
+                        CustomEventController.Flush();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         SetBuildingActive();
     }
 
@@ -142,6 +157,10 @@ public class TrainingCentre : Building
     
     public override void OnClockTick()
     {
+        if(Main.currentCubRooster.Count == 0)
+        {
+            return;
+        }
         foreach(Cub c in Main.currentCubRooster)
         {
             if(!c.isInTrainingProgram) {

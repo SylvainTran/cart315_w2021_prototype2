@@ -16,7 +16,7 @@ public class ConversationController : MonoBehaviour
     public static bool iteratorTriggeredLastActionYet = false;
     public delegate void ConversationFlowEnded();
     public static event ConversationFlowEnded onConversationFlowEnded;
-    public static IDialogueActionExecutor dialogueActionExecutor = new DialogueActionExecutor();
+    public static DialogueActionExecutor dialogueActionExecutor = new DialogueActionExecutor();
     public GameObject TRAINING_CENTRE;
     public GameObject PROGRAM_MANAGEMENT;
 
@@ -34,6 +34,7 @@ public class ConversationController : MonoBehaviour
     {
         private string dialogueAction;
         private string actionTargetTag;
+        public string ActionTargetTag { get { return actionTargetTag;  } }
         private List<List<string>> conversationGroupsTargets;
 
         public DialogueActionExecutor() : this(null, null, null) { }
@@ -57,6 +58,11 @@ public class ConversationController : MonoBehaviour
                 case "WaitForMouseDown":
                     WaitForMouseDown();
                     break;
+                case "WaitForCorrectInput":
+                    WaitForCorrectInput();
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -65,6 +71,7 @@ public class ConversationController : MonoBehaviour
             this.dialogueAction = dialogueAction;
             this.actionTargetTag = actionTargetTag;
             this.conversationGroupsTargets = conversationGroupsTargets;
+            print($"setting action {dialogueAction}\nactiontargettag {actionTargetTag}\nconversationgrouptargets {conversationGroupsTargets}");
         }
 
         public void TriggerTextByAlpha()
@@ -91,10 +98,31 @@ public class ConversationController : MonoBehaviour
             ++dialogueActionIterator;
         }
 
+        public void WaitForCorrectInput()
+        {
+            pauseConversations = true;
+            CommandLineController.commandLine.onSubmit.AddListener((data) => { ValidateCurrentInput(data); });
+        }
+
+        public void ValidateCurrentInput(string data)
+        {
+            print($"Submit data: {data}");
+            print($"Required data: {actionTargetTag}");
+            if (data == actionTargetTag)
+            {
+                print($"We've got a winner! Unpausing flow.");
+                ++dialogueActionIterator;
+                pauseConversations = false;
+                CommandLineController.commandLine.onSubmit.RemoveAllListeners();
+            }
+        }
+
         public void WaitForMouseDown()
         {
-            ++dialogueActionIterator;
+            print("WAITING FOR MOUSE DOWN");
             pauseConversations = true;
+            print("Paused conversation flow");
+            CustomEventController.eventLookedFor = "ValidateOnMouseDownTarget";
         }
 
         public IEnumerator WaitForMouseDownSeconds(float delay)
@@ -158,10 +186,13 @@ public class ConversationController : MonoBehaviour
         if (t.Conversations[dialogueNodeIterator][0].Equals('@'))
         {
             dialogueAction = t.Conversations[dialogueNodeIterator].Substring(1, t.Conversations[dialogueNodeIterator].IndexOf("]")).Replace("[", "").Replace("]", "");
+            print(dialogueAction);
             actionTargetTag = t.Conversations[dialogueNodeIterator].Substring(t.Conversations[dialogueNodeIterator].IndexOf(" ") + 1);
+            print(actionTargetTag);
             activeConversationGroupTargets = t.ConversationTargets;
+            print(activeConversationGroupTargets);
             // Only run actions if we haven't reached the end of the actions group yet
-            if(dialogueActionIterator < t.ConversationTargets[0].Count - 1)
+            if(dialogueActionIterator < t.ConversationTargets[0].Count)
             {
                 dialogueActionExecutor.SetAction(dialogueAction, actionTargetTag, activeConversationGroupTargets);
                 ExecuteDialogueAction(dialogueActionExecutor);
@@ -188,6 +219,10 @@ public class ConversationController : MonoBehaviour
         {
             return;
         }
+        if(pauseConversations)
+        {
+            return;
+        }        
         // If has next conversation groups then proceed not
         if(TutorialController.conversationGroups[Main.tutorialState + 1][0].Length == 0)
         {
