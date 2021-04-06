@@ -97,10 +97,25 @@ public sealed class AccountBalanceAI : MonoBehaviour
     public static void UpdateAccountBalanceUI()
     {
         // Update UI
-        moneyUI.GetComponent<TextMeshProUGUI>().SetText($"Coin x{money}");
-        cubFoodUI.GetComponent<TextMeshProUGUI>().SetText($"Food x{cubFood}");
-        cubCountUI.GetComponent<TextMeshProUGUI>().SetText($"Cubs x{cubCount}");
-        workerCountUI.GetComponent<TextMeshProUGUI>().SetText($"Workers x{workerCount}");
-        taskCountUI.GetComponent<TextMeshProUGUI>().SetText($"Tasks x{taskCount}");
+        if(moneyUI != null)
+        {
+            moneyUI.GetComponent<TextMeshProUGUI>().SetText($"Coin x{money}");
+        }
+        if(cubFoodUI != null)
+        {
+            cubFoodUI.GetComponent<TextMeshProUGUI>().SetText($"Food x{cubFood}");
+        }
+        if(cubCountUI != null)
+        {
+            cubCountUI.GetComponent<TextMeshProUGUI>().SetText($"Cubs x{cubCount}");
+        }
+        if(workerCountUI != null)
+        {
+            workerCountUI.GetComponent<TextMeshProUGUI>().SetText($"Workers x{workerCount}");
+        }
+        if(taskCountUI != null)
+        {
+            taskCountUI.GetComponent<TextMeshProUGUI>().SetText($"Tasks x{taskCount}");
+        }
     }
 }

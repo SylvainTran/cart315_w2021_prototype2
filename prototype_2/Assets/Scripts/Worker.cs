@@ -47,10 +47,16 @@ public class Worker : MonoBehaviour
     // Task finished event
     public delegate void OnTaskFinished(Worker thisWorker, Task currentTask);
     public static event OnTaskFinished onTaskFinished;
-
     #endregion
 
-    #region Required components
+    #region Coroutines
+    private Coroutine startWorkCoroutine;
+    public Coroutine StartWorkCoroutine { get { return startWorkCoroutine; } set { startWorkCoroutine = value; } }
+    private Coroutine stopWorkCoroutine;
+    public Coroutine StopWorkCoroutine { get { return stopWorkCoroutine; } set { startWorkCoroutine = value; } }
+    #endregion
+
+        #region Required components
     private NavMeshAgent agent;
     #endregion
 
@@ -101,12 +107,12 @@ public class Worker : MonoBehaviour
                 }            
                 isWorking = true;
                 print($"IS WORKING STATUS: {isWorking}");
-                StartCoroutine("StartWorking");
+                //startWorkCoroutine = StartCoroutine("StartWorking");
                 break;
             case "RESTING_SANCTUARY":
                 isWorking = false;
                 print($"IS WORKING STATUS: {isWorking}");
-                StartCoroutine("PauseWorking");
+                //StopWorkCoroutine = StartCoroutine("PauseWorking", 1.0f);
                 break;
             default:
                 break;
@@ -129,9 +135,10 @@ public class Worker : MonoBehaviour
 
     public IEnumerator StartWorking()
     {
-        if(!isWorking || currentTask == null) {
-            print("Not working or no current task. Cannot work :(");
-            yield break;
+        if(StopWorkCoroutine != null)
+        {
+            StopCoroutine(StopWorkCoroutine);
+            StopWorkCoroutine = null;
         }
         yield return new WaitForSeconds(currentTask.WorkBatchNextTickDelay);
         float progress = workBatchProcessingSpeed * rawBatchWorkPower; // 0.2 * 1 at level 0
@@ -141,26 +148,36 @@ public class Worker : MonoBehaviour
 
         print(name + $"Worker {id} work batch log:\nWorking on task ID: {currentTask.TaskId}\nActual Task Progress {currentTask.CurrentWorkBatchProgress/CalculateCurrentTaskProgressRequired()*100}%, \nBatch completion: {currentTask.CurrentWorkBatch/currentTask.CurrentWorkBatchLimit*100}% completed.");
         // Check worker stamina before restarting
+        print($"Worker stamina: {stamina}");
         if(HasStaminaLeft()) {
+            print($"Worker has enough stamina to work: {stamina}");
             // Stop condition 1: task progress required calculated is met
-            if(currentTask.CurrentWorkBatchProgress >= CalculateCurrentTaskProgressRequired()) 
+            if (currentTask.CurrentWorkBatchProgress >= CalculateCurrentTaskProgressRequired()) 
             {
                 onTaskFinished(this, currentTask);
+                currentTask = null;
                 StopWorking();
+                print($"Worker has finished working.");
+                print($"Current working task check in finished work: {currentTask}");
                 yield break;
             }
             // Stop condition 2: work batch limit is met
             if(currentTask.CurrentWorkBatch < currentTask.CurrentWorkBatchLimit) 
             {
-                StartCoroutine("RestartWorking");
+                print($"Worker has work batches left to do.");
+                print($"Current working task check in still has work batch: {currentTask}");
+                RestartWorking();
             } else
             {
                 print("Current work batch limit completed");
+                print($"Worker finished current work batch");
+                print($"Current working task check in past work batch limit: {currentTask}");
                 // Emit signal to Task Controller to restart process if needed
                 onBatchFinished(this, currentTask);
             }
         } else { // Stop condition 3: stamina out
             print("Out of stamina, MASTER");
+            print($"Current working task check in stamina out: {currentTask}");
             StopWorking();
         }
     }
@@ -169,7 +186,6 @@ public class Worker : MonoBehaviour
     {
         if(isWorking) 
         {
-            currentTask = null;
             isWorking = false;
         }
     }
@@ -177,14 +193,20 @@ public class Worker : MonoBehaviour
     public IEnumerator PauseWorking(float restTime)
     {
         yield return new WaitForFixedUpdate();
-        if(isWorking)
-        {
-            isWorking = false;
-            // Go rest
-            StopCoroutine("StartWorking");
-            print("Worker going to rest: ");
-            StartCoroutine("RestForFixedTime", restTime);
-        }
+        isWorking = false;
+        // Go rest // CHECK HERE
+        print("Worker going to rest: ");
+        StopCoroutine("StartWorking");
+        StartCoroutine("RestForFixedTime", restTime);
+    }
+
+    public void StopResting()
+    {
+        // Done resting
+        isWorking = true;
+        InternalMoveToDestination("WORKFIELD_1");
+        MoveToDestination(WORKFIELD_1.position);
+        CheckLocationAction();
     }
 
     public IEnumerator RestForFixedTime(float restTime)
@@ -194,11 +216,8 @@ public class Worker : MonoBehaviour
         print($"Stamina gained: {staminaRegenPerTimeTick * restTime}\nTotal Stamina: {stamina}");
         stamina += staminaRegenPerTimeTick * restTime;
         // Done resting
-        isWorking = true;
         StopCoroutine("RestForFixedTime");
-        InternalMoveToDestination("WORKFIELD_1");
-        MoveToDestination(WORKFIELD_1.position);
-        CheckLocationAction();
+        StopResting();
     }
 
     public bool HasStaminaLeft()
@@ -206,9 +225,9 @@ public class Worker : MonoBehaviour
         return stamina > 0;
     }
 
-    public IEnumerator RestartWorking()
+    public void RestartWorking()
     {
-        yield return new WaitForSeconds(0.0f);
+        isWorking = true;
         StartCoroutine("StartWorking");
     }
 
