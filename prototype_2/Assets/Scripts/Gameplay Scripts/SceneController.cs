@@ -84,10 +84,9 @@ public class SceneController : MonoBehaviour
             hoursClockText.SetText("12:");
         }
         // Update listeners
-        Debug.Log("Updating listeners clock tick");
         onClockTicked();
-        // Check if lost condition is true (game over if player has a negative balance)
-        if (AccountBalanceAI.money <= 0) {
+        // Check if lost condition is true (game over if player has a really bad negative balance)
+        if (AccountBalanceAI.money <= -10000) {
             if(AccountBalanceAI.gameOverUI)
             {
                 AccountBalanceAI.gameOverUI.GetComponent<TextMeshProUGUI>().alpha = 255;

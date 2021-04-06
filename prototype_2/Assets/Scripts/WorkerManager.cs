@@ -12,7 +12,11 @@ public class WorkerManager : MonoBehaviour
         GameObject worker = Instantiate(Resources.Load("Characters/Workers/Brigitte", typeof(GameObject))) as GameObject;
         worker.gameObject.GetComponent<Worker>().Name = "Brigitte"; // Test, otherwise the player sets the name or it's random
         worker.gameObject.GetComponent<Worker>().RawBatchWorkPower = 100;
-        AddWorker(worker);               
+        AddWorker(worker);
+        GameObject worker2 = Instantiate(Resources.Load("Characters/Workers/Brigitte", typeof(GameObject))) as GameObject;
+        worker2.gameObject.GetComponent<Worker>().Name = "Oreo"; // Test, otherwise the player sets the name or it's random
+        worker2.gameObject.GetComponent<Worker>().RawBatchWorkPower = 100;
+        AddWorker(worker2);
     }
 
     public static void AddWorker(GameObject worker)

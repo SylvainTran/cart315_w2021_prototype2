@@ -169,7 +169,7 @@ public class TutorialController : MonoBehaviour
     public static void SetupTutorial()
     {
         // Hide distracting labels
-        GameObject.FindGameObjectWithTag("UICanvas").gameObject.GetComponent<Canvas>().enabled = false;
+        //GameObject.FindGameObjectWithTag("UICanvas").gameObject.GetComponent<Canvas>().enabled = false;
         GameObject[] buildingLabels = GameObject.FindGameObjectsWithTag("buildingLabel");
         // Hide labels for clarity
         foreach (GameObject label in buildingLabels)

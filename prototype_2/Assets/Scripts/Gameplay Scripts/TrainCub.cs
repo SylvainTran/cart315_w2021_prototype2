@@ -6,11 +6,10 @@ public class TrainCub : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other) 
     {
-        Debug.Log("Something entered the training pen.");
         if(other.gameObject.CompareTag("Cub"))
         {
             // TODO add particle effect and sound effect!
-            Debug.Log("Cub is training.");
+            //Debug.Log("Cub is training.");
             other.gameObject.GetComponent<Cub>().isInTrainingProgram = true;
         }
     }
@@ -19,7 +18,7 @@ public class TrainCub : MonoBehaviour
     {
         if(other.gameObject.CompareTag("Cub"))
         {
-            Debug.Log("Cub is leaving training.");
+            //Debug.Log("Cub is leaving training.");
             other.gameObject.GetComponent<Cub>().isInTrainingProgram = false;
         }
     }

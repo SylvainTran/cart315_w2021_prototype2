@@ -62,6 +62,7 @@ public class CommandLineController : MonoBehaviour
                         w.StopCoroutine("StartWorking");
                         w.StopWorkCoroutine = null;
                         w.StopWorkCoroutine = w.StartCoroutine("PauseWorking", Single.Parse(args[0]));
+                        UpdateRestStatus(w);
                     }
                     else
                     {
@@ -70,11 +71,9 @@ public class CommandLineController : MonoBehaviour
                         w.StopCoroutine("StartWorking");
                         w.StopWorkCoroutine = null;
                         w.StopWorkCoroutine = w.StartCoroutine("PauseWorking", 1.0f); // 1 hour default test
+                        UpdateRestStatus(w);
                     }
                 }
-                w.InternalMoveToDestination("RESTING_SANCTUARY");
-                w.MoveToDestination(w.RESTING_SANCTUARY.instance.gameObject.transform.position);
-                w.CheckLocationAction();                      
                 print(w.ToString());
             }
         }
@@ -103,67 +102,58 @@ public class CommandLineController : MonoBehaviour
             for(int i = 0; i < len; i++)
             {
                 Worker w = activeWorkers[i].GetComponent<Worker>();
-                // General case irrespective of methodCaller found or not
-                if(args == null || args[0].Equals(string.Empty))
-                {
-                    // Work all workers
-                    // It grabs a task from the tasks queue... if no arg. With default work hours = 8.
-                    // Maybe can set number of hours to work too, if arg. Cannot chose which task yet.                    
-                    // Grab the oldest task in the queue?
-                    if(w.CurrentTask == null && TaskController.tasksQueue.Count > 0)
+                print("Worker: " + w.Name);
+                if(w.Name.Equals(methodCaller))
+                { 
+                    if(!args[0].Equals(string.Empty)) // dude.work(5) // work 5 hours dude
                     {
-                        w.CurrentTask = TaskController.GetTaskFromQueue();
-                    }
-                    else if (w.CurrentTask != null)
-                    {
-                        // resume working from resting condition
-                        print("resume working from resting condition");
-                    }
-                    else 
-                    {
-                        print("No tasks left. Please create a new task with createTask(hours, workbatchlimit)");
-                    }
-                } 
-                else
-                {
-                    if(w.Name.Equals(methodCaller))
-                    { 
-                        if(!args[0].Equals(string.Empty)) // dude.work(5) // work 5 hours dude
+                        print("current task " + w.CurrentTask);
+                        if(w.CurrentTask == null && TaskController.tasksQueue.Count > 0) 
                         {
-                            print("current task " + w.CurrentTask);
-                            if(w.CurrentTask == null && TaskController.tasksQueue.Count > 0) 
+                            if(w.StopWorkCoroutine != null)
                             {
-                                if(w.StopWorkCoroutine != null)
-                                {
-                                    w.StopCoroutine(w.StopWorkCoroutine);
-                                    w.StopWorkCoroutine = null;
-                                }
-                                w.CurrentTask = TaskController.GetTaskFromQueue();
-                                w.CurrentTask.ProgressHoursRequired = Single.Parse(args[0]); // currently just hours, could add batch limits later
+                                w.StopCoroutine(w.StopWorkCoroutine);
+                                w.StopWorkCoroutine = null;
                             }
-                            else if(w.CurrentTask != null)
+                            w.CurrentTask = TaskController.GetTaskFromQueue();
+                            w.CurrentTask.ProgressHoursRequired = Single.Parse(args[0]); // currently just hours, could add batch limits later
+                            w.StartWorkCoroutine = w.StartCoroutine("StartWorking");
+                            UpdateWorkStatus(w);
+                        }
+                        else if(w.CurrentTask != null)
+                        {
+                            print("resume working from resting condition");
+                            // resume working from resting condition
+                            if (w.StopWorkCoroutine != null)
                             {
-                                print("resume working from resting condition");
-                                // resume working from resting condition
-                                if (w.StopWorkCoroutine != null)
-                                {
-                                    w.StopCoroutine(w.StopWorkCoroutine);
-                                    w.StopWorkCoroutine = null;
-                                }
-                                w.StartWorkCoroutine = w.StartCoroutine("StartWorking");
+                                w.StopCoroutine(w.StopWorkCoroutine);
+                                w.StopWorkCoroutine = null;
                             }
-                            else 
-                            {
-                                print("No tasks left. Please create a new task with createTask(hours, workbatchlimit)");
-                            }
+                            w.StartWorkCoroutine = w.StartCoroutine("StartWorking");
+                            UpdateWorkStatus(w);
+                        }
+                        else 
+                        {
+                            print("No tasks left. Please create a new task with createTask(hours, workbatchlimit)");
                         }
                     }
                 }
-                w.InternalMoveToDestination("WORKFIELD_1");
-                w.MoveToDestination(w.WORKFIELD_1.instance.gameObject.transform.position);
-                w.CheckLocationAction(); // 10 workbatches is default                        
                 print(w.ToString());          
             }
+        }
+
+        public static void UpdateRestStatus(Worker w)
+        {
+            w.InternalMoveToDestination("RESTING_SANCTUARY");
+            w.MoveToDestination(w.RESTING_SANCTUARY.instance.gameObject.transform.position);
+            w.CheckLocationAction();
+        }
+
+        public static void UpdateWorkStatus(Worker w)
+        {
+            w.InternalMoveToDestination("WORKFIELD_1");
+            w.MoveToDestination(w.WORKFIELD_1.instance.gameObject.transform.position);
+            w.CheckLocationAction(); // 10 workbatches is default                        
         }
 
         public static void Sell(List<string> args)

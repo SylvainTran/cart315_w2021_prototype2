@@ -73,7 +73,7 @@ public class TaskController : MonoBehaviour
         worker.IsWorking = true;
         print($"Current working task check 2:{worker.CurrentTask}");
         print($"IS WORKING STATUS: {worker.IsWorking}");
-        worker.StartCoroutine("StartWorking");
+        worker.StartWorkCoroutine = worker.StartCoroutine("StartWorking");
     }
 
     public void TaskFinished(Worker worker, Task task)
