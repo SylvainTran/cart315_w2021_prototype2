@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 5221843223573239053}
   - component: {fileID: 4077246591123752517}
   m_Layer: 5
-  m_Name: happiness
+  m_Name: hunger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,7 +198,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Happiness (0-10): 10'
+  m_text: 'Hunger:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -653,6 +653,7 @@ MonoBehaviour:
   characterName: {fileID: 8794192651937376625}
   characterVariant: {fileID: 8535156439879379696}
   performanceLevel: {fileID: 1508916317992040896}
+  satiety: {fileID: 0}
 --- !u!1 &4045147016646246655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,7 +1083,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -103, y: 119.29999}
+  m_AnchoredPosition: {x: -103, y: 119.4}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7018657535035000373
@@ -1113,7 +1114,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Current Training Program: Sylvain Is Doing a Pilot Test. I love you.'
+  m_text: 'Current Training Program: You''re hot.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

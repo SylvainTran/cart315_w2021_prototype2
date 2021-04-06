@@ -56,7 +56,7 @@ public class Worker : MonoBehaviour
     public Coroutine StopWorkCoroutine { get { return stopWorkCoroutine; } set { startWorkCoroutine = value; } }
     #endregion
 
-        #region Required components
+    #region Required components
     private NavMeshAgent agent;
     #endregion
 

@@ -15,6 +15,13 @@ public class Cub : Character
      */
     public int performanceLevel;
     public int valueRating;
+
+    /**
+     * Cub's current hunger. Decreased by eating food
+     */
+    private float satiety = 50;
+    public float Satiety { get { return satiety; } set { if (value > 0) satiety = value; } }
+
     /**
      * Talents: the player "gambles" to get a combination of 1-3
      * talents. Frozen upon graduating. The higher the performance, the
@@ -83,6 +90,16 @@ public class Cub : Character
 
     }
 
+    private void OnEnable()
+    {
+        SceneController.onClockTicked += OnClockTicked;
+    }
+
+    private void OnDisable()
+    {
+        SceneController.onClockTicked -= OnClockTicked;
+    }
+
     private void Start()
     {
         GameAssetName = "Cub";
@@ -90,6 +107,19 @@ public class Cub : Character
         talents[0] = "Rookie";
         mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector");   
         StartCoroutine(KillFX(0.1f));
+    }
+
+    /**
+     * Decrease satiety every clock tick
+     */
+    public void OnClockTicked()
+    {
+        satiety -= 1;
+        if(satiety <= 0)
+        {
+            satiety = 0;
+            print("Cub is nearing oblivion from not eating");
+        }
     }
 
     /**
