@@ -39,7 +39,10 @@ public class CubAI : Bot
         {
             return;
         }
-        agent.SetDestination(trainingCentreRest.transform.position);
+        if(trainingCentreRest)
+        {
+            agent.SetDestination(trainingCentreRest.transform.position);
+        }
         //Debug.Log("Force moved");
     }
 

@@ -83,10 +83,10 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("First, you need to start checking for any new cubs who wish to enroll.");
                     conversations.Add("@[SetGameObjectClickable] ProgramManagement"); // ACTION 0
                     conversations.Add("@[TriggerTextByAlpha] buildingLabel"); // ACTION 1
-                    conversations.Add("@[WaitForMouseDown] Menagerie"); // ACTION 2
                     conversations.Add("Click on Program Management now!");
+                    conversations.Add("@[WaitForMouseDown] ProgramManagement"); // ACTION 2
                     conversations.Add("Good job! Now, write 'buy(1, chicken)' in the MommaCub Interface 1.0 input field to buy a stupid chicken!");
-                    conversations.Add("@[WaitForCorrectInput] 'buy(1, chicken)'"); // Test
+                    conversations.Add("@[WaitForCorrectInput] buy(1, chicken)"); // Test
                     conversations.Add("Amazing.");
                     conversations.Add("It goes without saying, but the chicken is somewhere on the map. A camera will zoom on it in a future patch of the game. (You can see the cub skimping around happily as we speak.)");
                     conversations.Add("You'll be able to create many more workers for your benefit, when the game will be completed.");
@@ -94,7 +94,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("At least, not until you find the Supreme Elixir of Momma Creation, hidden away in Level 95995932.");
                     conversations.Add("You don't need to thank me for this. Just remember me when you're that far off in life.");
                     conversations.Add("Anyways, this means only accepted commands will work in the MommaCub Interface. Nothing happens if you write something invalid. Please be gentle.");
-                    conversationTargets.Add(new List<string>() { "ProgramManagement", "programManagementLabel", "endCondition"});
+                    conversationTargets.Add(new List<string>() { "ProgramManagement", "programManagementLabel", "WaitForMouseDownCondition", "waitForCorrectInputCondition", "endCondition"});
                     break;
                 case 2:
                     conversations.Add("It's time to visit the Menagerie.");
@@ -106,11 +106,15 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("This is the most important step, so listen up, Momma.");
                     conversations.Add("Your job is to create tasks for your workers, then dispatch them to individual or several workers.");
                     conversations.Add("Write, createTask(5, 10) in the command line to try it out.");
+                    conversations.Add("@[WaitForCorrectInput] createTask(5, 10)");
                     conversations.Add("You've just created a task that should last for 5 hours worth of experience, with a work batch limit of 10.");
                     conversations.Add("Each individual worker has a work speed. Depending on the task, every set interval of time they will finish a work batch up to the limit you set previously. Workers pause after they finish a work batch.");
                     conversations.Add("If you create shorter tasks, then they'll finish faster but you'll have to create another again sooner. If you create longer tasks, they will last longer but you'll have to manage your worker's stamina.");
                     conversations.Add("This brings us to reality. People can't work forever. So once a worker says they're fatigued (in the console log for now), you'll have to let them rest.");
-                    conversations.Add("You'll have to write, your worker's name followed by the rest(hours) command. Try it now: Brigitte.work(24), then after the work batch is done or the worker is out of stamina, write: Brigitte.rest(8).");
+                    conversations.Add("You'll have to write, your worker's name followed by the rest(hours) command. Try it now: Brigitte.work(24)");
+                    conversations.Add("@[WaitForCorrectInput] Brigitte.work(24)");
+                    conversations.Add("Great job! Now, after the work batch is done or the worker is out of stamina, write: Brigitte.rest(3).");
+                    conversations.Add("@[WaitForCorrectInput] Brigitte.rest(3)");
                     conversations.Add("This will make the worker named Brigitte rest for 8 hours in-game. By the way, 10 seconds in real life is 30 minutes in-game.");
                     conversations.Add("Once Brigitte has recuperated, she'll go back to the task that she took previously, if it isn't completed.");
                     conversations.Add("You can see your progress on each Task in the console log. The worker also visually moves on the map.");
@@ -134,7 +138,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("Note that all these actions require you to spend budget money. Lose too much money, and you won't be able to keep up. We'll look at ways that you can make money next.");
                     conversations.Add("To summarize, you need to make sure your cubs eat, rest and exercise depending on your clients' needs. We will look at clients soon, so don't worry.");
                     conversations.Add("Tip: You can see the cubs' hunger, resting and exercise stats at the Resting Lodge by holding the left mouse button over a cub. This will only work at the Resting Lodge! Or, write 'examine(cubnamehere)'");
-                    conversationTargets.Add(new List<string>() { "Menagerie", "menagerieLabel", "OnMouseDown" });
+                    conversationTargets.Add(new List<string>() { "Menagerie", "menagerieLabel", "WaitForMouseDownCondition", "waitForCorrectInputCondition", "waitForCorrectInputCondition", "waitForCorrectInputCondition", "endCondition" });
                     break;
                 case 3:
                     conversations.Add("Ever wanted to make delicious meat sandwiches? I know I have!");

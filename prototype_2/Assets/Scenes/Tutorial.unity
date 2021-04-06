@@ -7912,13 +7912,13 @@ GameObject:
   - component: {fileID: 867681857}
   - component: {fileID: 867681859}
   - component: {fileID: 867681858}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: EndOfDayPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &867681857
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8391,7 +8391,7 @@ GameObject:
   - component: {fileID: 935056980}
   - component: {fileID: 935056979}
   - component: {fileID: 935056978}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16684,6 +16684,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5879134415521007560, guid: 3206b92b1354b1444aca30249de7778f, type: 3}
   m_PrefabInstance: {fileID: 5879134415527718208}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1956806012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956806011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d793494824ae4c0496907c3567fc238, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!114 &1956806013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16698,6 +16711,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TRAINING_CENTRE: {fileID: 495853374}
   PROGRAM_MANAGEMENT: {fileID: 1743442667}
+--- !u!114 &1956806014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956806011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!4 &1956806019 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5879134415521007562, guid: 3206b92b1354b1444aca30249de7778f, type: 3}
