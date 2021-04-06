@@ -86,7 +86,6 @@ public sealed class AccountBalanceAI : MonoBehaviour
 
     public static void UpdateTotalBalance()
     {
-        Debug.Log("Updating total balance");
         //netChange = (totalGain - (totalUpcost / NB_DAYS_IN_WEEK / NB_HOURS_IN_DAY / NB_SECONDS_IN_HOUR / NB_TICKS_IN_HOUR));
         //netChange = (totalGain - totalUpcost);
         //Debug.Log("Net change: " + netChange);

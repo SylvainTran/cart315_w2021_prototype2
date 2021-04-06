@@ -127,9 +127,9 @@ public class Worker : MonoBehaviour
         // hence 6 2/3 work ticks / 1 hour in-game
         float workBatchesPerHour = SceneController.tickInterval / CurrentTask.WorkBatchNextTickDelay * (60 / SceneController.minutesIncrementPerTick);
         float taskProgressPerHour = workBatchProcessingSpeed * rawBatchWorkPower * workBatchesPerHour;
-        print("Work batches per hour: " + workBatchesPerHour);
-        print("Task Progress per hour: " + taskProgressPerHour);
-        print("Current Task Progress Required : " + taskProgressPerHour * currentTask.ProgressHoursRequired);
+        //print("Work batches per hour: " + workBatchesPerHour);
+        //print("Task Progress per hour: " + taskProgressPerHour);
+        //print("Current Task Progress Required : " + taskProgressPerHour * currentTask.ProgressHoursRequired);
         return taskProgressPerHour * currentTask.ProgressHoursRequired;
     }
 
@@ -142,6 +142,7 @@ public class Worker : MonoBehaviour
         }
         yield return new WaitForSeconds(currentTask.WorkBatchNextTickDelay);
         float progress = workBatchProcessingSpeed * rawBatchWorkPower; // 0.2 * 1 at level 0
+        // Essentially got a free pass right now from restarting work after a rest -- make these not
         currentTask.CurrentWorkBatchProgress += progress;
         ++currentTask.CurrentWorkBatch;
         --stamina;
@@ -162,12 +163,14 @@ public class Worker : MonoBehaviour
                 yield break;
             }
             // Stop condition 2: work batch limit is met
-            if(currentTask.CurrentWorkBatch < currentTask.CurrentWorkBatchLimit) 
+            if (currentTask.CurrentWorkBatch < currentTask.CurrentWorkBatchLimit)
             {
                 print($"Worker has work batches left to do.");
                 print($"Current working task check in still has work batch: {currentTask}");
                 RestartWorking();
-            } else
+            }
+            // Overwork condition
+            else if (currentTask.CurrentWorkBatch >= currentTask.CurrentWorkBatchLimit)
             {
                 print("Current work batch limit completed");
                 print($"Worker finished current work batch");
@@ -203,7 +206,7 @@ public class Worker : MonoBehaviour
     public void StopResting()
     {
         // Done resting
-        isWorking = true;
+        RestartWorking();
         InternalMoveToDestination("WORKFIELD_1");
         MoveToDestination(WORKFIELD_1.position);
         CheckLocationAction();
@@ -228,7 +231,7 @@ public class Worker : MonoBehaviour
     public void RestartWorking()
     {
         isWorking = true;
-        StartCoroutine("StartWorking");
+        startWorkCoroutine = StartCoroutine("StartWorking");
     }
 
     public override string ToString()
