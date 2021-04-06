@@ -57,16 +57,24 @@ public class CommandLineController : MonoBehaviour
                 {
                     if (!args[0].Equals(string.Empty)) // dude.rest(5) // dude, rest 5 hours
                     {
-                        w.StartCoroutine("PauseWorking", Single.Parse(args[0]));
+                        print("Pause working hours specific rom CLI called");
+                        print($"Pause time: {Single.Parse(args[0])}");
+                        w.StopCoroutine("StartWorking");
+                        w.StopWorkCoroutine = null;
+                        w.StopWorkCoroutine = w.StartCoroutine("PauseWorking", Single.Parse(args[0]));
                     }
                     else
                     {
                         // Default pause time is one tick
-                        w.StartCoroutine("PauseWorking", 1.0f); // 1 hour default test
+                        print("Pause working generic from CLI called");
+                        w.StopCoroutine("StartWorking");
+                        w.StopWorkCoroutine = null;
+                        w.StopWorkCoroutine = w.StartCoroutine("PauseWorking", 1.0f); // 1 hour default test
                     }
                 }
                 w.InternalMoveToDestination("RESTING_SANCTUARY");
                 w.MoveToDestination(w.RESTING_SANCTUARY.instance.gameObject.transform.position);
+                w.CheckLocationAction();                      
                 print(w.ToString());
             }
         }
@@ -83,10 +91,6 @@ public class CommandLineController : MonoBehaviour
 
         public static void Work(string methodCaller, List<string> args)
         {
-            if(TaskController.tasksQueue.Count == 0) 
-            {
-                return;
-            }
             Debug.Log("New work process initiated.");
             Debug.Log(args);
             print(WorkerManager.activeWorkers);
@@ -109,7 +113,13 @@ public class CommandLineController : MonoBehaviour
                     if(w.CurrentTask == null && TaskController.tasksQueue.Count > 0)
                     {
                         w.CurrentTask = TaskController.GetTaskFromQueue();
-                    } else 
+                    }
+                    else if (w.CurrentTask != null)
+                    {
+                        // resume working from resting condition
+                        print("resume working from resting condition");
+                    }
+                    else 
                     {
                         print("No tasks left. Please create a new task with createTask(hours, workbatchlimit)");
                     }
@@ -120,17 +130,35 @@ public class CommandLineController : MonoBehaviour
                     { 
                         if(!args[0].Equals(string.Empty)) // dude.work(5) // work 5 hours dude
                         {
+                            print("current task " + w.CurrentTask);
                             if(w.CurrentTask == null && TaskController.tasksQueue.Count > 0) 
                             {
+                                if(w.StopWorkCoroutine != null)
+                                {
+                                    w.StopCoroutine(w.StopWorkCoroutine);
+                                    w.StopWorkCoroutine = null;
+                                }
                                 w.CurrentTask = TaskController.GetTaskFromQueue();
                                 w.CurrentTask.ProgressHoursRequired = Single.Parse(args[0]); // currently just hours, could add batch limits later
-                            } else 
+                            }
+                            else if(w.CurrentTask != null)
+                            {
+                                print("resume working from resting condition");
+                                // resume working from resting condition
+                                if (w.StopWorkCoroutine != null)
+                                {
+                                    w.StopCoroutine(w.StopWorkCoroutine);
+                                    w.StopWorkCoroutine = null;
+                                }
+                                w.StartWorkCoroutine = w.StartCoroutine("StartWorking");
+                            }
+                            else 
                             {
                                 print("No tasks left. Please create a new task with createTask(hours, workbatchlimit)");
                             }
                         }
                     }
-                } 
+                }
                 w.InternalMoveToDestination("WORKFIELD_1");
                 w.MoveToDestination(w.WORKFIELD_1.instance.gameObject.transform.position);
                 w.CheckLocationAction(); // 10 workbatches is default                        
@@ -261,6 +289,7 @@ public class CommandLineController : MonoBehaviour
                     }
                     break;
                 case "work": // this is essentially dispatch
+                    print("go work");
                     CommandLineActions.Work(methodCaller, args);
                     break;
                 case "rest": // sadly people have to do this shameful thing

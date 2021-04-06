@@ -55,20 +55,25 @@ public class TaskController : MonoBehaviour
 
     public void BatchFinished(Worker worker, Task task)
     {
+        print($"Worker has finished work batch.");
+        print($"Current working task check 1:{worker.CurrentTask}");
         // Could end before task is completely finished, but here the AI goes to check out the gathered materials to the storehouse
-        if(this)
-        {
-            // Chance reward
-            Reward(worker, task, 1f);
-            StartCoroutine(StartNewWorkBatch(worker, task));
-        }
+        // Chance reward
+        Reward(worker, task, 1f);
+        print($"Worker starting new work batch.");
+        StopCoroutine("StartNewWorkBatch");
+        StartCoroutine(StartNewWorkBatch(worker, task));
     }
 
     public IEnumerator StartNewWorkBatch(Worker worker, Task task)
     {
         yield return new WaitForSeconds(task.WorkBatchCooldown);
+        print($"Worker has a new work batch to work on!");
         worker.CurrentTask.CurrentWorkBatch = 0f;
-        worker.CheckLocationAction();
+        worker.IsWorking = true;
+        print($"Current working task check 2:{worker.CurrentTask}");
+        print($"IS WORKING STATUS: {worker.IsWorking}");
+        worker.StartCoroutine("StartWorking");
     }
 
     public void TaskFinished(Worker worker, Task task)

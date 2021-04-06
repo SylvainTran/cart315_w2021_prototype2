@@ -111,7 +111,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("Each individual worker has a work speed. Depending on the task, every set interval of time they will finish a work batch up to the limit you set previously. Workers pause after they finish a work batch.");
                     conversations.Add("If you create shorter tasks, then they'll finish faster but you'll have to create another again sooner. If you create longer tasks, they will last longer but you'll have to manage your worker's stamina.");
                     conversations.Add("This brings us to reality. People can't work forever. So once a worker says they're fatigued (in the console log for now), you'll have to let them rest.");
-                    conversations.Add("You'll have to write, your worker's name followed by the rest(hours) command. Try it now: Brigitte.work(24)");
+                    conversations.Add("You'll have to write your worker's name followed by the rest(hours) command. Try it now: Brigitte.work(24). Press Escape to see Brigitte go to the corn fields.");
                     conversations.Add("@[WaitForCorrectInput] Brigitte.work(24)");
                     conversations.Add("Great job! Now, after the work batch is done or the worker is out of stamina, write: Brigitte.rest(3).");
                     conversations.Add("@[WaitForCorrectInput] Brigitte.rest(3)");
