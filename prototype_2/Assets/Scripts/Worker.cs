@@ -102,6 +102,10 @@ public class Worker : MonoBehaviour
                 isWorking = true;
                 StartCoroutine("StartWorking");
                 break;
+            case "RESTING_SANCTUARY":
+                isWorking = false;
+                StartCoroutine("PauseWorking");
+                break;
             default:
                 break;
         }
@@ -167,32 +171,24 @@ public class Worker : MonoBehaviour
         }
     }
 
-    public void PauseWorking(float restTime)
+    public IEnumerator PauseWorking(float restTime)
     {
+        yield return new WaitForFixedUpdate();
         if(isWorking)
         {
             isWorking = false;
             // Go rest
             StopCoroutine("StartWorking");
-            StartCoroutine(RestForFixedTime(restTime));
-        }
-    }
-
-    public void PauseWorking()
-    {
-        if (isWorking)
-        {
-            isWorking = false;
-            // Go rest
-            StopCoroutine("StartWorking");
-            StartCoroutine(RestForFixedTime(1f));
+            print("Worker going to rest: ");
+            StartCoroutine("RestForFixedTime", restTime);
         }
     }
 
     public IEnumerator RestForFixedTime(float restTime)
     {
-        yield return new WaitForSeconds(restTime); // TODO make regen stamina cooldown var
         // Regen stamina
+        yield return new WaitForSeconds(20 * restTime); // 20 seconds real life = 1 hour in-game, restTime is in in-game hours
+        print($"Stamina gained: {staminaRegenPerTimeTick * restTime}\nTotal Stamina: {stamina}");
         stamina += staminaRegenPerTimeTick * restTime;
         // Done resting
         isWorking = true;
@@ -215,7 +211,7 @@ public class Worker : MonoBehaviour
 
     public override string ToString()
     {
-        return $"Name: {name} \nId: {id} \nLevel: {level} \nExperience: {experience} \nLocation: {location}";
+        return $"Name: {name} \nId: {id} \nLevel: {level} \nExperience: {experience} \nLocation: {location} \nStamina: {stamina}";
     }
 
     public override bool Equals(object obj)

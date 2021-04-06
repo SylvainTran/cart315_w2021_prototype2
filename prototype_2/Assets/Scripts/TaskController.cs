@@ -57,6 +57,8 @@ public class TaskController : MonoBehaviour
         // Could end before task is completely finished, but here the AI goes to check out the gathered materials to the storehouse
         if(this)
         {
+            // Chance reward
+            Reward(worker, task, 1f);
             StartCoroutine(StartNewWorkBatch(worker, task));
         }
     }
@@ -71,13 +73,30 @@ public class TaskController : MonoBehaviour
     public void TaskFinished(Worker worker, Task task)
     {
         // Reward worker and player both!
-        Reward(worker, task);
+        Reward(worker, task, 1f);
 
         // Do other things too
     }
 
-    public void Reward(Worker worker, Task task)
+    /**
+     * Chance reward check with the probability given,
+     * to the worker and the task assigned.
+     * @param worker : Worker
+     * @param task : Task
+     * @param probability : Float
+     */
+    public void Reward(Worker worker, Task task, float probability)
     {
         // Check task reward tier
+        int baseBonus = task.TaskRewardTier;
+        float scaleWithProgressRequired = task.ProgressHoursRequired;
+        float randomThrow = UnityEngine.Random.Range(0, 1);
+        if (randomThrow > probability)
+        {
+            return;
+        }
+        int reward = (int)(baseBonus * scaleWithProgressRequired);
+        print($"End of task reward! Gained x{reward} food");
+        AccountBalanceAI.UpdateFood(reward);
     }
 }

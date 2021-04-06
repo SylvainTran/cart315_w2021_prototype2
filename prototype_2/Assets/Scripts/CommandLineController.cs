@@ -57,17 +57,16 @@ public class CommandLineController : MonoBehaviour
                 {
                     if (!args[0].Equals(string.Empty)) // dude.rest(5) // dude, rest 5 hours
                     {
-                        w.PauseWorking(Single.Parse(args[0]));
+                        w.StartCoroutine("PauseWorking", Single.Parse(args[0]));
                     }
                     else
                     {
                         // Default pause time is one tick
-                        w.PauseWorking();
+                        w.StartCoroutine("PauseWorking", 1.0f); // 1 hour default test
                     }
                 }
                 w.InternalMoveToDestination("RESTING_SANCTUARY");
                 w.MoveToDestination(w.RESTING_SANCTUARY.instance.gameObject.transform.position);
-                w.CheckLocationAction();                       
                 print(w.ToString());
             }
         }
