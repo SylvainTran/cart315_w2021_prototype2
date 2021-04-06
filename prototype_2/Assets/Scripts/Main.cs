@@ -59,11 +59,13 @@ public sealed class Main : MonoBehaviour
                 case 6: cubType = "wolf"; break;
                 default: cubType = "sheep"; break;
             }
+            AccountBalanceAI.UpdateCubCount(1);
             return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(0.638f, 0.2455f, 0.511f), Quaternion.identity);
         }
         public static Cub GenerateNewCubByType(string cubType)
         {
             currentCubRoosterFull = currentCubRooster.Count >= MAX_CUB_CAPACITY ? true : false;
+            AccountBalanceAI.UpdateCubCount(1);
             return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(-4.55f, -2.44f, -4.98f), Quaternion.identity);
         }
     }

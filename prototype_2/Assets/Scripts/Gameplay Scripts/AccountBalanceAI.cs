@@ -12,13 +12,17 @@ public sealed class AccountBalanceAI : MonoBehaviour
     private const int NB_TICKS_IN_HOUR = 360; // Times account balance is updated    
     public static GameObject moneyUI;
     public static GameObject cubFoodUI;
-    public static GameObject totalBalanceUI;
-    public static GameObject netChangeUI;    
+    public static GameObject taskCountUI;
+    public static GameObject workerCountUI;
+    public static GameObject cubCountUI;
     public static GameObject gameOverUI;
 
     // Gameloop
     public static int cubFood; // Needed to feed cubs and therefore train them
     public static float money = 0; // Start at 1000
+    public static int taskCount = 0;
+    public static int workerCount = 0;
+    public static int cubCount = 0;
     public static int totalGain; // Daily
     public static int totalUpcost = 8; // Each 10 seconds -- TODO count it per Building actual costs defined
     public static float netChange = 0;
@@ -43,9 +47,10 @@ public sealed class AccountBalanceAI : MonoBehaviour
     {
         moneyUI = GameObject.FindGameObjectWithTag("moneyCount");
         cubFoodUI = GameObject.FindGameObjectWithTag("foodCount");
-        totalBalanceUI = GameObject.FindGameObjectWithTag("totalBalance"); 
-        netChangeUI = GameObject.FindGameObjectWithTag("netChange");     
-        gameOverUI = GameObject.FindGameObjectWithTag("gameOverUI"); 
+        gameOverUI = GameObject.FindGameObjectWithTag("gameOverUI");
+        taskCountUI = GameObject.FindGameObjectWithTag("taskCount");
+        workerCountUI = GameObject.FindGameObjectWithTag("workerCount");
+        cubCountUI = GameObject.FindGameObjectWithTag("cubCount");
     }
 
     // Can be a negative value for withdraw operations
@@ -61,12 +66,30 @@ public sealed class AccountBalanceAI : MonoBehaviour
         UpdateTotalBalance();
     }
 
+    public static void UpdateTaskCount(int value)
+    {
+        taskCount += value;
+        UpdateTotalBalance();
+    }
+
+    public static void UpdateWorkerCount(int value)
+    {
+        workerCount += value;
+        UpdateTotalBalance();
+    }
+
+    public static void UpdateCubCount(int value)
+    {
+        cubCount += value;
+        UpdateTotalBalance();
+    }
+
     public static void UpdateTotalBalance()
     {
         Debug.Log("Updating total balance");
         //netChange = (totalGain - (totalUpcost / NB_DAYS_IN_WEEK / NB_HOURS_IN_DAY / NB_SECONDS_IN_HOUR / NB_TICKS_IN_HOUR));
         //netChange = (totalGain - totalUpcost);
-        Debug.Log("Net change: " + netChange);
+        //Debug.Log("Net change: " + netChange);
         //money += netChange;
         UpdateAccountBalanceUI();
     }
@@ -76,7 +99,8 @@ public sealed class AccountBalanceAI : MonoBehaviour
         // Update UI
         moneyUI.GetComponent<TextMeshProUGUI>().SetText($"Coin x{money}");
         cubFoodUI.GetComponent<TextMeshProUGUI>().SetText($"Food x{cubFood}");
-        //totalBalanceUI.GetComponent<TextMeshProUGUI>().SetText($"Total Upcost: {totalUpcost * 6 * 60}$ / Hour");       
-        //netChangeUI.GetComponent<TextMeshProUGUI>().SetText($"Net Change: {netChange}$ / 10 seconds");
+        cubCountUI.GetComponent<TextMeshProUGUI>().SetText($"Cubs x{cubCount}");
+        workerCountUI.GetComponent<TextMeshProUGUI>().SetText($"Workers x{workerCount}");
+        taskCountUI.GetComponent<TextMeshProUGUI>().SetText($"Tasks x{taskCount}");
     }
 }

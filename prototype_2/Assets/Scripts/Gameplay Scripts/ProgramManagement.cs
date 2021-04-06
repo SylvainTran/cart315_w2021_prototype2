@@ -38,7 +38,7 @@ public class ProgramManagement : Building
                     {
                         print("We have a mousedown winner on the ProgramManagement building!");
                         CustomEventController.EnableConversationFlow();
-                        //CustomEventController.Flush();
+                        CustomEventController.Flush();
                     }
                     break;
                 default:

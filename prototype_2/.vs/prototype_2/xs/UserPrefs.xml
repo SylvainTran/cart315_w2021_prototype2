@@ -1,17 +1,12 @@
 ﻿<Properties StartupConfiguration="{67CC9819-92D7-58F7-CE2C-F302FC0031F7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/AI Scripts/CubAI.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Worker.cs">
     <Files>
-      <File FileName="Assets/Scripts/CommandLineController.cs" Line="9" Column="45" />
-      <File FileName="Assets/Scripts/Worker.cs" Line="105" Column="38" />
-      <File FileName="Assets/Scripts/TutorialController.cs" Line="137" Column="30" />
-      <File FileName="Assets/Scripts/TaskController.cs" Line="100" Column="30" />
-      <File FileName="Assets/Scripts/Gameplay Scripts/AccountBalanceAI.cs" Line="53" Column="6" />
-      <File FileName="Assets/Scripts/Gameplay Scripts/SceneController.cs" Line="88" Column="19" />
-      <File FileName="Assets/Scripts/ConversationController.cs" Line="121" Column="45" />
-      <File FileName="Assets/Scripts/CustomEventController.cs" Line="20" Column="6" />
-      <File FileName="Assets/Scripts/Gameplay Scripts/ProgramManagement.cs" Line="35" Column="14" />
-      <File FileName="Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" Line="52" Column="43" />
-      <File FileName="Assets/Scripts/AI Scripts/CubAI.cs" Line="42" Column="49" />
+      <File FileName="Assets/Scripts/Gameplay Scripts/AccountBalanceAI.cs" Line="99" Column="21" />
+      <File FileName="Assets/Scripts/TaskController.cs" Line="101" Column="28" />
+      <File FileName="Assets/Scripts/WorkerManager.cs" Line="26" Column="38" />
+      <File FileName="Assets/Scripts/Main.cs" Line="65" Column="36" />
+      <File FileName="Assets/Scripts/Gameplay Scripts/TrainingCentre.cs" Line="163" Column="10" />
+      <File FileName="Assets/Scripts/Worker.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -24,11 +19,10 @@
                 </Node>
               </Node>
               <Node name="Scripts" expanded="True">
-                <Node name="AI Scripts" expanded="True">
-                  <Node name="CubAI.cs" selected="True" />
-                </Node>
+                <Node name="AI Scripts" expanded="True" />
                 <Node name="Characters" expanded="True" />
                 <Node name="Gameplay Scripts" expanded="True" />
+                <Node name="Worker.cs" selected="True" />
               </Node>
             </Node>
           </Node>
@@ -42,7 +36,7 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint enabled="false" file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/AgentManager.cs" relfile="Assets/AgentManager.cs" line="29" column="1" />
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Main.cs" relfile="Assets/Scripts/Main.cs" line="137" column="1" />
+      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Main.cs" relfile="Assets/Scripts/Main.cs" line="139" column="1" />
       <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/ConversationController.cs" relfile="Assets/Scripts/ConversationController.cs" line="104" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
