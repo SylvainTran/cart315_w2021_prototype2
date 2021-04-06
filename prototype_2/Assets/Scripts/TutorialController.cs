@@ -83,6 +83,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("First, you need to start checking for any new cubs who wish to enroll.");
                     conversations.Add("@[SetGameObjectClickable] ProgramManagement"); // ACTION 0
                     conversations.Add("@[TriggerTextByAlpha] buildingLabel"); // ACTION 1
+                    conversations.Add("@[WaitForMouseDown] Menagerie"); // ACTION 2
                     conversations.Add("Click on Program Management now!");
                     conversations.Add("Good job! Now, write 'buy(1, chicken)' in the MommaCub Interface 1.0 input field to buy a stupid chicken!");
                     conversations.Add("@[WaitForCorrectInput] 'buy(1, chicken)'"); // Test
@@ -101,7 +102,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("@[SetGameObjectClickable] Menagerie"); // ACTION 0
                     conversations.Add("@[TriggerTextByAlpha] buildingLabel"); // ACTION 1
                     conversations.Add("Now click on the Menagerie. (You need to do it or you can't proceed, seriously.)");
-                    conversations.Add("@[WaitForMouseDown] trainingCentre"); // ACTION 2
+                    conversations.Add("@[WaitForMouseDown] Menagerie"); // ACTION 2
                     conversations.Add("This is the most important step, so listen up, Momma.");
                     conversations.Add("Your job is to create tasks for your workers, then dispatch them to individual or several workers.");
                     conversations.Add("Write, createTask(5, 10) in the command line to try it out.");

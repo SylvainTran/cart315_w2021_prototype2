@@ -62,7 +62,7 @@ public class SceneController : MonoBehaviour
             minutes = 0;
             hours++;
             Debug.Log("Hour: " + hours);
-            if(hours >= 6) {
+            if(hours >= 23) {
                 Debug.Log("End of day reached");
                 dayClockText.SetText($"Season 1: Day {++days}");
                 // Show day summary screen

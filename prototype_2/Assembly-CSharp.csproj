@@ -67,7 +67,7 @@
     <Compile Include="Assets/Scripts/Gameplay Scripts/BuildAtPoint.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Scripts/CFX_AutoRotate.cs" />
     <Compile Include="Assets/Scripts/DetectAgentOverArea.cs" />
-    <Compile Include="Assets/ClockCycleController.cs" />
+    <Compile Include="Assets/Scripts/ClockCycleController.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_AutoStopLoopedEffect.cs" />
     <Compile Include="Assets/Scripts/AI Scripts/World.cs" />
     <Compile Include="Assets/Scripts/CommandLineController.cs" />
@@ -116,6 +116,7 @@
     <Compile Include="Assets/Scripts/Task.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/TrainCub.cs" />
     <Compile Include="Assets/BrokenVector/LowPolyFencePack/Scripts/DoorToggle.cs" />
+    <Compile Include="Assets/Scripts/RestingSanctuary.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/UpdateClientsUI.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_Translate.cs" />
     <Compile Include="Assets/Scripts/Physics Scripts/BuildingHandleMouse.cs" />
@@ -130,7 +131,7 @@
     <Compile Include="Assets/Scripts/Gameplay Scripts/SceneController.cs" />
     <Compile Include="Assets/Scripts/TaskController.cs" />
     <Compile Include="Assets/Scripts/Utilities/RespawnPlayer.cs" />
-    <Compile Include="Assets/Scripts/RestingSanctuary.cs" />
+    <Compile Include="Assets/RootVegetables/Scripts/Rotate.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
