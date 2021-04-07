@@ -1,4 +1,4 @@
-Prototype 2: Momma Cub!
+# Prototype 2: Momma Cub!
 
 This is a management and training simulator with a virtual economy, that also tries to make playfulness out of programming concepts to get things done.
 
@@ -49,8 +49,6 @@ However, I feel good that I wrote my conversation system and my command line sys
 In terms of addressing feedbacks for prototype 2 in this iteration, I addressed these issues of clarity but in terms of step-by-step instructions. It makes sense, but I think that as some playtesters reported in the issues, the dragging cubs stuff was a bit more intuitive. I knew this would be reported in advance, but I had to explore this venue about the input field. I feel somewhat happy with the decision, although it hasn't come out in a polished way yet! I believe there is potential in it, as most playtesters reported. I don't want to explode the scope either, so I kept it simple : you can have commands to create tasks, dispatch them to workers, have them rest when out of stamina, feed cubs, and train cubs. The rest is just statistics -- workers' work generate food, which allows cubs to eat, and sated cubs can be trained efficiently. Cubs are sold for coins. Coins are spent to buy cubs and workers, and upgrades. Workers can be assigned long or short tasks, and this influences the reward at the end of each batch processing and the final reward. It influences stamina consumption, and workers need stamina to work, so they rest. There may be challenges during work in the form of work events. The satisfaction is to manage multiple workers at the same time efficiently (find a good way to progress is the reward). All these were mentioned in the tutorial or should be made clearly.
 
 END OF PLAYTESTING NOTES AND REfLECTIONS
-
-# This is a management and training simulator with a virtual economy, that also tries to make playfulness out of programming concepts to get things done.
 
 # Iteration 1 Design Journal
 
