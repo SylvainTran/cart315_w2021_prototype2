@@ -6,7 +6,7 @@ This is a management and training simulator with a virtual economy, that also tr
 
 ### Clarity
 
-This was a main point raised -- it wasn't certain how cubs were trained at the Training Center. It was also mentioned that there were many steps and it was complex to the live tester. Step=by=step instructions and clear indicators are a priority.
+This was a main point raised -- it wasn't certain how cubs were trained at the Training Center. It was also mentioned that there were many steps and it was complex to the live tester. Step-by-step instructions and clear indicators are a priority.
 
 ### Training Process
 
