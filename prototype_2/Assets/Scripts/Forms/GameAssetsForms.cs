@@ -41,7 +41,7 @@ public class GameAssetsForms
      */
     public static IEnumerator LoadTable()
     {
-        Debug.Log("Asset type label to load: " + "forms");
+        //Debug.Log("Asset type label to load: " + "forms");
         yield return Addressables.LoadAssetsAsync<GameObject>("forms", asset =>
         {
             Form a = asset.GetComponent<Form>();

@@ -11,12 +11,13 @@ public class CommandLineController : MonoBehaviour
     public void Start()
     {
         commandLine = GameObject.FindGameObjectWithTag("CommandLine").GetComponent<TMP_InputField>();
+        commandLine.onSubmit.AddListener((data) => { ParseCommand(data); });
     }
 
-    public static void ParseCommand()
+    public static void ParseCommand(string data)
     {
         if (!commandLine) return;
-        string validatedCommand = CommandLineExecutor.ValidateCommand(commandLine.text);
+        string validatedCommand = CommandLineExecutor.ValidateCommand(data);
         if (validatedCommand != null)
         {
             CommandLineExecutor.ExecuteCommand(validatedCommand);
@@ -37,6 +38,7 @@ public class CommandLineController : MonoBehaviour
                     {
                         Main.currentCubRooster[i].Satiety += 10;
                         AccountBalanceAI.cubFood -= 10;
+                        AccountBalanceAI.UpdateTotalBalance();
                     }
                 }
             } else
@@ -104,12 +106,11 @@ public class CommandLineController : MonoBehaviour
         public static void Work(string methodCaller, List<string> args)
         {
             Debug.Log("New work process initiated.");
-            Debug.Log(args);
-            print(WorkerManager.activeWorkers);
             List<GameObject> activeWorkers = WorkerManager.activeWorkers;
             int len = activeWorkers.Count;
             if(len == 0) 
             {
+                print("No active workers");
                 return;
             }
             for(int i = 0; i < len; i++)
@@ -209,7 +210,12 @@ public class CommandLineController : MonoBehaviour
                                 {
                                     Debug.Log("Cub rooster is full");
                                 }
-                            } else
+                            }
+                            else if(args[i].Equals("worker"))
+                            {
+                                WorkerManager.BuyWorker(int.Parse(args[0]));
+                            }
+                            else
                             {
                                 Debug.Log("Type of goods doesn't exist.");
                             }                            

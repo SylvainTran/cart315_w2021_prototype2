@@ -33,8 +33,12 @@ public class UpdateClientsUI : MonoBehaviour
     
     public void InitProfileFields()
     {
-        Debug.Log("init profile fields");
+        //Debug.Log("init profile fields");
         // Access the parent's Cub component for data, then fill out the UI's fields
+        if(Main.currentCubRooster == null)
+        {
+            return;
+        }
         foreach(Cub c in Main.currentCubRooster) 
         {
             //public static Object Instantiate(Object original, Vector3 position, Quaternion rotation);
