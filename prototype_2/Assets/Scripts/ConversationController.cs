@@ -106,20 +106,24 @@ public class ConversationController : MonoBehaviour
 
         public void ValidateCurrentInput(string data)
         {
+            if (data.Length == 0)
+            {
+                return;
+            }
             print($"Submit data: {data}");
             print($"Required data: {actionTargetTag}");
-            if (data == actionTargetTag)
+            if (data.Trim() == actionTargetTag.Trim())
             {
                 print($"We've got a winner! Unpausing flow.");
                 ++dialogueActionIterator;
                 pauseConversations = false;
                 CommandLineController.commandLine.onSubmit.RemoveAllListeners();
+                RefreshDialogueFlow(tutorialData);
             }
         }
 
         public void WaitForMouseDown()
         {
-            print("WAITING FOR MOUSE DOWN");
             pauseConversations = true;
             print("Paused conversation flow");
             CustomEventController.eventLookedFor = "ValidateOnMouseDownTarget";
@@ -171,8 +175,8 @@ public class ConversationController : MonoBehaviour
         {
             dialogueNodeIterator = 0;
             dialogueActionIterator = 0;
-            TutorialController.OnConversationEnded();
-            //onConversationFlowEnded();
+            //TutorialController.OnConversationEnded();
+            onConversationFlowEnded();
             return;
         }
         if(pauseConversations)
@@ -190,7 +194,7 @@ public class ConversationController : MonoBehaviour
             actionTargetTag = t.Conversations[dialogueNodeIterator].Substring(t.Conversations[dialogueNodeIterator].IndexOf(" ") + 1);
             print(actionTargetTag);
             activeConversationGroupTargets = t.ConversationTargets;
-            print(activeConversationGroupTargets);
+            //print(activeConversationGroupTargets);
             // Only run actions if we haven't reached the end of the actions group yet
             if(dialogueActionIterator < t.ConversationTargets[0].Count)
             {
@@ -199,11 +203,29 @@ public class ConversationController : MonoBehaviour
             }
             // Skip to the next conversation node
             ContinueDialogueFlow();
-        } else
+        } else if(t.Conversations[dialogueNodeIterator][0].Equals('#'))
+        {
+            // Text preceding 
+            if (tutorialCanvas)
+            {
+                tutorialCanvas.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(t.Conversations[dialogueNodeIterator]);
+                ++dialogueNodeIterator;
+                RefreshDialogueFlow(t);
+            }
+        }
+        else
         {
             if(tutorialCanvas) {
                 tutorialCanvas.gameObject.transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>().SetText(t.Conversations[dialogueNodeIterator]);
             } 
+        }
+    }
+
+    public void LateUpdate()
+    {
+        if(pauseConversations == true)
+        {
+            return;
         }
     }
 
@@ -221,6 +243,7 @@ public class ConversationController : MonoBehaviour
         }
         if(pauseConversations)
         {
+            print("Returning because conversation is paused");
             return;
         }        
         // If has next conversation groups then proceed not
@@ -232,8 +255,8 @@ public class ConversationController : MonoBehaviour
         {
             dialogueNodeIterator = 0; // This variable needs to be reset so that the next conversation group starts at its beginning
             dialogueActionIterator = 0;
-            TutorialController.OnConversationEnded();
-            //onConversationFlowEnded();
+            //TutorialController.OnConversationEnded();
+            onConversationFlowEnded();
             return;
         }
         ++dialogueNodeIterator;

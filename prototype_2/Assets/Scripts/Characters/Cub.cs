@@ -138,7 +138,7 @@ public class Cub : Character
     */    
     public void GenerateStats()
     {
-        Debug.Log("Generating Stats for this cub.");
+        //Debug.Log("Generating Stats for this cub.");
         // Base stats
         this.characterName = Utility.GetRandomCharacterFirstName(Random.Range(0, Utility.characterNames.Length));
         this.performanceLevel = 0;

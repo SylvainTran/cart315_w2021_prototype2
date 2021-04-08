@@ -81,11 +81,11 @@ public class TutorialController : MonoBehaviour
                     break;
                 case 1:
                     conversations.Add("First, you need to start checking for any new cubs who wish to enroll.");
-                    conversations.Add("@[SetGameObjectClickable] ProgramManagement"); // ACTION 0
                     conversations.Add("@[TriggerTextByAlpha] buildingLabel"); // ACTION 1
-                    conversations.Add("Click on Program Management now!");
+                    conversations.Add("#Click on Program Management now!");
+                    conversations.Add("@[SetGameObjectClickable] ProgramManagement"); // ACTION 0
                     conversations.Add("@[WaitForMouseDown] ProgramManagement"); // ACTION 2
-                    conversations.Add("Good job! Now, write 'buy(1, chicken)' in the MommaCub Interface 1.0 input field to buy a chicken!");
+                    conversations.Add("#Good job! Now, write 'buy(1, chicken)' in the MommaCub Interface 1.0 input field to buy a chicken!");
                     conversations.Add("@[WaitForCorrectInput] buy(1, chicken)"); // Test
                     conversations.Add("Amazing.");
                     conversations.Add("It goes without saying, but the chicken is somewhere on the map. A camera will zoom on it in a future patch of the game. (You can see the cub skimping around happily as we speak.)");
@@ -93,18 +93,18 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("At least, not until you find the Supreme Elixir of Momma Creation, hidden away in Level 95995932.");
                     conversations.Add("You don't need to thank me for this. Just remember me when you're that far off in life.");
                     conversations.Add("Anyways, this means only accepted commands will work in the MommaCub Interface. Nothing happens if you write something invalid. Please be gentle.");
-                    conversationTargets.Add(new List<string>() { "ProgramManagement", "programManagementLabel", "WaitForMouseDownCondition", "waitForCorrectInputCondition", "endCondition"});
+                    conversationTargets.Add(new List<string>() { "programManagementLabel", "ProgramManagement", "WaitForMouseDownCondition", "waitForCorrectInputCondition", "endCondition"});
                     break;
                 case 2:
                     conversations.Add("It's time to visit the Menagerie.");
                     conversations.Add("Exit the Program Management view by pressing Escape. You can always leave buildings by pressing that key.");
-                    conversations.Add("@[SetGameObjectClickable] Menagerie"); // ACTION 0
                     conversations.Add("@[TriggerTextByAlpha] buildingLabel"); // ACTION 1
-                    conversations.Add("Now click on the Menagerie. (You need to do it or you can't proceed, seriously.)");
+                    conversations.Add("#Now click on the Menagerie.");
+                    conversations.Add("@[SetGameObjectClickable] Menagerie"); // ACTION 0
                     conversations.Add("@[WaitForMouseDown] Menagerie"); // ACTION 2
                     conversations.Add("This is the most important step, so listen up, Momma.");
                     conversations.Add("Your job is to create tasks for your workers, then dispatch them to individual or several workers.");
-                    conversations.Add("Write, createTask(5, 10) in the command line to try it out.");
+                    conversations.Add("#Write, createTask(5, 10) in the command line to try it out.");
                     conversations.Add("@[WaitForCorrectInput] createTask(5, 10)");
                     conversations.Add("You've just created a task that should last for 5 hours worth of experience, with a work batch limit of 10.");
                     conversations.Add("Each individual worker has a work speed. Depending on the task, every set interval of time they will finish a work batch up to the limit you set previously. Workers pause after they finish a work batch.");
@@ -114,7 +114,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("@[WaitForCorrectInput] Brigitte.work(24)");
                     conversations.Add("Great job! Now, after the work batch is done or the worker is out of stamina, write: Brigitte.rest(3).");
                     conversations.Add("@[WaitForCorrectInput] Brigitte.rest(3)");
-                    conversations.Add("This will make the worker named Brigitte rest for 8 hours in-game. By the way, 10 seconds in real life is 30 minutes in-game.");
+                    conversations.Add("This will make the worker named Brigitte rest for 3 hours in-game. By the way, 10 seconds in real life is 30 minutes in-game.");
                     conversations.Add("Once Brigitte has recuperated, she'll go back to the task that she took previously, if it isn't completed.");
                     conversations.Add("You can see your progress on each Task in the console log. The worker also visually moves on the map.");
                     conversations.Add("Workers won't just do what you command, however. They can get lazy, or defect, or run into various obstacles called 'Work Obstacle Events'.");
@@ -130,7 +130,7 @@ public class TutorialController : MonoBehaviour
                     conversations.Add("Also, cubs that don't exercise will literally get fatter. Yes, this is a fact.");
                     conversations.Add("To summarize, you need to make sure your cubs eat. To get food, you need to make your workers work. To make your workers work, you need to create and assign tasks to them.");
                     conversations.Add("END OF DEMO ITERATION ON TUTORIAL AND COMMAND LINE. The rest is just text. It's not implemented yet.");
-                    conversationTargets.Add(new List<string>() { "Menagerie", "menagerieLabel", "WaitForMouseDownCondition", "waitForCorrectInputCondition", "waitForCorrectInputCondition", "waitForCorrectInputCondition", "endCondition" });
+                    conversationTargets.Add(new List<string>() { "menagerieLabel", "Menagerie", "WaitForMouseDownCondition", "waitForCorrectInputCondition", "waitForCorrectInputCondition", "waitForCorrectInputCondition", "endCondition" });
                     break;
                 case 3:
                     conversations.Add("Ever wanted to make delicious meat sandwiches? I know I have!");

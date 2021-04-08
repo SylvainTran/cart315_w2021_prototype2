@@ -19,7 +19,7 @@ public sealed class AccountBalanceAI : MonoBehaviour
 
     // Gameloop
     public static int cubFood; // Needed to feed cubs and therefore train them
-    public static float money = 0; // Start at 1000
+    public static float money = 200; // Start at 200 coins
     public static int taskCount = 0;
     public static int workerCount = 0;
     public static int cubCount = 0;
@@ -54,9 +54,13 @@ public sealed class AccountBalanceAI : MonoBehaviour
     }
 
     // Can be a negative value for withdraw operations
-    public static void UpdateMoney(int value) 
+    public static void UpdateMoney(float value) 
     {
         money += value;
+        if(money <= 0)
+        {
+            money = 0;
+        }
         UpdateTotalBalance();
     }
 
@@ -74,6 +78,7 @@ public sealed class AccountBalanceAI : MonoBehaviour
 
     public static void UpdateWorkerCount(int value)
     {
+        print($"Worker count {workerCount} + {value}");
         workerCount += value;
         UpdateTotalBalance();
     }

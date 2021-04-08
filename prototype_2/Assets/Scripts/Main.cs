@@ -98,6 +98,10 @@ public sealed class Main : MonoBehaviour
         }
         public static void GenerateNewCub(int nbCubs, string cubType)
         {
+            if(currentCubRooster == null)
+            {
+                return;
+            }
             if(nbCubs + currentCubRooster.Count >= MAX_CUB_CAPACITY)
             {
                 Debug.Log("Too many cubs to buy.");
@@ -124,10 +128,10 @@ public sealed class Main : MonoBehaviour
             int nbCubs;
             // Assign amount of cubs
             switch(gameState) {
-                case 0: nbCubs = 1; break;
-                case 1: nbCubs = 10; break;
-                case 2: nbCubs = 0; break;
-                default: nbCubs = 10; break;
+                case 0: nbCubs = 0; break;
+                case 1: nbCubs = 5; break;
+                case 2: nbCubs = 10; break;
+                default: nbCubs = 0; break;
             }            
             SetupActors(nbCubs);
         }
@@ -153,12 +157,12 @@ public sealed class Main : MonoBehaviour
         // Starts the level controller subroutine
         LevelController.InitLevel();
         // Start tutorials
-        LevelController.SetupActors(2);
-        TutorialController.InitConversationGroups();
-        TutorialController.SetupTutorial();
+        // LevelController.SetupActors(2);
+        // TutorialController.InitConversationGroups();
+        // TutorialController.SetupTutorial();
         onCharactersLoaded();
         globalCam = GameObject.FindGameObjectWithTag("GlobalCam");
-        print("Loaded main");
+        //print("Loaded main");
     }
 
     private void Start()
@@ -297,10 +301,6 @@ public sealed class Main : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Slash))
-        {
-            ConversationController.ContinueDialogueFlow();
-        }
         // Keep holding to open up the cub's profile menu
         if(Input.GetMouseButtonDown(0)) 
         {

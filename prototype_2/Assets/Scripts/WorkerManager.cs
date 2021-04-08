@@ -5,18 +5,34 @@ using UnityEngine;
 public class WorkerManager : MonoBehaviour
 {
     public static List<GameObject> activeWorkers;
+    public static int currentWorkerTier = 1;
+    private static int workerCost = 100;
 
     private void Start() 
     {
         activeWorkers = new List<GameObject>();
-        GameObject worker = Instantiate(Resources.Load("Characters/Workers/Brigitte", typeof(GameObject))) as GameObject;
-        worker.gameObject.GetComponent<Worker>().Name = "Brigitte"; // Test, otherwise the player sets the name or it's random
-        worker.gameObject.GetComponent<Worker>().RawBatchWorkPower = 100;
-        AddWorker(worker);
-        GameObject worker2 = Instantiate(Resources.Load("Characters/Workers/Brigitte", typeof(GameObject))) as GameObject;
-        worker2.gameObject.GetComponent<Worker>().Name = "Oreo"; // Test, otherwise the player sets the name or it's random
-        worker2.gameObject.GetComponent<Worker>().RawBatchWorkPower = 100;
-        AddWorker(worker2);
+    }
+
+    /**
+    *   Buy a worker if enough coins.
+    */
+    public static void BuyWorker(int qty)
+    {
+        int scaledWorkerCost = qty * workerCost * currentWorkerTier;
+        if (AccountBalanceAI.money < scaledWorkerCost)
+        {
+            print("Not enough coins");
+            return;
+        }
+        for (int i = 0; i < qty; i++)
+        {
+            GameObject worker = Instantiate(Resources.Load("Characters/Workers/Brigitte", typeof(GameObject))) as GameObject;
+            worker.gameObject.GetComponent<Worker>().Name = Utility.GetRandomCharacterFirstName(Random.Range(0, Utility.characterNames.Length)); // Test, otherwise the player sets the name or it's random
+            worker.gameObject.GetComponent<Worker>().RawBatchWorkPower = 100 * currentWorkerTier;
+            AddWorker(worker);
+        }
+        AccountBalanceAI.UpdateMoney(-scaledWorkerCost);
+        print($"Qty added: {qty}");
     }
 
     public static void AddWorker(GameObject worker)

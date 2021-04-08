@@ -17,7 +17,7 @@ public class GameAssetsCharacters
     public static void InitGameAssetsCharacters()
     {
         assets = new Dictionary<string, Character>();
-        Debug.Log("Created new Character Game Asset Table.");
+        //Debug.Log("Created new Character Game Asset Table.");
     }
 
     /**
@@ -46,6 +46,6 @@ public class GameAssetsCharacters
         assets.Add("pig", Resources.Load<Character>("Characters/PigCub"));
         assets.Add("sheep", Resources.Load<Character>("Characters/SheepCub"));
         assets.Add("wolf", Resources.Load<Character>("Characters/WolfCub"));                                                        
-        Debug.Log("Loaded characters table");
+        //Debug.Log("Loaded characters table");
     }
 }
