@@ -50,7 +50,12 @@ Why did I add the command line interface? The main reason is that of a prototypi
 
 In terms of addressing feedbacks for prototype 2 in this iteration, I addressed these issues of clarity but in terms of step-by-step instructions. It makes sense, but I think that as some playtesters reported in the issues, the dragging cubs stuff was a bit more intuitive. I knew this would be reported in advance, but I had to explore this venue about the input field. I feel somewhat happy with the decision, although it hasn't come out in a polished way yet! I believe there is potential in it, as most playtesters reported. I don't want to explode the scope either, so I kept it simple : you can have commands to create tasks, dispatch them to workers, have them rest when out of stamina, feed cubs, and train cubs. The rest is just statistics -- workers' work generate food, which allows cubs to eat, and sated cubs can be trained efficiently. Cubs are sold for coins. Coins are spent to buy cubs and workers, and upgrades. Workers can be assigned long or short tasks, and this influences the reward at the end of each batch processing and the final reward. It influences stamina consumption, and workers need stamina to work, so they rest. There may be challenges during work in the form of work events. The satisfaction is to manage multiple workers at the same time efficiently (find a good way to progress is the reward). All these were mentioned in the tutorial or should be made clearly.
 
-END OF PLAYTESTING NOTES AND REfLECTIONS
+END OF PLAYTESTING NOTES AND REFLECTIONS
+
+# Design questions to be answered by the playtest:
+
+The main question really was if the tutorial made things clearer for the player. I wanted to break it down into simple steps to follow,
+and I wanted to know if pausing and locking out certain interactions during the tutorial helped, when also supported by a conversation-friendly guide (which is what I spent most of my iteration time doing). A lot of my iteration time was spent making the conversation and tutorial system on top of the command line interface. The first design question for the CLI was to see if it helped me as a developer get into more interesting design ideas for the gameplay loop I was building, and secondly it was to see if the player found it satisfying or if it "threw them off" trying to play with such a feature. All these questions were answered during the playtest successfully.
 
 # Iteration 1 Design Journal
 
