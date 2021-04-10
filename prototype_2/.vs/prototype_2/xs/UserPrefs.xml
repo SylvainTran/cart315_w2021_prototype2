@@ -1,16 +1,23 @@
 ﻿<Properties StartupConfiguration="{67CC9819-92D7-58F7-CE2C-F302FC0031F7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Library/PackageCache/com.unity.textmeshpro@3.0.1/Scripts/Runtime/TMP_InputField.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonMotor.cs">
     <Files>
-      <File FileName="Library/PackageCache/com.unity.textmeshpro@3.0.1/Scripts/Runtime/TMP_InputField.cs" Line="3543" Column="1" />
+      <File FileName="Assets/RotateFaceDirection.cs" Line="11" Column="57" />
+      <File FileName="Assets/Invector-3rdPersonController_LITE/Scripts/Camera/vThirdPersonCamera.cs" Line="125" Column="33" />
+      <File FileName="Assets/GameModeController.cs" Line="50" Column="67" />
+      <File FileName="Assets/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonInput.cs" Line="100" Column="14" />
+      <File FileName="Assets/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonMotor.cs" Line="85" Column="43" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="prototype_2" expanded="True">
-            <Node name="Assets" expanded="True" selected="True">
+            <Node name="Assets" expanded="True">
               <Node name="Invector-3rdPersonController_LITE" expanded="True">
                 <Node name="Scripts" expanded="True">
-                  <Node name="CharacterController" expanded="True" />
+                  <Node name="Camera" expanded="True" />
+                  <Node name="CharacterController" expanded="True">
+                    <Node name="vThirdPersonMotor.cs" selected="True" />
+                  </Node>
                 </Node>
               </Node>
               <Node name="Scripts" expanded="True">
@@ -26,7 +33,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="9a7669c7-1b01-48bd-b155-1eba3cb6cedf" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="30980a3e-feb2-45f0-9c77-5de7196bac72" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint enabled="false" file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/AgentManager.cs" relfile="Assets/AgentManager.cs" line="29" column="1" />

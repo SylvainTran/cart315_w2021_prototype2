@@ -43,6 +43,7 @@ TagManager:
   - taskCount
   - workerCount
   - cubCount
+  - SecondaryCamera
   layers:
   - Default
   - TransparentFX
