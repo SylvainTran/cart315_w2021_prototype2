@@ -16,6 +16,7 @@ public class Terminal : MonoBehaviour
             player.GetComponent<Camera>().enabled = false;
             player.GetComponent<vThirdPersonCamera>().enabled = false;
             terminalCam.tag = "MainCamera";
+            other.transform.LookAt(this.transform);
         }
     }
 

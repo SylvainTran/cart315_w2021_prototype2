@@ -8,12 +8,27 @@ public class CommandLineController : MonoBehaviour
 {
     public Canvas commandLineCanvas;
     public static TMP_InputField commandLine;
+    public delegate void OnCommandLineFocused();
+    public static event OnCommandLineFocused onCommandLineFocused;
+    public delegate void OnCommandLineDeFocused();
+    public static event OnCommandLineDeFocused onCommandLineDeFocused;
 
     public void Start()
     {
         commandLine = GameObject.FindGameObjectWithTag("CommandLine").GetComponent<TMP_InputField>();
         commandLine.onSubmit.AddListener((data) => { ParseCommand(data); });
         commandLineCanvas.GetComponent<Canvas>().enabled = false;
+    }
+
+    public void Update()
+    {
+        if(commandLine.isFocused == true)
+        {
+            onCommandLineFocused();
+        } else
+        {
+            onCommandLineDeFocused();
+        }
     }
 
     public static void ParseCommand(string data)

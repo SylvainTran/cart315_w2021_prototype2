@@ -107,6 +107,7 @@
     <Compile Include="Assets/Scripts/WorkerManager.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/ProgramManagement.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RotateCamera.cs" />
+    <Compile Include="Assets/GameModeController.cs" />
     <Compile Include="Assets/Scripts/TutorialController.cs" />
     <Compile Include="Assets/Scripts/Worker.cs" />
     <Compile Include="Assets/Scripts/Characters/Character.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Assets/Scripts/Forms/GameAssetsForms.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RandomDirectionTranslate.cs" />
     <Compile Include="Assets/Scripts/Task.cs" />
+    <Compile Include="Assets/GrabController.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/TrainCub.cs" />
     <Compile Include="Assets/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonController.cs" />
     <Compile Include="Assets/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/vExtensions.cs" />
@@ -143,8 +145,7 @@
     <Compile Include="Assets/Scripts/Gameplay Scripts/SceneController.cs" />
     <Compile Include="Assets/Scripts/TaskController.cs" />
     <Compile Include="Assets/Scripts/Utilities/RespawnPlayer.cs" />
-    <Compile Include="Assets/GameModeController.cs" />
-    <Compile Include="Assets/GrabController.cs" />
+    <Compile Include="Assets/InputController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
