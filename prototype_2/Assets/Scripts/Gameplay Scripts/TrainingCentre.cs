@@ -29,6 +29,10 @@ public class TrainingCentre : Building
         trainingCentreRestGate = GameObject.FindGameObjectWithTag("trainingCentreRestGate");        
         //buildingMenu = GameObject.Instantiate(Resources.Load("UI/TrainingCentreMenu")) as GameObject;
         interactibleState = Main.tutorialState == 2? true : false;
+        if(Main.gameState == 1)
+        {
+            interactibleState = true;
+        }
     }
 
     private void OnEnable() {

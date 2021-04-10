@@ -8,7 +8,7 @@ public class Worker : MonoBehaviour
     #region Basic information
     private string location;
     public string Location { get { return location; } }
-    private string name;
+    private new string name;
     public string Name { get { return name;} set { name = value;} }
     private static int id = 0;
     public int Id { get { return id;} }
@@ -140,6 +140,11 @@ public class Worker : MonoBehaviour
             StopCoroutine(StopWorkCoroutine);
             StopWorkCoroutine = null;
         }
+        if(currentTask == null)
+        {
+            StopCoroutine(StartWorkCoroutine);
+            yield break;
+        }
         yield return new WaitForSeconds(currentTask.WorkBatchNextTickDelay);
         float progress = workBatchProcessingSpeed * rawBatchWorkPower; // 0.2 * 1 at level 0
         // Essentially got a free pass right now from restarting work after a rest -- make these not
@@ -159,7 +164,7 @@ public class Worker : MonoBehaviour
                 currentTask = null;
                 StopWorking();
                 print($"Worker has finished working.");
-                print($"Current working task check in finished work: {currentTask}");
+                print($"Check in finished work: {currentTask}");
                 yield break;
             }
             // Stop condition 2: work batch limit is met

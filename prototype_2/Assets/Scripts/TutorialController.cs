@@ -177,7 +177,8 @@ public class TutorialController : MonoBehaviour
     public static void RunTutorial(TutorialData t)
     {
         // Trigger event to canvas handler with the conversations
-        ConversationController.TriggerTutorialConversation(t);
+        onTutorialStarted(t);
+        //ConversationController.TriggerTutorialConversation(t);
     }
 
     public static void TeardownTutorial()

@@ -56,6 +56,7 @@
     <Analyzer Include="/Applications/Visual Studio.app/Contents/Resources/lib/monodevelop/AddIns/MonoDevelop.Unity/Analyzers/Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonMotor.cs" />
     <Compile Include="Assets/Scripts/Forms/AcademyCreationForm.cs" />
     <Compile Include="Assets/Scripts/Misc/ItemShopController.cs" />
     <Compile Include="Assets/Scripts/Misc/UseItem.cs" />
@@ -72,6 +73,8 @@
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_AutoStopLoopedEffect.cs" />
     <Compile Include="Assets/Scripts/AI Scripts/World.cs" />
     <Compile Include="Assets/Scripts/CommandLineController.cs" />
+    <Compile Include="Assets/Invector-3rdPersonController_LITE/3D Models/Others/HealthItem/vAnimateUV.cs" />
+    <Compile Include="Assets/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/vComment.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/UpdateProgramManagementUI.cs" />
     <Compile Include="Assets/Scripts/Forms/GameAssetTable.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/UpdateCubProfileUI.cs" />
@@ -79,10 +82,13 @@
     <Compile Include="Assets/Scripts/Gameplay Scripts/AccountBalanceAI.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RandomDir.cs" />
     <Compile Include="Assets/Scripts/Physics Scripts/BallCollision.cs" />
+    <Compile Include="Assets/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonAnimator.cs" />
     <Compile Include="Assets/Scripts/Misc/Spell.cs" />
     <Compile Include="Assets/Scripts/AI Scripts/Bot.cs" />
+    <Compile Include="Assets/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonInput.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/Clients.cs" />
     <Compile Include="Assets/BrokenVector/LowPolyFencePack/Scripts/DoorController.cs" />
+    <Compile Include="Assets/Scripts/CustomEventController.cs" />
     <Compile Include="Assets/Scripts/Combat Scripts/Combatant.cs" />
     <Compile Include="Assets/Scripts/AI Scripts/MonsterAI.cs" />
     <Compile Include="Assets/Resources/Locations/ScriptableObjects/Workfield.cs" />
@@ -93,6 +99,7 @@
     <Compile Include="Assets/Scripts/Utilities/Spawner.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/RestingLodge.cs" />
     <Compile Include="Assets/Scripts/ConversationController.cs" />
+    <Compile Include="Assets/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/vPickupItem.cs" />
     <Compile Include="Assets/Scripts/3Cs/Drive.cs" />
     <Compile Include="Assets/Scripts/Utilities/TrippyMesh.cs" />
     <Compile Include="Assets/Scripts/Main.cs" />
@@ -116,6 +123,8 @@
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_RandomDirectionTranslate.cs" />
     <Compile Include="Assets/Scripts/Task.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/TrainCub.cs" />
+    <Compile Include="Assets/Invector-3rdPersonController_LITE/Scripts/CharacterController/vThirdPersonController.cs" />
+    <Compile Include="Assets/Invector-3rdPersonController_LITE/Scripts/Generic/Utils/vExtensions.cs" />
     <Compile Include="Assets/BrokenVector/LowPolyFencePack/Scripts/DoorToggle.cs" />
     <Compile Include="Assets/Scripts/RestingSanctuary.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/UpdateClientsUI.cs" />
@@ -125,6 +134,7 @@
     <Compile Include="Assets/Scripts/Forms/GameAsset.cs" />
     <Compile Include="Assets/Scripts/Characters/Cub.cs" />
     <Compile Include="Assets/Scripts/Forms/Form.cs" />
+    <Compile Include="Assets/Invector-3rdPersonController_LITE/Scripts/Camera/vThirdPersonCamera.cs" />
     <Compile Include="Assets/Scripts/Misc/SetupController.cs" />
     <Compile Include="Assets/JMO Assets/Cartoon FX/Demo/Assets/CFX_Demo_New.cs" />
     <Compile Include="Assets/Scripts/Gameplay Scripts/Building.cs" />
@@ -132,7 +142,7 @@
     <Compile Include="Assets/Scripts/Gameplay Scripts/SceneController.cs" />
     <Compile Include="Assets/Scripts/TaskController.cs" />
     <Compile Include="Assets/Scripts/Utilities/RespawnPlayer.cs" />
-    <Compile Include="Assets/Scripts/CustomEventController.cs" />
+    <Compile Include="Assets/Terminal.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
@@ -144,6 +154,7 @@
      <None Include="Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader" />
      <None Include="Assets/JMO Assets/Cartoon FX Easy Editor/CartoonFX Easy Editor Readme.txt" />
+     <None Include="Assets/Invector-3rdPersonController_LITE/README_Basic.txt" />
      <None Include="Assets/CasualGameBGM05/ReadMe.txt" />
      <None Include="Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader" />
      <None Include="Assets/AnimeGirls/BaseCharacter/BaseCharacter/Sourcefiles/Shader/DoubleSided.shader" />

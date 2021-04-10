@@ -78,7 +78,6 @@ public sealed class AccountBalanceAI : MonoBehaviour
 
     public static void UpdateWorkerCount(int value)
     {
-        print($"Worker count {workerCount} + {value}");
         workerCount += value;
         UpdateTotalBalance();
     }

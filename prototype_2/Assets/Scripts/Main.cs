@@ -128,10 +128,10 @@ public sealed class Main : MonoBehaviour
             int nbCubs;
             // Assign amount of cubs
             switch(gameState) {
-                case 0: nbCubs = 0; break;
-                case 1: nbCubs = 5; break;
-                case 2: nbCubs = 10; break;
-                default: nbCubs = 0; break;
+                case 0: nbCubs = 2; break;
+                case 1: nbCubs = 10; break;
+                case 2: nbCubs = 15; break;
+                default: nbCubs = 10; break;
             }            
             SetupActors(nbCubs);
         }
@@ -151,15 +151,15 @@ public sealed class Main : MonoBehaviour
         InitResources();
         // Momma Cub Club! Mobile Game
         // TODO LOAD GAME STATE and data from save file
-        gameState = (int) GAME_STATES.TUTORIAL;
+        gameState = (int) GAME_STATES.NORMAL;
         playerState = (int) PLAYER_STATES.MAP;
         tutorialState = (int) TUTORIAL_STATES.GREETINGS;
         // Starts the level controller subroutine
         LevelController.InitLevel();
         // Start tutorials
         // LevelController.SetupActors(2);
-        // TutorialController.InitConversationGroups();
-        // TutorialController.SetupTutorial();
+        TutorialController.InitConversationGroups();
+        TutorialController.SetupTutorial();
         onCharactersLoaded();
         globalCam = GameObject.FindGameObjectWithTag("GlobalCam");
         //print("Loaded main");
