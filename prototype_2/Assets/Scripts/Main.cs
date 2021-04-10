@@ -191,10 +191,11 @@ public sealed class Main : MonoBehaviour
     public Ray GetRay()
     {
         // Move the mouseSelector to the cursor
-        Vector3 inputMousePos = Input.mousePosition;
-        inputMousePos.z = Camera.main.nearClipPlane * 35;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
-        if(mouseSelector)
+        //Vector3 inputMousePos = Input.mousePosition;
+        //inputMousePos.z = Camera.main.nearClipPlane * 1.25f;
+        //Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (mouseSelector)
             mouseSelector.transform.position = mouseWorldPos;
         return Camera.main.ScreenPointToRay(Input.mousePosition);
     }
@@ -302,14 +303,14 @@ public sealed class Main : MonoBehaviour
     private void Update()
     {
         // Keep holding to open up the cub's profile menu
-        if(Input.GetMouseButtonDown(0)) 
+        if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit = RayCastObjects("Cub");
-            if(!FilterObjectHit(hit, "Cub"))
+            if (!FilterObjectHit(hit, "Cub"))
             {
                 return;
             }
-            if (tutorialState >= 4) // Stats can be seen after the Resting Lodge tutorial and above
+            if (tutorialState >= 4 || gameState == (int)GAME_STATES.NORMAL) // Stats can be seen after the Resting Lodge tutorial and above
             {
                 ShowCubStats(hit);
             }
@@ -317,9 +318,9 @@ public sealed class Main : MonoBehaviour
         if(Input.GetMouseButton(0)) 
         {
             // Only allow this dragging behaviour in the Menagerie game state
-            if(playerState != 2) { // Menagerie State
-                return;
-            }
+            //if(playerState != 2) { // Menagerie State
+            //    return;
+            //}
             // Grabbing cubs
             RaycastHit cubHit = RayCastObjects("Cub");
             if (FilterObjectHit(cubHit, "Cub"))

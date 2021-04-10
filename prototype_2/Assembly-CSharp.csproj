@@ -144,6 +144,7 @@
     <Compile Include="Assets/Scripts/TaskController.cs" />
     <Compile Include="Assets/Scripts/Utilities/RespawnPlayer.cs" />
     <Compile Include="Assets/GameModeController.cs" />
+    <Compile Include="Assets/GrabController.cs" />
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets/TextMesh Pro/Shaders/TMPro.cginc" />
