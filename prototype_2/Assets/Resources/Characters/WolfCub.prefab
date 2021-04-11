@@ -164,6 +164,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4779327288218992386}
   - component: {fileID: 4876076838339791890}
+  - component: {fileID: 2699567346235202972}
   m_Layer: 0
   m_Name: wolf_Lod_0
   m_TagString: Untagged
@@ -206,6 +207,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 35ed71596f5afcd41b1a01e69ce8f9ea, type: 2}
   - {fileID: 2100000, guid: 73eef6b367d964e4795855edeb3c486e, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -264,6 +266,23 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.02143979, y: -0.92285806, z: -1.3652279}
     m_Extent: {x: 0.689541, y: 1.5333164, z: 2.5924418}
   m_DirtyAABB: 0
+--- !u!114 &2699567346235202972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775092325177843446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845239d92cc75ec4091716bc8e40f40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 2100000, guid: 35ed71596f5afcd41b1a01e69ce8f9ea, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: 34aaaae24d8c84973a8e390d7454d548, type: 2}
+  mats:
+  - {fileID: 2100000, guid: 35ed71596f5afcd41b1a01e69ce8f9ea, type: 2}
+  - {fileID: 2100000, guid: 34aaaae24d8c84973a8e390d7454d548, type: 2}
 --- !u!1 &4775096941518059304
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,7 +688,7 @@ Transform:
   m_GameObject: {fileID: 4775769872284418936}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.102308914, y: 0.102308914, z: 0.102308914}
+  m_LocalScale: {x: 0.32772088, y: 0.32772088, z: 0.32772088}
   m_Children:
   - {fileID: 4777433042388528572}
   - {fileID: 4779327288218992386}

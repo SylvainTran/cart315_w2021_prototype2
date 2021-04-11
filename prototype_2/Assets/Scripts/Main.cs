@@ -47,16 +47,16 @@ public sealed class Main : MonoBehaviour
         public static Cub GenerateNewCub() 
         {
             string cubType;
-            int randCubType = UnityEngine.Random.Range(0, 7);
+            int randCubType = UnityEngine.Random.Range(0, 5);
             switch(randCubType) {
                 // case 0: cubType = "CatCub"; break;
                 case 0: cubType = "chicken"; break;
                 case 1: cubType = "cow"; break;
                 case 2: cubType = "duck"; break;
-                case 3: cubType = "fox"; break;                                
-                case 4: cubType = "pig"; break;
-                case 5: cubType = "sheep"; break;
-                case 6: cubType = "wolf"; break;
+                case 3: cubType = "pig"; break;
+                case 4: cubType = "sheep"; break;
+                //case 5: cubType = "wolf"; break;
+                //case 6: cubType = "fox"; break;
                 default: cubType = "sheep"; break;
             }
             AccountBalanceAI.UpdateCubCount(1);
@@ -191,12 +191,14 @@ public sealed class Main : MonoBehaviour
     public Ray GetRay()
     {
         // Move the mouseSelector to the cursor
-        //Vector3 inputMousePos = Input.mousePosition;
-        //inputMousePos.z = Camera.main.nearClipPlane * 1.25f;
-        //Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 inputMousePos = Input.mousePosition;
+        inputMousePos.z = Camera.main.nearClipPlane * 10.25f;
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
+        //Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (mouseSelector)
+        {
             mouseSelector.transform.position = mouseWorldPos;
+        }
         return Camera.main.ScreenPointToRay(Input.mousePosition);
     }
 

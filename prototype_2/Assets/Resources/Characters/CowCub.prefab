@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3637059198137573294}
   - component: {fileID: 4004777142828629557}
   - component: {fileID: -4125021290030028809}
+  - component: {fileID: 3333554663611089707}
   m_Layer: 0
   m_Name: CowCub
   m_TagString: Cub
@@ -33,7 +34,7 @@ Transform:
   m_GameObject: {fileID: 4282966203140283926}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2051101, y: 0.2051101, z: 0.2051101}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2305701331758729246}
   - {fileID: 5676711020584777592}
@@ -72,6 +73,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b83d3bf75db8f704fb67e55cf64a537f, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -221,6 +223,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3333554663611089707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4282966203140283926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 845239d92cc75ec4091716bc8e40f40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 0}
+  highlightMaterial: {fileID: 2100000, guid: 34aaaae24d8c84973a8e390d7454d548, type: 2}
+  mats:
+  - {fileID: 2100000, guid: b83d3bf75db8f704fb67e55cf64a537f, type: 2}
+  - {fileID: 2100000, guid: 34aaaae24d8c84973a8e390d7454d548, type: 2}
 --- !u!1001 &1356660596709574291
 PrefabInstance:
   m_ObjectHideFlags: 0

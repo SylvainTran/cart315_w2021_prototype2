@@ -19,22 +19,23 @@ public class HighlightController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (!collider.gameObject.CompareTag("Player")) {
-            return;
+        if (collider.gameObject.CompareTag("Player"))
+        {
+            print("Highlight with the player");
+            // Swap to highlight mat at the second index
+            mats[0] = defaultMaterial;
+            mats[mats.Length-1] = highlightMaterial;
+            rend.materials = mats;
         }
-        // Swap to highlight mat at the second index
-        mats[1] = highlightMaterial;
-        rend.materials = mats;
     }
 
     private void OnTriggerExit(Collider collider)
     {
-        if (!collider.gameObject.CompareTag("Player"))
+        if(collider.gameObject.CompareTag("Player"))
         {
-            return;
+            mats[0] = defaultMaterial;
+            mats[mats.Length - 1] = null;
+            rend.materials = mats;
         }
-        mats[0] = defaultMaterial;
-        mats[1] = null;
-        rend.materials = mats;
     }
 }

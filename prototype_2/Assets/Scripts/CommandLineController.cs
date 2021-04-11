@@ -22,13 +22,13 @@ public class CommandLineController : MonoBehaviour
 
     public void Update()
     {
-        if(commandLine.isFocused == true)
-        {
-            onCommandLineFocused();
-        } else
-        {
-            onCommandLineDeFocused();
-        }
+        //if(commandLine.isFocused == true)
+        //{
+        //    onCommandLineFocused();
+        //} else
+        //{
+        //    onCommandLineDeFocused();
+        //}
     }
 
     public static void ParseCommand(string data)
