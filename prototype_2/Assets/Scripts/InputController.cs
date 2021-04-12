@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.InputSystem;
 
 public class InputController : MonoBehaviour
 {
+    public GameObject player;
     private void OnEnable()
     {
         CommandLineController.onCommandLineFocused += DisableControls;
@@ -20,20 +19,13 @@ public class InputController : MonoBehaviour
 
     public void DisableControls()
     {
-
+        player.GetComponent<GenericBehaviour>().enabled = false;
+        player.GetComponent<MoveBehaviour>().enabled = false;
     }
 
     public void EnableControls()
     {
-
-    }
-
-    public float speed = 1f;
-    public Camera camera;
-    public GameObject followTransform;
-
-    private void Update()
-    {
-
+        player.GetComponent<GenericBehaviour>().enabled = true;
+        player.GetComponent<MoveBehaviour>().enabled = true;
     }
 }

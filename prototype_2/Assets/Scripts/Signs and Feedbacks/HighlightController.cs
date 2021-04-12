@@ -19,6 +19,10 @@ public class HighlightController : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
+        if(rend == null)
+        {
+            return;
+        }
         if (collider.gameObject.CompareTag("Player"))
         {
             print("Highlight with the player");

@@ -13,7 +13,7 @@ public class Cub : Character
      * this is combined with training slots/experience slots allocated
      * to combat training actions received in a cub's lifetime.
      */
-    public int performanceLevel;
+    public int leanness;
     public int valueRating;
 
     /**
@@ -127,7 +127,7 @@ public class Cub : Character
     */
     public override string ToString()
     {
-        return $"Cub! Name: {characterName}\nVariant: {characterVariant}\nAspect Qualifier: {characterAspectQualifier}\nAggressiveness: {aggressiveness}\nAge: {age}\nLuck: {luck}\nHappiness: {happiness}\nTraining Cost: {trainingCost}\nPerformance Level: {performanceLevel}\nIs In Training Program? {isInTrainingProgram}\nCurrent Training Action: {currentTrainingAction}\n";
+        return $"Cub! Name: {characterName}\nVariant: {characterVariant}\nAspect Qualifier: {characterAspectQualifier}\nAggressiveness: {aggressiveness}\nAge: {age}\nLuck: {luck}\nHappiness: {happiness}\nTraining Cost: {trainingCost}\nLeanness: {leanness}\nIs In Training Program? {isInTrainingProgram}\nCurrent Training Action: {currentTrainingAction}\n";
     }
 
     public enum TALENTS { ROOKIE_CHANCE };
@@ -141,7 +141,7 @@ public class Cub : Character
         //Debug.Log("Generating Stats for this cub.");
         // Base stats
         this.characterName = Utility.GetRandomCharacterFirstName(Random.Range(0, Utility.characterNames.Length));
-        this.performanceLevel = 0;
+        this.leanness = 0;
         this.age = 1;
         this.aggressiveness = Random.Range(0, 10);
         this.luck = Random.Range(0, 10);    

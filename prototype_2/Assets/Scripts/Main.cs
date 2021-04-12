@@ -35,6 +35,7 @@ public sealed class Main : MonoBehaviour
 
     // Cams
     public static GameObject globalCam;
+    public GameObject adventureCam;
 
     /**
     * Character Factory
@@ -60,7 +61,7 @@ public sealed class Main : MonoBehaviour
                 default: cubType = "sheep"; break;
             }
             AccountBalanceAI.UpdateCubCount(1);
-            return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(0.638f, 0.2455f, 0.511f), Quaternion.identity);
+            return (Cub)GameObject.Instantiate(GameAssetsCharacters.GetAsset(cubType), new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
         }
         public static Cub GenerateNewCubByType(string cubType)
         {
@@ -85,6 +86,7 @@ public sealed class Main : MonoBehaviour
             currentCubRooster = new List<Cub>(MAX_CUB_CAPACITY);
             // Generate other things
             // ...           
+            // GenerateNewCubs(nbCubs);
         }
         public static void GenerateNewCubs(int nbCubs)
         {
@@ -117,12 +119,6 @@ public sealed class Main : MonoBehaviour
             }
         }
 
-        public static IEnumerator GlobalCamPrimacy()
-        {
-            yield return new WaitForSeconds(3.0f);
-            globalCam.GetComponent<CinemachineVirtualCamera>().Priority = 400;
-        }
-
         public static void InitLevel()
         {
             int nbCubs;
@@ -148,7 +144,7 @@ public sealed class Main : MonoBehaviour
     {
         GameObject main = GameObject.Instantiate(Resources.Load("Initializer")) as GameObject;
         GameObject.DontDestroyOnLoad(main);
-        InitResources();
+        // InitResources();
         // Momma Cub Club! Mobile Game
         // TODO LOAD GAME STATE and data from save file
         gameState = (int) GAME_STATES.NORMAL;
@@ -157,7 +153,7 @@ public sealed class Main : MonoBehaviour
         // Starts the level controller subroutine
         LevelController.InitLevel();
         // Start tutorials
-        // LevelController.SetupActors(2);
+        LevelController.SetupActors(10);
         TutorialController.InitConversationGroups();
         TutorialController.SetupTutorial();
         onCharactersLoaded();
@@ -192,14 +188,14 @@ public sealed class Main : MonoBehaviour
     {
         // Move the mouseSelector to the cursor
         Vector3 inputMousePos = Input.mousePosition;
-        inputMousePos.z = Camera.main.nearClipPlane * 10.25f;
-        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(inputMousePos);
+        inputMousePos.z = adventureCam.GetComponent<Camera>().nearClipPlane * 10.25f;
+        Vector3 mouseWorldPos = adventureCam.GetComponent<Camera>().ScreenToWorldPoint(inputMousePos);
         //Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if (mouseSelector)
         {
             mouseSelector.transform.position = mouseWorldPos;
         }
-        return Camera.main.ScreenPointToRay(Input.mousePosition);
+        return adventureCam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
     }
 
     /**
@@ -324,11 +320,16 @@ public sealed class Main : MonoBehaviour
             //    return;
             //}
             // Grabbing cubs
-            RaycastHit cubHit = RayCastObjects("Cub");
-            if (FilterObjectHit(cubHit, "Cub"))
+            print("Current game mode: " + GameModeController.currentGameMode);
+            print("Adventure mode: " + (int)GameModeController.gameModes.AdventureMode);
+            if(GameModeController.currentGameMode == (int)GameModeController.gameModes.AdventureMode)
             {
-                //SelectCub(cubHit);
-                Grab(cubHit);
+                RaycastHit cubHit = RayCastObjects("Cub");
+                if (FilterObjectHit(cubHit, "Cub"))
+                {
+                    //SelectCub(cubHit);
+                    Grab(cubHit);
+                }
             }
 
         }
@@ -357,7 +358,7 @@ public sealed class Main : MonoBehaviour
             agent.autoRepath = true;
             agent.autoBraking = true;
             agent.speed = 3.5f;          
-            agent.Warp(oldCubPos);
+            agent.Warp(oldCubPos - new Vector3(0f, 1f, 0f));
         }      
         string[] fx = {"smokePuffFX", "brokenHeartFX"};
         liftedGameObject.GetComponent<Cub>().PlayFXThenDie(fx);            

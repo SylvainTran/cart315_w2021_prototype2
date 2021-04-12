@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameModeController : MonoBehaviour
 {
     public enum gameModes { AdventureMode, ManagementMode };
-    public int currentGameMode = 0;
+    public static int currentGameMode = 0;
 
     private void Start()
     {

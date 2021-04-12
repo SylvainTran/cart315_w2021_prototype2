@@ -174,15 +174,10 @@ public class TrainingCentre : Building
             if(!c.isInTrainingProgram) {
                 continue;
             }
-            //TODO c.currentTrainingProgram.Apply()
-            c.performanceLevel++;
-            c.cubProfileUI.GetComponent<UpdateCubProfileUI>().UpdatePerformanceLevelUI();            
-            print("Cub IN training program: " + c);
-            Debug.Log(c + " increased their performance level. Congratulations!");
-            // play FX
+            c.leanness++;
+            //c.cubProfileUI.GetComponent<UpdateCubProfileUI>().UpdateLeannessUI();            
             c.PlayFXThenDie("pickupStarFX");
-            // increment their value rating
-            c.valueRating += c.performanceLevel * 100;
+            c.valueRating += c.leanness * 2;
         }
     }
 }

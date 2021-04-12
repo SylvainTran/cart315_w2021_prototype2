@@ -7,6 +7,7 @@ using System;
 public class CommandLineController : MonoBehaviour
 {
     public Canvas commandLineCanvas;
+    public GameObject commandLineInputField;
     public static TMP_InputField commandLine;
     public delegate void OnCommandLineFocused();
     public static event OnCommandLineFocused onCommandLineFocused;
@@ -22,13 +23,13 @@ public class CommandLineController : MonoBehaviour
 
     public void Update()
     {
-        //if(commandLine.isFocused == true)
-        //{
-        //    onCommandLineFocused();
-        //} else
-        //{
-        //    onCommandLineDeFocused();
-        //}
+        if(commandLine.isFocused == true)
+        {
+           onCommandLineFocused();
+        } else
+        {
+           onCommandLineDeFocused();
+        }
     }
 
     public static void ParseCommand(string data)
