@@ -7,34 +7,42 @@ public class UpdateCubProfileUI : MonoBehaviour
 {
     public GameObject characterName;
     public GameObject characterVariant;
-    public GameObject performanceLevel;
+    public GameObject leanness;
     public GameObject satiety;
 
     Cub cubData;
 
     private void OnEnable() {
-        Main.onCharactersLoaded += InitProfileFields;    
+        Main.onCharactersLoaded += InitProfileFields;
+        SceneController.onClockTicked += UpdateLeannessUI;   
     }
 
     private void OnDisable() {
-        Main.onCharactersLoaded -= InitProfileFields;        
+        Main.onCharactersLoaded -= InitProfileFields;  
+        SceneController.onClockTicked -= UpdateLeannessUI;      
     }
     
     public void InitProfileFields()
     {
         // Access the parent's Cub component for data, then fill out the UI's fields
         cubData = transform.parent.GetComponent<Cub>();
+        print(cubData);
         characterName.GetComponent<TextMeshProUGUI>().SetText(cubData.characterName);
         characterVariant.GetComponent<TextMeshProUGUI>().SetText(cubData.characterVariant);        
-        performanceLevel.GetComponent<TextMeshProUGUI>().SetText($"Performance Level (0-10): {cubData.performanceLevel}");
+        leanness.GetComponent<TextMeshProUGUI>().SetText($"Leanness: {cubData.leanness}");
         satiety.GetComponent<TextMeshProUGUI>().SetText($"Hunger: {1 - cubData.Satiety}");
+        print("Name test: " + cubData.characterName);
     }
     /**
      * Update performance level and hunger on clock tick.
      */
-    public void UpdatePerformanceLevelUI()
+    public void UpdateLeannessUI()
     {
-        performanceLevel.GetComponent<TextMeshProUGUI>().SetText($"Performance Level (0-10): {cubData.performanceLevel}");
+        if(!cubData || !leanness || !satiety) 
+        {
+            return;
+        }
+        leanness.GetComponent<TextMeshProUGUI>().SetText($"Leanness: {cubData.leanness}");
         satiety.GetComponent<TextMeshProUGUI>().SetText($"Hunger: {1 - cubData.Satiety}");
     }
 

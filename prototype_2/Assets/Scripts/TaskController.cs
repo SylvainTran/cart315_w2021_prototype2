@@ -83,6 +83,9 @@ public class TaskController : MonoBehaviour
 
         // Do other things too
         AccountBalanceAI.UpdateTaskCount(-1);
+
+        // Random chance to log various complaints or comments to the player
+        // about their task work
     }
 
     /**

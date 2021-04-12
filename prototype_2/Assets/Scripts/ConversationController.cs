@@ -150,11 +150,11 @@ public class ConversationController : MonoBehaviour
     }
 
     private void OnEnable() {
-        onTutorialStarted += TriggerTutorialConversation;
+        TutorialController.onTutorialStarted += TriggerTutorialConversation;
     }
 
     private void OnDisable() {
-        onTutorialStarted -= TriggerTutorialConversation;  
+        TutorialController.onTutorialStarted -= TriggerTutorialConversation;  
     }
 
     public static void TriggerGameObject(string gameObjectName)

@@ -19,7 +19,6 @@ public class SceneController : MonoBehaviour
     private TextMeshProUGUI minutesClockText;
     private TextMeshProUGUI hoursClockText;
     private TextMeshProUGUI dayClockText;
-    private float delay = 0.0f;
     private string aMOrPM;
     private string extraText;
     public static float tickInterval = 10.0f;

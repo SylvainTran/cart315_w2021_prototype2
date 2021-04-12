@@ -5,16 +5,8 @@ using UnityEngine.AI;
 
 public class Cub : Character
 {
-    /**
-     * Cubs perform their professions
-     * at a certain level ranging 0-100.
-     * This is a STAR stat, which means it's used internally
-     * to calculate rolls in various areas. In combat,
-     * this is combined with training slots/experience slots allocated
-     * to combat training actions received in a cub's lifetime.
-     */
-    public int performanceLevel;
-    public int valueRating;
+    public int leanness = 50;
+    public int valueRating = 50;
 
     /**
      * Cub's current hunger. Decreased by eating food
@@ -120,6 +112,10 @@ public class Cub : Character
             satiety = 0;
             print("Cub is nearing oblivion from not eating");
         }
+        if(startedFattenCub)
+        {
+            fatten();
+        }
     }
 
     /**
@@ -127,7 +123,7 @@ public class Cub : Character
     */
     public override string ToString()
     {
-        return $"Cub! Name: {characterName}\nVariant: {characterVariant}\nAspect Qualifier: {characterAspectQualifier}\nAggressiveness: {aggressiveness}\nAge: {age}\nLuck: {luck}\nHappiness: {happiness}\nTraining Cost: {trainingCost}\nPerformance Level: {performanceLevel}\nIs In Training Program? {isInTrainingProgram}\nCurrent Training Action: {currentTrainingAction}\n";
+        return $"Cub! Name: {characterName}\nVariant: {characterVariant}\nAspect Qualifier: {characterAspectQualifier}\nAggressiveness: {aggressiveness}\nAge: {age}\nLuck: {luck}\nHappiness: {happiness}\nTraining Cost: {trainingCost}\nLeanness: {leanness}\nIs In Training Program? {isInTrainingProgram}\nCurrent Training Action: {currentTrainingAction}\n";
     }
 
     public enum TALENTS { ROOKIE_CHANCE };
@@ -141,7 +137,7 @@ public class Cub : Character
         //Debug.Log("Generating Stats for this cub.");
         // Base stats
         this.characterName = Utility.GetRandomCharacterFirstName(Random.Range(0, Utility.characterNames.Length));
-        this.performanceLevel = 0;
+        this.leanness = 0;
         this.age = 1;
         this.aggressiveness = Random.Range(0, 10);
         this.luck = Random.Range(0, 10);    
@@ -219,5 +215,17 @@ public class Cub : Character
     {
         // TODO: write your implementation of GetHashCode() here
         return base.GetHashCode();
+    }
+
+    public bool startedFattenCub = false;
+    public void fatten()
+    {
+        --leanness;
+        if(leanness <= 0) leanness = 0;
+        this.transform.localScale += new Vector3(0.10f, 0.10f, 0.10f);
+        if(this.transform.localScale.x >= 3.5f)
+        {
+            this.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
+        }
     }
 }

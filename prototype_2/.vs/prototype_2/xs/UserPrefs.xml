@@ -1,13 +1,13 @@
 ﻿<Properties StartupConfiguration="{67CC9819-92D7-58F7-CE2C-F302FC0031F7}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Library/PackageCache/com.unity.textmeshpro@3.0.1/Scripts/Runtime/TMP_InputField.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GameModeController.cs">
     <Files>
-      <File FileName="Assets/Scripts/WorkerManager.cs" Line="35" Column="1" />
-      <File FileName="Assets/Scripts/Gameplay Scripts/AccountBalanceAI.cs" Line="81" Column="1" />
-      <File FileName="Assets/Scripts/CommandLineController.cs" Line="14" Column="1" />
-      <File FileName="Assets/Scripts/Main.cs" Line="126" Column="28" />
-      <File FileName="Assets/Scripts/Worker.cs" Line="86" Column="6" />
-      <File FileName="Assets/Scripts/ConversationController.cs" Line="100" Column="1" />
-      <File FileName="Library/PackageCache/com.unity.textmeshpro@3.0.1/Scripts/Runtime/TMP_InputField.cs" Line="3076" Column="1" />
+      <File FileName="Assets/Scripts/GameModeController.cs" Line="3" Column="1" />
+      <File FileName="Assets/Scripts/InputController.cs" />
+      <File FileName="Assets/Scripts/Main.cs" />
+      <File FileName="Assets/PlayerLocomotionController.cs" />
+      <File FileName="Assets/Scripts/CommandLineController.cs" />
+      <File FileName="Assets/PlayerMovementInputController.cs" />
+      <File FileName="Assets/Scripts/Terminal.cs" Line="14" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -18,8 +18,10 @@
                 <Node name="Characters" expanded="True" />
                 <Node name="Forms" expanded="True" />
                 <Node name="Gameplay Scripts" expanded="True" />
-                <Node name="CommandLineController.cs" selected="True" />
+                <Node name="Signs and Feedbacks" expanded="True" />
+                <Node name="GameModeController.cs" selected="True" />
               </Node>
+              <Node name="Shaders" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -28,13 +30,11 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="22d525f6-a5b9-46eb-bcb5-7ea374f53e55" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="67226ec3-a72d-466b-a2c4-3a516d93dc2b" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint enabled="false" file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/AgentManager.cs" relfile="Assets/AgentManager.cs" line="29" column="1" />
       <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Main.cs" relfile="Assets/Scripts/Main.cs" line="143" column="1" />
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Gameplay Scripts/AccountBalanceAI.cs" relfile="Assets/Scripts/Gameplay Scripts/AccountBalanceAI.cs" line="82" column="1" />
-      <Breakpoint file="/Users/sylvaintran/Documents/GitHub/MommaCub/cart315_w2021_prototype2/prototype_2/Assets/Scripts/Gameplay Scripts/AccountBalanceAI.cs" relfile="Assets/Scripts/Gameplay Scripts/AccountBalanceAI.cs" line="81" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />

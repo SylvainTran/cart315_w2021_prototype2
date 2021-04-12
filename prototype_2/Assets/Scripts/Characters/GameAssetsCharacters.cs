@@ -42,10 +42,10 @@ public class GameAssetsCharacters
         assets.Add("chicken", Resources.Load<Character>("Characters/ChickenCub"));
         assets.Add("cow", Resources.Load<Character>("Characters/CowCub"));
         assets.Add("duck", Resources.Load<Character>("Characters/DuckCub"));
-        assets.Add("fox", Resources.Load<Character>("Characters/FoxCub"));
+        //assets.Add("fox", Resources.Load<Character>("Characters/FoxCub"));
         assets.Add("pig", Resources.Load<Character>("Characters/PigCub"));
         assets.Add("sheep", Resources.Load<Character>("Characters/SheepCub"));
-        assets.Add("wolf", Resources.Load<Character>("Characters/WolfCub"));                                                        
+        //assets.Add("wolf", Resources.Load<Character>("Characters/WolfCub"));                                                        
         //Debug.Log("Loaded characters table");
     }
 }

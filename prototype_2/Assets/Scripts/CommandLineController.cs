@@ -6,12 +6,30 @@ using System;
 
 public class CommandLineController : MonoBehaviour
 {
+    public Canvas commandLineCanvas;
+    public GameObject commandLineInputField;
     public static TMP_InputField commandLine;
+    public delegate void OnCommandLineFocused();
+    public static event OnCommandLineFocused onCommandLineFocused;
+    public delegate void OnCommandLineDeFocused();
+    public static event OnCommandLineDeFocused onCommandLineDeFocused;
 
     public void Start()
     {
         commandLine = GameObject.FindGameObjectWithTag("CommandLine").GetComponent<TMP_InputField>();
         commandLine.onSubmit.AddListener((data) => { ParseCommand(data); });
+        commandLineCanvas.GetComponent<Canvas>().enabled = false;
+    }
+
+    public void Update()
+    {
+        if(commandLine.isFocused == true)
+        {
+           onCommandLineFocused();
+        } else
+        {
+           onCommandLineDeFocused();
+        }
     }
 
     public static void ParseCommand(string data)
@@ -105,20 +123,24 @@ public class CommandLineController : MonoBehaviour
 
         public static void Work(string methodCaller, List<string> args)
         {
+            if (args == null)
+            {
+                return;
+            }
             Debug.Log("New work process initiated.");
             List<GameObject> activeWorkers = WorkerManager.activeWorkers;
             int len = activeWorkers.Count;
-            if(len == 0) 
+            if(len == 0)
             {
                 print("No active workers");
                 return;
             }
-            for(int i = 0; i < len; i++)
+            for (int i = 0; i < len; i++)
             {
                 Worker w = activeWorkers[i].GetComponent<Worker>();
                 print("Worker: " + w.Name);
                 if(w.Name.Equals(methodCaller))
-                { 
+                {
                     if(!args[0].Equals(string.Empty)) // dude.work(5) // work 5 hours dude
                     {
                         print("current task " + w.CurrentTask);
@@ -156,6 +178,11 @@ public class CommandLineController : MonoBehaviour
             }
         }
 
+        public static void Train(List<string> args)
+        {
+
+        }
+
         public static void UpdateRestStatus(Worker w)
         {
             w.InternalMoveToDestination("RESTING_SANCTUARY");
@@ -172,7 +199,26 @@ public class CommandLineController : MonoBehaviour
 
         public static void Sell(List<string> args)
         {
-            throw new NotImplementedException();
+            if (args == null)
+            {
+                Debug.Log("Feeding all cubs");
+                if (AccountBalanceAI.cubFood >= 10)
+                {
+                    for (int i = 0; i < Main.currentCubRooster.Count; i++)
+                    {
+                        Main.currentCubRooster[i].Satiety += 10;
+                        AccountBalanceAI.cubFood -= 10;
+                        AccountBalanceAI.UpdateTotalBalance();
+                    }
+                }
+            }
+            else
+            {
+                foreach (string arg in args)
+                {
+                    Debug.Log($"{arg}");
+                }
+            }
         }
 
         public static void Examine(List<string> args)
@@ -182,10 +228,10 @@ public class CommandLineController : MonoBehaviour
 
         public static void Buy(List<string> args)
         {
-            if (args == null)
+            if (AccountBalanceAI.money == 0)
             {
-                // Feed all case
-                Debug.Log("Buying all that is possible within the boundaries of personal material resources.");
+                print("Broke.");
+                return;
             }
             else
             {
@@ -202,13 +248,14 @@ public class CommandLineController : MonoBehaviour
                                 args[i].Equals("fox") || args[i].Equals("pig") ||
                                 args[i].Equals("wolf"))
                             {
-                                Debug.Log("Buying a silly cub!");
-                                if(!Main.currentCubRoosterFull)
+                                if(!Main.currentCubRoosterFull && AccountBalanceAI.money >= 50)
                                 {
+                                    print("Buying a new cub.");
                                     Main.LevelController.GenerateNewCub(qty, args[i]);
+                                    AccountBalanceAI.UpdateMoney(-50);
                                 } else
                                 {
-                                    Debug.Log("Cub rooster is full");
+                                    Debug.Log("Cub rooster is full or lacking sufficient funds.");
                                 }
                             }
                             else if(args[i].Equals("worker"))
@@ -294,11 +341,11 @@ public class CommandLineController : MonoBehaviour
                 case "createTask":
                     if(args != null) CommandLineActions.CreateTask(args);                
                     else {
-                        print("Need to provide required progress hours, or work batch limit to create a new task.");
+                        print("Work command registered successfully. Invoking call... Cannot. Need to provide required progress hours, or work batch limit to create a new task.");
                     }
                     break;
                 case "work": // this is essentially dispatch
-                    print("go work");
+                    print("Work command registered successfully. Invoking call...");
                     CommandLineActions.Work(methodCaller, args);
                     break;
                 case "rest": // sadly people have to do this shameful thing
@@ -312,6 +359,9 @@ public class CommandLineController : MonoBehaviour
                     break;
                 case "buy":
                     CommandLineActions.Buy(args);
+                    break;
+                case "train":
+                    CommandLineActions.Train(args);
                     break;
                 default:
                     break;
