@@ -5,16 +5,8 @@ using UnityEngine.AI;
 
 public class Cub : Character
 {
-    /**
-     * Cubs perform their professions
-     * at a certain level ranging 0-100.
-     * This is a STAR stat, which means it's used internally
-     * to calculate rolls in various areas. In combat,
-     * this is combined with training slots/experience slots allocated
-     * to combat training actions received in a cub's lifetime.
-     */
-    public int leanness;
-    public int valueRating;
+    public int leanness = 50;
+    public int valueRating = 50;
 
     /**
      * Cub's current hunger. Decreased by eating food
@@ -120,6 +112,10 @@ public class Cub : Character
             satiety = 0;
             print("Cub is nearing oblivion from not eating");
         }
+        if(startedFattenCub)
+        {
+            fatten();
+        }
     }
 
     /**
@@ -219,5 +215,17 @@ public class Cub : Character
     {
         // TODO: write your implementation of GetHashCode() here
         return base.GetHashCode();
+    }
+
+    public bool startedFattenCub = false;
+    public void fatten()
+    {
+        --leanness;
+        if(leanness <= 0) leanness = 0;
+        this.transform.localScale += new Vector3(0.10f, 0.10f, 0.10f);
+        if(this.transform.localScale.x >= 3.5f)
+        {
+            this.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
+        }
     }
 }
