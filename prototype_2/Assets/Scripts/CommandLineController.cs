@@ -13,6 +13,11 @@ public class CommandLineController : MonoBehaviour
     public static event OnCommandLineFocused onCommandLineFocused;
     public delegate void OnCommandLineDeFocused();
     public static event OnCommandLineDeFocused onCommandLineDeFocused;
+    public delegate void OnDeclaredBankruptcy();
+    public static event OnDeclaredBankruptcy onDeclaredBankruptcy;
+
+    // Sound effects
+    public GameObject soundEffectsGO;
 
     public void Start()
     {
@@ -80,7 +85,7 @@ public class CommandLineController : MonoBehaviour
             {
                 Worker w = activeWorkers[i].GetComponent<Worker>();
 
-                if (w.Name.Equals(methodCaller))
+                if (w.Name.ToLower().Equals(methodCaller))
                 {
                     if (!args[0].Equals(string.Empty)) // dude.rest(5) // dude, rest 5 hours
                     {
@@ -139,7 +144,7 @@ public class CommandLineController : MonoBehaviour
             {
                 Worker w = activeWorkers[i].GetComponent<Worker>();
                 print("Worker: " + w.Name);
-                if(w.Name.Equals(methodCaller))
+                if(w.Name.ToLower().Equals(methodCaller))
                 {
                     if(!args[0].Equals(string.Empty)) // dude.work(5) // work 5 hours dude
                     {
@@ -226,6 +231,42 @@ public class CommandLineController : MonoBehaviour
             throw new NotImplementedException();
         }
 
+        public static void FreeMoneyCheatCode(List<string> args)
+        {
+            if(args == null)
+            {
+                return;
+            }
+            AccountBalanceAI.UpdateMoney(Single.Parse(args[0]));
+        }
+        
+        private void Awake()
+        {
+            GameObject[] explosions = GameObject.FindGameObjectsWithTag("FxTemporaire");                                  
+            foreach(GameObject explosion in explosions)
+            {
+                ParticleSystem childPS = explosion.GetComponent<ParticleSystem>();
+                print("Found one explosion" + childPS);
+                childPS.Stop();
+            }
+        }
+
+        public static void DeclareBankruptcy(List<string> args)
+        {
+            onDeclaredBankruptcy();
+            // Destroy Everything
+            Destroy(GameObject.FindGameObjectWithTag("ProgramManagement").gameObject);
+            Destroy(GameObject.FindGameObjectWithTag("Menagerie").gameObject);
+            Destroy(GameObject.FindGameObjectWithTag("Slaughterhouse").gameObject);
+            Destroy(GameObject.FindGameObjectWithTag("RestingSanctuary").gameObject);  
+            GameObject[] explosions = GameObject.FindGameObjectsWithTag("FxTemporaire");                                  
+            foreach(GameObject explosion in explosions)
+            {
+                ParticleSystem childPS = explosion.GetComponent<ParticleSystem>();
+                childPS.Play();
+            }
+        }
+
         public static void Buy(List<string> args)
         {
             if (AccountBalanceAI.money == 0)
@@ -283,7 +324,7 @@ public class CommandLineController : MonoBehaviour
             {
                 return null;
             }
-            commandLineText = commandLineText.Trim().Replace(" ", string.Empty);
+            commandLineText = commandLineText.Trim().ToLower().Replace(" ", string.Empty);
             return commandLineText;
         }
 
@@ -338,7 +379,7 @@ public class CommandLineController : MonoBehaviour
             switch (methodCall)
             {
                 //We need to distinguish subroutines that are part of tasks from the high-level management stuff we're interested in
-                case "createTask":
+                case "createtask":
                     if(args != null) CommandLineActions.CreateTask(args);                
                     else {
                         print("Work command registered successfully. Invoking call... Cannot. Need to provide required progress hours, or work batch limit to create a new task.");
@@ -363,6 +404,12 @@ public class CommandLineController : MonoBehaviour
                 case "train":
                     CommandLineActions.Train(args);
                     break;
+                case "helpmedaddy":
+                    CommandLineActions.FreeMoneyCheatCode(args);
+                    break;
+                case "declarebankruptcy":
+                    CommandLineActions.DeclareBankruptcy(args);                
+                    break;                    
                 default:
                     break;
             }

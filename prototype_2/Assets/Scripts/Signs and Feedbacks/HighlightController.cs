@@ -17,29 +17,44 @@ public class HighlightController : MonoBehaviour
         defaultMaterial = mats[0];
     }
 
-    private void OnTriggerEnter(Collider collider)
+    // private void OnTriggerEnter(Collider collider)
+    // {
+    //     if(rend == null)
+    //     {
+    //         return;
+    //     }
+    //     if (collider.gameObject.CompareTag("Player"))
+    //     {
+    //         print("Highlight with the player");
+    //         HighlightObject();
+    //     }
+    // }
+
+    // private void OnTriggerExit(Collider collider)
+    // {
+    //     if(collider.gameObject.CompareTag("Player"))
+    //     {
+    //         RemoveHighlightObject();
+    //     }
+    // }
+
+    public void HighlightObject()
     {
         if(rend == null)
         {
             return;
         }
-        if (collider.gameObject.CompareTag("Player"))
-        {
-            print("Highlight with the player");
-            // Swap to highlight mat at the second index
-            mats[0] = defaultMaterial;
-            mats[mats.Length-1] = highlightMaterial;
-            rend.materials = mats;
-        }
+        // Swap to highlight mat at the second index
+        mats[0] = defaultMaterial;
+        mats[mats.Length-1] = highlightMaterial;
+        rend.materials = mats;
     }
 
-    private void OnTriggerExit(Collider collider)
+    public IEnumerator RemoveHighlightObject(float delay)
     {
-        if(collider.gameObject.CompareTag("Player"))
-        {
-            mats[0] = defaultMaterial;
-            mats[mats.Length - 1] = null;
-            rend.materials = mats;
-        }
+        yield return new WaitForSeconds(delay);
+        mats[0] = defaultMaterial;
+        mats[mats.Length - 1] = null;
+        rend.materials = mats;
     }
 }

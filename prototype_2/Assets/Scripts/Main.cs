@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
 using TMPro;
-using Cinemachine;
 
 /** 
 * Main : MonoBehaviour
@@ -19,10 +18,6 @@ public sealed class Main : MonoBehaviour
     public static List<Cub> currentCubRooster;
     public static bool currentCubRoosterFull = false;
 
-    public GameObject mouseSelector; // Used to lift/drag cubs
-    public AudioSource cubLiftUpSound;
-    public GameObject cubProfileUI; // the menu that shows a cub's statistics
-    public GameObject selectedCub;
     public static GameObject cubSpawnSpot;
 
     public enum GAME_STATES { TUTORIAL, NORMAL, END };
@@ -32,10 +27,6 @@ public sealed class Main : MonoBehaviour
     public static int playerState = default;
     public static int tutorialState = default;
     public float restartGameDelay = 3.0f;
-
-    // Cams
-    public static GameObject globalCam;
-    public GameObject adventureCam;
 
     /**
     * Character Factory
@@ -157,8 +148,6 @@ public sealed class Main : MonoBehaviour
         TutorialController.InitConversationGroups();
         TutorialController.SetupTutorial();
         onCharactersLoaded();
-        globalCam = GameObject.FindGameObjectWithTag("GlobalCam");
-        //print("Loaded main");
     }
 
     private void Start()
@@ -166,205 +155,13 @@ public sealed class Main : MonoBehaviour
         GameAssetsCharacters.InitGameAssetsCharacters();
         GameAssetsCharacters.LoadTable();
         StartCoroutine(GameAssetsForms.LoadTable());
-        cubLiftUpSound = GetComponent<AudioSource>();
         LoadMain();
-        mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector"); 
-        Cursor.lockState = CursorLockMode.Confined;       
     }
 
-    /**
-    * Current lifted cub and related vars. 
-    * TODO make local in scope.
-    */
-    public GameObject liftedGameObject;
-    public NavMeshAgent agent;
-    public static Vector3 oldCubPos; // Position before it got lifted up
-    public bool grabbedObjectMouseLock = false; // prevent several cubs being lifted
+    private void Update() {
+
+    }
     
-    /**
-    * Gets a ray to be used in raycasting.
-    */
-    public Ray GetRay()
-    {
-        // Move the mouseSelector to the cursor
-        Vector3 inputMousePos = Input.mousePosition;
-        inputMousePos.z = adventureCam.GetComponent<Camera>().nearClipPlane * 10.25f;
-        Vector3 mouseWorldPos = adventureCam.GetComponent<Camera>().ScreenToWorldPoint(inputMousePos);
-        //Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        if (mouseSelector)
-        {
-            mouseSelector.transform.position = mouseWorldPos;
-        }
-        return adventureCam.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-    }
-
-    /**
-    * Raycast Cub characters by tag
-    * and updates flags. TODO make these local in scope.
-    */
-    public RaycastHit RayCastObjects(string tag)
-    {
-       RaycastHit hit;        
-       int layerMask =~ LayerMask.GetMask("TransparentFX");
-       if (Physics.Raycast(GetRay(), out hit, Mathf.Infinity, layerMask))
-       {
-            if(!hit.collider.gameObject.CompareTag(tag))
-            {
-                liftedGameObject = null;
-                grabbedObjectMouseLock = false;
-            }
-       }
-       return hit;
-    }
-
-    /**
-    * Grabs a Cub character using a raycast hit.
-    */
-    public void Grab(RaycastHit hit)
-    {
-        liftedGameObject = hit.collider.gameObject;
-        oldCubPos = liftedGameObject.transform.position;
-
-        grabbedObjectMouseLock = true;
-        agent = liftedGameObject.GetComponent<NavMeshAgent>();
-        if(agent)
-        {
-            agent.enabled = false;
-        }
-        liftedGameObject.transform.position = mouseSelector.transform.position;
-        liftedGameObject.transform.Rotate(new Vector3(0.0f, 1.0f, 0.0f));
-        if(liftedGameObject.gameObject.CompareTag("Cub"))
-        {
-            if (!cubLiftUpSound.isPlaying)
-            {
-                cubLiftUpSound.Play();
-            }
-            string[] fx = { "pickupHeart", "magicalSourceFX" };
-            liftedGameObject.GetComponent<Cub>().PlayFXThenDie(fx);
-        }
-        // TODO highlight cub's outline or material
-    }
-
-    public void SelectCub(RaycastHit hit)
-    {
-        liftedGameObject = hit.collider.gameObject;
-        oldCubPos = liftedGameObject.transform.position;
-        liftedGameObject.GetComponent<CubAI>().selectedByPlayer = true;
-        agent = liftedGameObject.GetComponent<NavMeshAgent>();
-        agent.SetDestination(Input.mousePosition);
-    }
-
-    public bool FilterObjectHit(RaycastHit hit, string tag)
-    {
-        if(!hit.collider || !hit.collider.gameObject.CompareTag(tag)) {
-            return false;
-        }
-        return true;
-    }
-
-    public void ShowCubStats(RaycastHit hit)
-    {
-        GameObject[] profileUIsOpen = GameObject.FindGameObjectsWithTag("cubProfileUI");
-        foreach (GameObject profile in profileUIsOpen)
-        {
-            if (profile.GetComponent<Canvas>().enabled == true)
-            {
-                profile.GetComponent<Canvas>().enabled = false;
-            }
-        }
-        hit.collider.gameObject.GetComponent<Cub>().cubProfileUI.GetComponent<UpdateCubProfileUI>().ShowCanvas();
-
-    }
-
-    public GameObject fodderPrefab;
-
-    public void GetFodder()
-    {
-        Instantiate(fodderPrefab, mouseSelector.transform);
-    }
-
-    public void ReturnToMapCameraView()
-    {
-        CinemachineVirtualCamera[] cams = GameObject.FindObjectsOfType<CinemachineVirtualCamera>();
-        for (int i = 0; i < cams.Length; i++)
-        {
-            CinemachineVirtualCamera c = cams[i].GetComponent<CinemachineVirtualCamera>();
-            if (c)
-            {
-                c.Priority = 0;
-            }
-        }
-        globalCam.GetComponent<CinemachineVirtualCamera>().Priority = 200;
-        playerState = 0;
-    }
-
-    private void Update()
-    {
-        // Keep holding to open up the cub's profile menu
-        if (Input.GetMouseButtonDown(0))
-        {
-            RaycastHit hit = RayCastObjects("Cub");
-            if (!FilterObjectHit(hit, "Cub"))
-            {
-                return;
-            }
-            if (tutorialState >= 4 || gameState == (int)GAME_STATES.NORMAL) // Stats can be seen after the Resting Lodge tutorial and above
-            {
-                ShowCubStats(hit);
-            }
-        }
-        if(Input.GetMouseButton(0)) 
-        {
-            // Only allow this dragging behaviour in the Menagerie game state
-            //if(playerState != 2) { // Menagerie State
-            //    return;
-            //}
-            // Grabbing cubs
-            print("Current game mode: " + GameModeController.currentGameMode);
-            print("Adventure mode: " + (int)GameModeController.gameModes.AdventureMode);
-            if(GameModeController.currentGameMode == (int)GameModeController.gameModes.AdventureMode)
-            {
-                RaycastHit cubHit = RayCastObjects("Cub");
-                if (FilterObjectHit(cubHit, "Cub"))
-                {
-                    //SelectCub(cubHit);
-                    Grab(cubHit);
-                }
-            }
-
-        }
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (!grabbedObjectMouseLock)
-            {
-                return;
-            }
-            PlaceCharacterOnNavMesh();
-        }
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            ReturnToMapCameraView();
-        }
-    }
-
-    /**
-    * Replace a Cub in the air on the navmesh
-    * to prevent stasis.
-    */
-    public void PlaceCharacterOnNavMesh()
-    {
-        if(liftedGameObject) {
-            agent.enabled = true;  
-            agent.autoRepath = true;
-            agent.autoBraking = true;
-            agent.speed = 3.5f;          
-            agent.Warp(oldCubPos - new Vector3(0f, 1f, 0f));
-        }      
-        string[] fx = {"smokePuffFX", "brokenHeartFX"};
-        liftedGameObject.GetComponent<Cub>().PlayFXThenDie(fx);            
-        grabbedObjectMouseLock = false;
-    }
-
     private IEnumerator GameOverState()
     {
         if (gameState == (int)GAME_STATES.END)

@@ -6,7 +6,8 @@ using UnityEngine.AI;
 public class Cub : Character
 {
     public int leanness = 50;
-    public int valueRating = 50;
+    public int valueRating = 150;
+    public int tierRewards = 1; // scale factor when getting meat or produce -- progressable var
 
     /**
      * Cub's current hunger. Decreased by eating food
@@ -92,13 +93,17 @@ public class Cub : Character
         SceneController.onClockTicked -= OnClockTicked;
     }
 
+    private void Awake()
+    {
+        StartCoroutine(KillFX(0.1f));
+    }
+
     private void Start()
     {
         GameAssetName = "Cub";
         talents = new string[3];
         talents[0] = "Rookie";
         mouseSelector = GameObject.FindGameObjectWithTag("mouseSelector");   
-        StartCoroutine(KillFX(0.1f));
     }
 
     /**
@@ -106,15 +111,19 @@ public class Cub : Character
      */
     public void OnClockTicked()
     {
-        satiety -= 1;
-        if(satiety <= 0)
+        satiety -= 0.5f;
+        if(satiety <= 0.0f)
         {
-            satiety = 0;
+            satiety = 0.0f;
             print("Cub is nearing oblivion from not eating");
+            --valueRating; // permanently lose value rating
         }
         if(startedFattenCub)
         {
             fatten();
+        } else if(isInTrainingProgram)
+        {
+            train();
         }
     }
 
@@ -137,7 +146,8 @@ public class Cub : Character
         //Debug.Log("Generating Stats for this cub.");
         // Base stats
         this.characterName = Utility.GetRandomCharacterFirstName(Random.Range(0, Utility.characterNames.Length));
-        this.leanness = 0;
+        this.leanness = 10;
+        this.valueRating = 150;
         this.age = 1;
         this.aggressiveness = Random.Range(0, 10);
         this.luck = Random.Range(0, 10);    
@@ -220,12 +230,27 @@ public class Cub : Character
     public bool startedFattenCub = false;
     public void fatten()
     {
-        --leanness;
+        valueRating = valueRating + (leanness - (--leanness));
         if(leanness <= 0) leanness = 0;
+        if(valueRating <= 0) valueRating = 0;
         this.transform.localScale += new Vector3(0.10f, 0.10f, 0.10f);
         if(this.transform.localScale.x >= 3.5f)
         {
             this.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
         }
+        // TODO fatness is good for cub's produces
     }
+
+    public void train()
+    {
+        // leanness is good for cub's meat 
+        valueRating = valueRating + (leanness - (++leanness));
+        if(leanness >= 100) leanness = 100;
+        if(valueRating <= 0) valueRating = 0;
+        this.transform.localScale -= new Vector3(0.10f, 0.10f, 0.10f);
+        if(this.transform.localScale.x <= 1.0f)
+        {
+            this.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        }
+     }
 }
