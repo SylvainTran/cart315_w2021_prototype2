@@ -222,11 +222,21 @@ public class CommandLineController : MonoBehaviour
                     }
                 }
             }
-            else
+            else if(args[0] != null && args[1] != null)
             {
-                foreach (string arg in args)
+                if(int.Parse(args[0]) > 0 && args[1].ToLower().Equals("food"))
                 {
-                    Debug.Log($"{arg}");
+                    if(AccountBalanceAI.cubFood >= int.Parse(args[0]))
+                    {
+                        float foodValue = 2.5f;
+                        AccountBalanceAI.UpdateFood(-int.Parse(args[0]));
+                        AccountBalanceAI.UpdateMoney(int.Parse(args[0]) * foodValue);
+                        print($"Sold x{int.Parse(args[0])} food for {int.Parse(args[0]) * foodValue}");
+                    }
+                    else
+                    {
+                        print("Not enough food of that quantity to sell");
+                    }
                 }
             }
         }
