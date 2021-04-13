@@ -230,6 +230,12 @@ public class Cub : Character
     public bool startedFattenCub = false;
     public void fatten()
     {
+        if (AccountBalanceAI.cubFood < 10) // Pre-condition is at least 10 food per fatten tick
+        {
+            print("Not enough food.");
+            return;
+        }
+        AccountBalanceAI.UpdateFood(-10);
         valueRating = valueRating + (leanness - (--leanness));
         if(leanness <= 0) leanness = 0;
         if(valueRating <= 0) valueRating = 0;
