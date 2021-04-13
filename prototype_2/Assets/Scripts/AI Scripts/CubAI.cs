@@ -56,28 +56,24 @@ public class CubAI : Bot
         {
             MoveToTrainingCentreRest();
         }
-        if (!agent.isOnNavMesh)
-        {
-            Invoke("DelayPlaceCharacterOnNavMesh", 3.6f);
-        }
     }
 
-    private void DelayPlaceCharacterOnNavMesh()
+    private void DelayPlaceCharacterOnNavMesh(GameObject liftedGameObject)
     {
-        //Debug.Log("DelayPlaceCharacter on nav mesh");
+        if(liftedGameObject.gameObject.name != this.gameObject.GetComponent<Cub>().characterName) return;
+        Debug.Log("DelayPlaceCharacter on nav mesh");
         //GetComponent<Cub>().PlayDropFXThenDie();            
         agent.enabled = true;  
         agent.autoRepath = true;
         agent.autoBraking = true;
         agent.speed = 3.5f;    
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit))
+        RaycastHit[] hits = Physics.RaycastAll(transform.position, Vector3.down, Mathf.Infinity);
+        foreach(RaycastHit hit in hits)
         {
             if(!hit.collider.gameObject.CompareTag("ground")) {
                 return;
             }
             agent.Warp(hit.point);
-            CancelInvoke();
         }
     }
 

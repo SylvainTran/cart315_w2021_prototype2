@@ -49,6 +49,9 @@
   <ItemGroup>
      <Compile Include="Assets\JMO Assets\Cartoon FX Easy Editor\Editor\CFXEasyEditor.cs" />
      <Compile Include="Assets\Art\BrokenVector\LowPolyBrickHouses\Editor\ModelCustomizerInspector.cs" />
+     <Compile Include="Assets\ModularConveyorTools\Editor\RadialConveyorEditor.cs" />
+     <Compile Include="Assets\ModularConveyorTools\Editor\ExtrudeWizardEditor.cs" />
+     <Compile Include="Assets\ModularConveyorTools\Editor\LinearConveyorEditor.cs" />
  <Reference Include="UnityEngine">
  <HintPath>E:/Unity/Hub/Editor/2020.2.2f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>
@@ -283,8 +286,14 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>E:/Unity/Hub/Editor/2020.2.2f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Plugins/Demigiant/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
  <Reference Include="RandomNameGeneratorLibrary">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Plugins/RandomNameGeneratorLibrary.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/Plugins/Demigiant/DOTween/DOTween.dll</HintPath>
  </Reference>
  <Reference Include="JMOAssets_CartoonFXFreeWelcome">
  <HintPath>E:/cart315/cart315_w2021_prototype2/prototype_2/Assets/JMO Assets/Editor/JMOAssets_CartoonFXFreeWelcome.dll</HintPath>

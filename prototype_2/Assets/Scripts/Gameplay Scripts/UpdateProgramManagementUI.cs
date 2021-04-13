@@ -52,7 +52,7 @@ public class UpdateProgramManagementUI : MonoBehaviour
 
     public void BuyCub(Cub c, GameObject b)
     {
-        if(Main.currentCubRooster.Count >= Main.MAX_CUB_CAPACITY) {
+        if(Main.currentCubRooster == null || Main.currentCubRooster.Count >= Main.MAX_CUB_CAPACITY) {
             print("Rooster full, cannot buy cub.");
             return;
         }
@@ -68,7 +68,7 @@ public class UpdateProgramManagementUI : MonoBehaviour
             }
         }
         // Remove money to player account
-        AccountBalanceAI.UpdateMoney(-c.valueRating);
+        AccountBalanceAI.UpdateMoney(-(50-c.valueRating));
         // Delete button and append go to current cub rooster
         if(Main.currentCubRooster.Count == 0) {
             Main.currentCubRooster = new List<Cub>(Main.MAX_CUB_CAPACITY);
