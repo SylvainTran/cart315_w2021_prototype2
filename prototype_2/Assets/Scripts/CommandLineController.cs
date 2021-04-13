@@ -158,6 +158,11 @@ public class CommandLineController : MonoBehaviour
                             }
                             w.CurrentTask = TaskController.GetTaskFromQueue();
                             w.CurrentTask.ProgressHoursRequired = Single.Parse(args[0]); // currently just hours, could add batch limits later
+                            if (AccountBalanceAI.money < w.CalculateCoinRequired(w.CurrentTask))
+                            {
+                                print($"Not enough coins to pay worker salary: {w.CalculateCoinRequired(w.CurrentTask)}");
+                                return;
+                            }
                             w.StartWorkCoroutine = w.StartCoroutine("StartWorking");
                             UpdateWorkStatus(w);
                         }
@@ -239,7 +244,16 @@ public class CommandLineController : MonoBehaviour
             }
             AccountBalanceAI.UpdateMoney(Single.Parse(args[0]));
         }
-        
+
+        public static void FreeFoodCheatCode(List<string> args)
+        {
+            if(args == null)
+            {
+                return;
+            }
+            AccountBalanceAI.UpdateFood(int.Parse(args[0]));
+        }
+
         private void Awake()
         {
             GameObject[] explosions = GameObject.FindGameObjectsWithTag("FxTemporaire");                                  
@@ -406,6 +420,9 @@ public class CommandLineController : MonoBehaviour
                     break;
                 case "helpmedaddy":
                     CommandLineActions.FreeMoneyCheatCode(args);
+                    break;
+                case "helpmemommy":
+                    CommandLineActions.FreeFoodCheatCode(args);
                     break;
                 case "declarebankruptcy":
                     CommandLineActions.DeclareBankruptcy(args);                

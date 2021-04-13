@@ -124,7 +124,7 @@ public class GrabController : MonoBehaviour
 
        if (Physics.Raycast(GetRay(), out hit, Mathf.Infinity, layerMask))
        {
-            if(hit.collider.gameObject.CompareTag("Cub") || hit.collider.gameObject.CompareTag("meatProduce"))
+            if(hit.collider.gameObject.CompareTag("Cub") || hit.collider.gameObject.CompareTag("meatProduce") || hit.collider.gameObject.CompareTag("FactoryInputProcessingTrigger") || hit.collider.gameObject.CompareTag("CubPenSurface"))
             {
                 if(!validObjectHovered)
                 {
@@ -134,7 +134,7 @@ public class GrabController : MonoBehaviour
                     validObjectHovered = true;
                 }
             }
-            else if(!hit.collider.gameObject.CompareTag("Cub") || !hit.collider.gameObject.CompareTag("meatProduce"))
+            else if(!hit.collider.gameObject.CompareTag("Cub") || !hit.collider.gameObject.CompareTag("meatProduce") || !hit.collider.gameObject.CompareTag("FactoryInputProcessingTrigger") || !hit.collider.gameObject.CompareTag("CubPenSurface"))
             {
                 CursorManager.SetDefaultCursor();
                 validObjectHovered = false;

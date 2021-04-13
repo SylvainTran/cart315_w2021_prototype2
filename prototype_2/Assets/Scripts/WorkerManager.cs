@@ -30,7 +30,8 @@ public class WorkerManager : MonoBehaviour
             worker.gameObject.GetComponent<Worker>().Name = Utility.GetRandomCharacterFirstName(Random.Range(0, Utility.characterNames.Length)); // Test, otherwise the player sets the name or it's random
             worker.gameObject.GetComponent<Worker>().RawBatchWorkPower = 100 * currentWorkerTier;
             AddWorker(worker);
-        }
+            worker.gameObject.GetComponent<Worker>().CoinInInventory += scaledWorkerCost; // initial insurance pay for the worker
+        }        
         AccountBalanceAI.UpdateMoney(-scaledWorkerCost);
         print($"Qty added: {qty}");
     }
