@@ -55,12 +55,9 @@ public class TaskController : MonoBehaviour
 
     public void BatchFinished(Worker worker, Task task)
     {
-        print($"Worker has finished work batch.");
-        print($"Current working task check 1:{worker.CurrentTask}");
         // Could end before task is completely finished, but here the AI goes to check out the gathered materials to the storehouse
         // Chance reward
         Reward(worker, task, 1f);
-        print($"Worker starting new work batch.");
         StopCoroutine("StartNewWorkBatch");
         StartCoroutine(StartNewWorkBatch(worker, task));
     }
@@ -68,19 +65,36 @@ public class TaskController : MonoBehaviour
     public IEnumerator StartNewWorkBatch(Worker worker, Task task)
     {
         yield return new WaitForSeconds(task.WorkBatchCooldown);
-        print($"Worker has a new work batch to work on!");
+        print($"Worker {worker.characterName} has a new work batch to work on!");
         worker.CurrentTask.CurrentWorkBatch = 0f;
-        worker.IsWorking = true;
-        print($"Current working task check 2:{worker.CurrentTask}");
-        print($"IS WORKING STATUS: {worker.IsWorking}");
+        // Check between batches if still has enough money to complete task, otherwise pay what's been done so far
+        if(AccountBalanceAI.money < worker.CalculateCoinRequired(task))
+        {
+            print($"Insufficient funds to pay the rest of the task. Pausing task until can pay off remaining hours required.");
+            float moneyEarned = worker.CalculateCoinRequired(task) - (10.0f * WorkerManager.currentWorkerTier * task.CurrentWorkBatchProgress / worker.currentTaskProgressPerHour);
+            // if cannot pay moneyEarned so far, frustrate the worker and risk losing them
+            if(AccountBalanceAI.money < moneyEarned)
+            {
+                print($"Worker {worker.characterName} hates you");
+                // TODO Decrease relationship points
+            } else
+            {
+                AccountBalanceAI.UpdateMoney(-moneyEarned);
+                worker.CoinInInventory += moneyEarned;
+            }
+            worker.StopWorking();
+        }
         worker.StartWorkCoroutine = worker.StartCoroutine("StartWorking");
+        worker.IsWorking = true;
+        print($"{worker.characterName} current working task progress hours required: {worker.CurrentTask.ProgressHoursRequired}");
     }
 
     public void TaskFinished(Worker worker, Task task)
     {
         // Reward worker and player both!
+        PayWorkerSalary(worker, task);
         Reward(worker, task, 1f);
-
+        IncreaseWorkerExperience(worker, task);
         // Do other things too
         AccountBalanceAI.UpdateTaskCount(-1);
 
@@ -88,6 +102,20 @@ public class TaskController : MonoBehaviour
         // about their task work
     }
 
+    public void PayWorkerSalary(Worker worker, Task task)
+    {
+        float salaryEarned = 10.0f * WorkerManager.currentWorkerTier * task.ProgressHoursRequired;
+        AccountBalanceAI.UpdateMoney(-salaryEarned);
+        worker.CoinInInventory += salaryEarned;
+    }
+
+    public void IncreaseWorkerExperience(Worker worker, Task task)
+    {
+        float experienceEarned = 10 ^ (worker.Level * task.TaskRewardTier); //exponential base 10
+        experienceEarned *= task.ProgressHoursRequired;
+        worker.Experience += experienceEarned;
+        print($"Worker gained: {experienceEarned}!");
+    }
     /**
      * Chance reward check with the probability given,
      * to the worker and the task assigned.

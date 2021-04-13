@@ -158,6 +158,11 @@ public class CommandLineController : MonoBehaviour
                             }
                             w.CurrentTask = TaskController.GetTaskFromQueue();
                             w.CurrentTask.ProgressHoursRequired = Single.Parse(args[0]); // currently just hours, could add batch limits later
+                            if (AccountBalanceAI.money < w.CalculateCoinRequired(w.CurrentTask))
+                            {
+                                print($"Not enough coins to pay worker salary: {w.CalculateCoinRequired(w.CurrentTask)}");
+                                return;
+                            }
                             w.StartWorkCoroutine = w.StartCoroutine("StartWorking");
                             UpdateWorkStatus(w);
                         }

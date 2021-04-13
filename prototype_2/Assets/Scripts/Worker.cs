@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
-public class Worker : MonoBehaviour
+public class Worker : Character
 {
     #region Basic information
     private string location;
@@ -16,11 +16,14 @@ public class Worker : MonoBehaviour
 
     #region Progression variables
     private int level = 0;
-    public int Level { get { return level;} }    
-    private int experience = 0;
-    public int Experience { get { return experience;} }
+    public int Level { get { return level; } }    
+    private float experience = 0;
+    public float Experience { get { return experience; } set { experience += value; } }
     private float stamina = 15.0f; // Very weak workers initially, player needs to progress/upgrade!
     public float Stamina { get { return stamina;} }
+
+    private float coinInInventory = 0.0f; // The worker can use their earned coins for AI stuff later
+    public float CoinInInventory { get { return coinInInventory;  } set { coinInInventory = value; } }
     #endregion
 
     #region Task processing variables (can be progressed too)
@@ -130,7 +133,14 @@ public class Worker : MonoBehaviour
         //print("Work batches per hour: " + workBatchesPerHour);
         //print("Task Progress per hour: " + taskProgressPerHour);
         //print("Current Task Progress Required : " + taskProgressPerHour * currentTask.ProgressHoursRequired);
+        currentTaskProgressPerHour = taskProgressPerHour;
         return taskProgressPerHour * currentTask.ProgressHoursRequired;
+    }
+    public float currentTaskProgressPerHour;
+
+    public float CalculateCoinRequired(Task task)
+    {
+        return 10.0f * WorkerManager.currentWorkerTier * task.ProgressHoursRequired;
     }
 
     public IEnumerator StartWorking()
@@ -145,41 +155,41 @@ public class Worker : MonoBehaviour
             StopCoroutine(StartWorkCoroutine);
             yield break;
         }
+        if(AccountBalanceAI.money < CalculateCoinRequired(currentTask))
+        {
+            print($"Not enough coins to pay worker {characterName} salary: {CalculateCoinRequired(currentTask)}");
+            yield break;
+        }
         yield return new WaitForSeconds(currentTask.WorkBatchNextTickDelay);
         float progress = workBatchProcessingSpeed * rawBatchWorkPower; // 0.2 * 1 at level 0
-        // Essentially got a free pass right now from restarting work after a rest -- make these not
+        // TODO Essentially got a free pass right now from restarting work after a rest -- make these not
         currentTask.CurrentWorkBatchProgress += progress;
         ++currentTask.CurrentWorkBatch;
         --stamina;
 
-        print(name + $"Worker {id} work batch log:\nWorking on task ID: {currentTask.TaskId}\nActual Task Progress {currentTask.CurrentWorkBatchProgress/CalculateCurrentTaskProgressRequired()*100}%, \nBatch completion: {currentTask.CurrentWorkBatch/currentTask.CurrentWorkBatchLimit*100}% completed.");
+        print(name + $"Worker {characterName}\nWork batch log:\nWorking on task ID: {currentTask.TaskId}\nActual Task Progress {currentTask.CurrentWorkBatchProgress/CalculateCurrentTaskProgressRequired()*100}%, \nBatch completion: {currentTask.CurrentWorkBatch/currentTask.CurrentWorkBatchLimit*100}% completed.");
         // Check worker stamina before restarting
-        print($"Worker stamina: {stamina}");
         if(HasStaminaLeft()) {
-            print($"Worker has enough stamina to work: {stamina}");
+            print($"Worker {characterName} has enough stamina to work: {stamina}");
             // Stop condition 1: task progress required calculated is met
             if (currentTask.CurrentWorkBatchProgress >= CalculateCurrentTaskProgressRequired()) 
             {
                 onTaskFinished(this, currentTask);
                 currentTask = null;
                 StopWorking();
-                print($"Worker has finished working.");
-                print($"Check in finished work: {currentTask}");
+                print($"Worker {characterName} has finished working.");
                 yield break;
             }
             // Stop condition 2: work batch limit is met
             if (currentTask.CurrentWorkBatch < currentTask.CurrentWorkBatchLimit)
             {
-                print($"Worker has work batches left to do.");
-                print($"Current working task check in still has work batch: {currentTask}");
+                print($"Worker {characterName} has work batches left to do.");
                 RestartWorking();
             }
             // Overwork condition
             else if (currentTask.CurrentWorkBatch >= currentTask.CurrentWorkBatchLimit)
             {
-                print("Current work batch limit completed");
-                print($"Worker finished current work batch");
-                print($"Current working task check in past work batch limit: {currentTask}");
+                print($"Worker {characterName} finished current work batch");
                 // Emit signal to Task Controller to restart process if needed
                 onBatchFinished(this, currentTask);
             }
