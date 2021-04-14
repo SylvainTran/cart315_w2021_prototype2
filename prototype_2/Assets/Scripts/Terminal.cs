@@ -26,6 +26,17 @@ public class Terminal : MonoBehaviour
             terminalCam.tag = "MainCamera";
             other.transform.LookAt(this.transform);
             inTerminalRange = true;
+            CommandLineController.commandLine.Select();
+            CommandLineController.commandLine.ActivateInputField();
+        }
+    }
+
+    private void Update()
+    {
+        if(Input.GetKey(KeyCode.Return))
+        {
+            CommandLineController.commandLine.Select();
+            CommandLineController.commandLine.ActivateInputField();
         }
     }
 

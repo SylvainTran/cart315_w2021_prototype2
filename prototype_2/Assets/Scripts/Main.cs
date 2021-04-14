@@ -147,7 +147,7 @@ public sealed class Main : MonoBehaviour
         LevelController.SetupActors(10);
         TutorialController.InitConversationGroups();
         TutorialController.SetupTutorial();
-        onCharactersLoaded();
+        //onCharactersLoaded();
     }
 
     private void Start()

@@ -121,6 +121,8 @@ public class TaskController : MonoBehaviour
         worker.Experience += experienceEarned;
         print($"Worker gained: {experienceEarned}!");
     }
+
+    public GameObject fodderPrefab;
     /**
      * Chance reward check with the probability given,
      * to the worker and the task assigned.
@@ -141,5 +143,10 @@ public class TaskController : MonoBehaviour
         int reward = (int)(baseBonus * scaleWithProgressRequired);
         print($"End of task reward! Gained x{reward} food");
         AccountBalanceAI.UpdateFood(reward);
+        // Instantiate the food for drag and drop? => feed cub
+        GameObject foodSpawn = GameObject.Instantiate(fodderPrefab, worker.gameObject.transform.position, Quaternion.identity);
+        // foodSpawn.transform.SetParent(worker.gameObject.transform);
+        fodderPrefab.GetComponent<Fodder>().fodderCount = 1;
+        fodderPrefab.GetComponent<Fodder>().feedValue = 50;        
     }
 }

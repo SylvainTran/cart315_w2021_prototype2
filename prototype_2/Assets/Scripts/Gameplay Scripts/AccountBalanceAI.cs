@@ -19,7 +19,7 @@ public sealed class AccountBalanceAI : MonoBehaviour
 
     // Gameloop
     public static int cubFood; // Needed to feed cubs and therefore train them
-    public static float money = 200; // Start at 200 coins
+    public static float money = 250; // Start at 225 coins -- just enough for 1 worker, 2 cubs, and at least 1 (5,5) task
     public static int taskCount = 0;
     public static int workerCount = 0;
     public static int cubCount = 0;
