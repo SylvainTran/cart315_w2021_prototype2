@@ -134,6 +134,11 @@ public class GrabController : MonoBehaviour
                     validObjectHovered = true;
                 }
             }
+            else if(hit.collider.gameObject.layer == 5) // UI layer including menu buttons
+            {
+                CursorManager.SetMenuCursor();
+                validObjectHovered = true;                
+            }
             else if(!hit.collider.gameObject.CompareTag("Cub") || !hit.collider.gameObject.CompareTag("meatProduce") || !hit.collider.gameObject.CompareTag("FactoryInputProcessingTrigger") || !hit.collider.gameObject.CompareTag("CubPenSurface"))
             {
                 CursorManager.SetDefaultCursor();

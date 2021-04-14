@@ -16,6 +16,9 @@ public class CommandLineController : MonoBehaviour
     public delegate void OnDeclaredBankruptcy();
     public static event OnDeclaredBankruptcy onDeclaredBankruptcy;
 
+    // UI
+    public delegate void OnWorkerStatisticsUpdated();
+    public static event OnWorkerStatisticsUpdated onWorkerStatisticsUpdated;
     // Sound effects
     public GameObject soundEffectsGO;
 
@@ -124,6 +127,7 @@ public class CommandLineController : MonoBehaviour
         public static void CreateTask(List<string> args)
         {
             TaskController.InitTask(new Task(), args);
+            onWorkerStatisticsUpdated();
         }
 
         public static void Work(string methodCaller, List<string> args)
@@ -165,6 +169,7 @@ public class CommandLineController : MonoBehaviour
                             }
                             w.StartWorkCoroutine = w.StartCoroutine("StartWorking");
                             UpdateWorkStatus(w);
+                            onWorkerStatisticsUpdated();
                         }
                         else if(w.CurrentTask != null)
                         {
@@ -177,6 +182,7 @@ public class CommandLineController : MonoBehaviour
                             }
                             w.StartWorkCoroutine = w.StartCoroutine("StartWorking");
                             UpdateWorkStatus(w);
+                            onWorkerStatisticsUpdated();
                         }
                         else 
                         {
@@ -222,11 +228,21 @@ public class CommandLineController : MonoBehaviour
                     }
                 }
             }
-            else
+            else if(args[0] != null && args[1] != null)
             {
-                foreach (string arg in args)
+                if(int.Parse(args[0]) > 0 && args[1].ToLower().Equals("food"))
                 {
-                    Debug.Log($"{arg}");
+                    if(AccountBalanceAI.cubFood >= int.Parse(args[0]))
+                    {
+                        float foodValue = 2.5f;
+                        AccountBalanceAI.UpdateFood(-int.Parse(args[0]));
+                        AccountBalanceAI.UpdateMoney(int.Parse(args[0]) * foodValue);
+                        print($"Sold x{int.Parse(args[0])} food for {int.Parse(args[0]) * foodValue}");
+                    }
+                    else
+                    {
+                        print("Not enough food of that quantity to sell");
+                    }
                 }
             }
         }
@@ -315,7 +331,14 @@ public class CommandLineController : MonoBehaviour
                             }
                             else if(args[i].Equals("worker"))
                             {
-                                WorkerManager.BuyWorker(int.Parse(args[0]));
+                                if(WorkerManager.activeWorkers.Count < 3)
+                                {
+                                    WorkerManager.BuyWorker(int.Parse(args[0]));
+                                    onWorkerStatisticsUpdated();
+                                } else 
+                                {
+                                    print("Full worker capacity reached. Max is 3.");
+                                }
                             }
                             else
                             {

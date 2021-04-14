@@ -7,6 +7,7 @@ public class CursorManager : MonoBehaviour
     public Texture2D cursorTexture;
     public Texture2D interactibleCursorTexture;
     public Texture2D errorCursorTexture;
+    public Texture2D menuCursorTexture;    
     public CursorMode cursorMode = CursorMode.Auto;
     public Vector2 hotSpot = Vector2.zero;
 
@@ -28,5 +29,10 @@ public class CursorManager : MonoBehaviour
     public void SetErrorCursor()
     {
         Cursor.SetCursor(errorCursorTexture, hotSpot, cursorMode);
+    }
+
+    public void SetMenuCursor()
+    {
+        Cursor.SetCursor(menuCursorTexture, hotSpot, cursorMode);
     }
 }
