@@ -6,7 +6,7 @@ public class ControlsTutorial : MonoBehaviour
 	private string message = "";
 	private bool showMsg = false;
 
-	private int w = 550;
+	private int w = 1000;
 	private int h = 100;
 	private Rect textArea;
 	private GUIStyle style;
@@ -19,11 +19,12 @@ public class ControlsTutorial : MonoBehaviour
 	{
 		style = new GUIStyle();
 		style.alignment = TextAnchor.MiddleCenter;
-		style.fontSize = 36;
+		style.fontSize = 48;
 		style.wordWrap = true;
+		style.font = Resources.Load<Font>("Fonts/ThaleahFat_TTF SDF.asset");
 		textColor = Color.white;
 		textColor.a = 0;
-		textArea = new Rect((Screen.width-w)/2, 0, w, h);
+		textArea = new Rect(Screen.width/5, Screen.height/2 - 200, w, h);
 
 		KeyboardCommands = this.transform.Find("ScreenHUD/Keyboard").gameObject;
 		gamepadCommands = this.transform.Find("ScreenHUD/Gamepad").gameObject;
@@ -50,13 +51,13 @@ public class ControlsTutorial : MonoBehaviour
 		if(showMsg)
 		{
 			if(textColor.a <= 1)
-				textColor.a += 0.5f * Time.deltaTime;
+				textColor.a += 0.025f * Time.deltaTime;
 		}
 		// no hint to show
 		else
 		{
 			if(textColor.a > 0)
-				textColor.a -= 0.5f * Time.deltaTime;
+				textColor.a -= 0.025f * Time.deltaTime;
 		}
 
 		style.normal.textColor = textColor;

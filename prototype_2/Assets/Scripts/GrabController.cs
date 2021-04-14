@@ -89,15 +89,18 @@ public class GrabController : MonoBehaviour
         oldCubPos = liftedGameObject.transform.position; // in case the raycast down to reposition to the ground fails, we cache this pos
 
         grabbedObjectMouseLock = true;
-        if(hit.collider.gameObject.CompareTag("Cub"))
+        if(hit.collider.gameObject.CompareTag("Cub") || hit.collider.gameObject.CompareTag("Fodder"))
         {
             agent = liftedGameObject.GetComponent<NavMeshAgent>();
             if(agent)
             {
                 agent.enabled = false;
             }
-            string[] fx = { "pickupHeart", "magicalSourceFX" };
-            liftedGameObject.GetComponent<Cub>().PlayFXThenDie(fx);
+            if(hit.collider.gameObject.CompareTag("Cub"))
+            {
+                string[] fx = { "pickupHeart", "magicalSourceFX" };
+                liftedGameObject.GetComponent<Cub>().PlayFXThenDie(fx);
+            }
         }
 
         // liftedGameObject.transform.position = mouseSelector.transform.position;
@@ -124,22 +127,25 @@ public class GrabController : MonoBehaviour
 
        if (Physics.Raycast(GetRay(), out hit, Mathf.Infinity, layerMask))
        {
-            if(hit.collider.gameObject.CompareTag("Cub") || hit.collider.gameObject.CompareTag("meatProduce") || hit.collider.gameObject.CompareTag("FactoryInputProcessingTrigger") || hit.collider.gameObject.CompareTag("CubPenSurface"))
+            if(hit.collider.gameObject.CompareTag("Cub") || hit.collider.gameObject.CompareTag("meatProduce") || hit.collider.gameObject.CompareTag("FactoryInputProcessingTrigger") || hit.collider.gameObject.CompareTag("CubPenSurface") || hit.collider.gameObject.CompareTag("Fodder"))
             {
                 if(!validObjectHovered)
                 {
-                    hit.collider.gameObject.GetComponent<HighlightController>().HighlightObject();               
                     CursorManager.SetInteractibleCursor(); 
-                    hit.collider.gameObject.GetComponent<HighlightController>().StartCoroutine("RemoveHighlightObject", 0.5f);
+                    if(!hit.collider.gameObject.CompareTag("Fodder"))
+                    {
+                        hit.collider.gameObject.GetComponent<HighlightController>().HighlightObject();               
+                        hit.collider.gameObject.GetComponent<HighlightController>().StartCoroutine("RemoveHighlightObject", 0.5f);
+                    }
                     validObjectHovered = true;
                 }
             }
             else if(hit.collider.gameObject.layer == 5) // UI layer including menu buttons
             {
-                CursorManager.SetMenuCursor();
-                validObjectHovered = true;                
+                //CursorManager.SetMenuCursor();
+                //validObjectHovered = true;                
             }
-            else if(!hit.collider.gameObject.CompareTag("Cub") || !hit.collider.gameObject.CompareTag("meatProduce") || !hit.collider.gameObject.CompareTag("FactoryInputProcessingTrigger") || !hit.collider.gameObject.CompareTag("CubPenSurface"))
+            else
             {
                 CursorManager.SetDefaultCursor();
                 validObjectHovered = false;
@@ -196,7 +202,7 @@ public class GrabController : MonoBehaviour
                    return;
                 }
                 RaycastHit cubHit = RayCastObjects();
-                if(cubHit.collider != null && (cubHit.collider.gameObject.CompareTag("Cub") || cubHit.collider.gameObject.CompareTag("meatProduce")))
+                if(cubHit.collider != null && (cubHit.collider.gameObject.CompareTag("Cub") || cubHit.collider.gameObject.CompareTag("meatProduce") || cubHit.collider.gameObject.CompareTag("Fodder")))
                 {
                     Grab(cubHit);
                 } else
@@ -211,7 +217,10 @@ public class GrabController : MonoBehaviour
             {
                 return;
             }
-            liftedGameObject.gameObject.GetComponent<HighlightController>().StartCoroutine("RemoveHighlightObject", 0.3f);
+            if(!liftedGameObject.gameObject.CompareTag("Fodder"))
+            {
+                liftedGameObject.gameObject.GetComponent<HighlightController>().StartCoroutine("RemoveHighlightObject", 0.3f);
+            }
             // Resize physics collider normally
             if(currentColliderSize != null)
             {
@@ -240,8 +249,8 @@ public class GrabController : MonoBehaviour
             int layerMask =~ LayerMask.GetMask("TransparentFX");
             if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, layerMask))
             {
-                // if(!hit.collider.gameObject.CompareTag("ground")) {
-                //     print("Can't find ground, repositioning at last cached location.");
+                // if(!hit.collider.gameObject.CompareTag("ground") && liftedGameObject.gameObject.CompareTag("Fooder")) {
+                //     print("Can't find ground, repositioning food at last cached location.");
                 //     agent.Warp(oldCubPos - new Vector3(0f, 1f, 0f)); // fallback 
                 //     return;
                 // }

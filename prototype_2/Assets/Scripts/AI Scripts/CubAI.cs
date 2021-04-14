@@ -56,6 +56,10 @@ public class CubAI : Bot
         {
             MoveToTrainingCentreRest();
         }
+        if(GetComponent<Cub>().Satiety <= 50)
+        {
+            SeekFood();
+        }
     }
 
     private void DelayPlaceCharacterOnNavMesh(GameObject liftedGameObject)
@@ -84,5 +88,24 @@ public class CubAI : Bot
         agent.autoBraking = true;
         agent.speed = 3.5f;
         agent.Warp(GameObject.FindGameObjectWithTag("trainingCentreTarget").transform.position);
+    }
+
+    public void SeekFood()
+    {
+        float seekRange = 5.0f;
+        //if hungry, scout for food within range if available
+
+        GameObject[] foods = GameObject.FindGameObjectsWithTag("Fodder");
+        for(int i = 0; i < foods.Length; i++)
+        {
+            if(Vector3.Distance(foods[i].gameObject.transform.position, transform.position) <= seekRange)
+            {
+                if(agent.isOnNavMesh)
+                {
+                    agent.SetDestination(foods[i].transform.position);
+                }
+                return;
+            }
+        }
     }
 }
