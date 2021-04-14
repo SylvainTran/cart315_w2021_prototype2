@@ -13,6 +13,8 @@ public class TaskController : MonoBehaviour
     // Dispatch custom tasks with themes
     // Receive tasks completed and rewards player
     public static Queue<Task> tasksQueue = new Queue<Task>();
+    public delegate void OnTaskStatisticsUpdated();
+    public static event OnTaskStatisticsUpdated onTaskStatisticsUpdated;
 
     private void OnEnable() {
         Worker.onTaskFinished += TaskFinished;
@@ -60,6 +62,8 @@ public class TaskController : MonoBehaviour
         Reward(worker, task, 1f);
         StopCoroutine("StartNewWorkBatch");
         StartCoroutine(StartNewWorkBatch(worker, task));
+        // Refresh UI
+        onTaskStatisticsUpdated();
     }
 
     public IEnumerator StartNewWorkBatch(Worker worker, Task task)
@@ -100,6 +104,7 @@ public class TaskController : MonoBehaviour
 
         // Random chance to log various complaints or comments to the player
         // about their task work
+        onTaskStatisticsUpdated();
     }
 
     public void PayWorkerSalary(Worker worker, Task task)

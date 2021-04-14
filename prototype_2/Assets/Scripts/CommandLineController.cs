@@ -16,6 +16,9 @@ public class CommandLineController : MonoBehaviour
     public delegate void OnDeclaredBankruptcy();
     public static event OnDeclaredBankruptcy onDeclaredBankruptcy;
 
+    // UI
+    public delegate void OnWorkerStatisticsUpdated();
+    public static event OnWorkerStatisticsUpdated onWorkerStatisticsUpdated;
     // Sound effects
     public GameObject soundEffectsGO;
 
@@ -124,6 +127,7 @@ public class CommandLineController : MonoBehaviour
         public static void CreateTask(List<string> args)
         {
             TaskController.InitTask(new Task(), args);
+            onWorkerStatisticsUpdated();
         }
 
         public static void Work(string methodCaller, List<string> args)
@@ -165,6 +169,7 @@ public class CommandLineController : MonoBehaviour
                             }
                             w.StartWorkCoroutine = w.StartCoroutine("StartWorking");
                             UpdateWorkStatus(w);
+                            onWorkerStatisticsUpdated();
                         }
                         else if(w.CurrentTask != null)
                         {
@@ -177,6 +182,7 @@ public class CommandLineController : MonoBehaviour
                             }
                             w.StartWorkCoroutine = w.StartCoroutine("StartWorking");
                             UpdateWorkStatus(w);
+                            onWorkerStatisticsUpdated();
                         }
                         else 
                         {
@@ -325,7 +331,14 @@ public class CommandLineController : MonoBehaviour
                             }
                             else if(args[i].Equals("worker"))
                             {
-                                WorkerManager.BuyWorker(int.Parse(args[0]));
+                                if(WorkerManager.activeWorkers.Count < 3)
+                                {
+                                    WorkerManager.BuyWorker(int.Parse(args[0]));
+                                    onWorkerStatisticsUpdated();
+                                } else 
+                                {
+                                    print("Full worker capacity reached. Max is 3.");
+                                }
                             }
                             else
                             {

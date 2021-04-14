@@ -78,15 +78,7 @@ public class TrainingCentre : Building
         Debug.Log("Exiting Building");
         closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 0;
         GetComponent<BoxCollider>().enabled = true;
-        foreach(GameObject go in labels)
-        {
-            go.SetActive(true);
-        }    
-        OpenRestGate();
-        //closeGateButton.SetActive(false);
-        //restRooster.SetActive(false);  
-        //trainRooster.SetActive(false);     
-        //exitTrainingCentreButton.SetActive(false);    
+    
         foreach(Cub c in Main.currentCubRooster)
         {
             if(!c.isInTrainingProgram) {
@@ -107,32 +99,8 @@ public class TrainingCentre : Building
 
     public void SetBuildingActive()
     {
-        // Prompt building menu or interactive cub placement?
-        // Display UI with cubs/other characters in the building
         globalCam.GetComponent<CinemachineVirtualCamera>().Priority = 0;
         closeUpBuildingCam.GetComponent<CinemachineVirtualCamera>().Priority = 400;
-        // Spawn Building Menu
-        // buildingMenu.SetActive(true);
-        // Show the cubs rooster hanging in the building REST pen.
-        restRooster.SetActive(true);
-        trainRooster.SetActive(true);    
-        //exitTrainingCentreButton.SetActive(true);
-        // Disable box collider temporarily to handle other colliders
-        //GetComponent<BoxCollider>().enabled = false;
-        OpenRestGate();
-        foreach(Cub c in Main.currentCubRooster)
-        {
-            //c.gameObject.SetActive(true);
-            if(c.gameObject.GetComponentInChildren<MeshRenderer>()) {
-                c.gameObject.GetComponentInChildren<MeshRenderer>().enabled = true;
-            } else 
-            {
-                c.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().enabled = true;
-            }
-            c.gameObject.GetComponent<CubAI>().MoveToTrainingCentreRest();
-            //c.transform.position = restSpawnPoint.transform.position;
-        }
-        // Show input field
         Invoke("SwitchState", 3.0f);     
     }
 
