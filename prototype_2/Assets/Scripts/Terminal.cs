@@ -7,9 +7,15 @@ public class Terminal : MonoBehaviour
 {
     public GameObject terminalCam;
     public GameObject playerMainCamFollow;
+    public static bool inTerminalRange = false; // disallow flying if in range
 
     private void OnTriggerEnter(Collider other)
     {
+        if(GameObject.FindGameObjectWithTag("Player").GetComponent<FlyBehaviour>().fly)
+        {
+            print("No fly allowed");
+            return;
+        }
         // If it's the Player, enable their usage of the terminal (make it appear)
         if(other.CompareTag("Player"))
         {
@@ -19,6 +25,7 @@ public class Terminal : MonoBehaviour
             playerMainCamFollow.GetComponent<Camera>().enabled = false;
             terminalCam.tag = "MainCamera";
             other.transform.LookAt(this.transform);
+            inTerminalRange = true;
         }
     }
 
@@ -32,6 +39,7 @@ public class Terminal : MonoBehaviour
             terminalCam.GetComponent<Camera>().enabled = false;
             playerMainCamFollow.GetComponent<Camera>().enabled = true;
             terminalCam.tag = "SecondaryCamera";
+            inTerminalRange = false;
         }
     }
 }

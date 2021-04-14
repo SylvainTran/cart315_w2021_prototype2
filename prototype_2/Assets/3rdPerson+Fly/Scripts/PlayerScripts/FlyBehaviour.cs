@@ -9,7 +9,7 @@ public class FlyBehaviour : GenericBehaviour
 	public float flyMaxVerticalAngle = 60f;       // Angle to clamp camera vertical movement when flying.
 
 	private int flyBool;                          // Animator variable related to flying.
-	private bool fly = false;                     // Boolean to determine whether or not the player activated fly mode.
+	public bool fly = false;                     // Boolean to determine whether or not the player activated fly mode.
 	private CapsuleCollider col;                  // Reference to the player capsulle collider.
 
 	// Start is always called after any Awake functions.
@@ -25,6 +25,10 @@ public class FlyBehaviour : GenericBehaviour
 	// Update is used to set features regardless the active behaviour.
 	void Update()
 	{
+		if(Terminal.inTerminalRange)
+		{
+			return;
+		}
 		// Toggle fly by input, only if there is no overriding state or temporary transitions.
 		if (Input.GetButtonDown(flyButton) && !behaviourManager.IsOverriding() 
 			&& !behaviourManager.GetTempLockStatus(behaviourManager.GetDefaultBehaviour))

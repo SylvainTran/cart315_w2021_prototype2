@@ -217,16 +217,7 @@ public class CommandLineController : MonoBehaviour
         {
             if (args == null)
             {
-                Debug.Log("Feeding all cubs");
-                if (AccountBalanceAI.cubFood >= 10)
-                {
-                    for (int i = 0; i < Main.currentCubRooster.Count; i++)
-                    {
-                        Main.currentCubRooster[i].Satiety += 10;
-                        AccountBalanceAI.cubFood -= 10;
-                        AccountBalanceAI.UpdateTotalBalance();
-                    }
-                }
+                return;
             }
             else if(args[0] != null && args[1] != null)
             {
@@ -316,8 +307,7 @@ public class CommandLineController : MonoBehaviour
                         {
                             if (args[i].Equals("chicken") || args[i].Equals("sheep") ||
                                 args[i].Equals("cow") || args[i].Equals("duck") ||
-                                args[i].Equals("fox") || args[i].Equals("pig") ||
-                                args[i].Equals("wolf"))
+                                args[i].Equals("pig"))
                             {
                                 if(!Main.currentCubRoosterFull && AccountBalanceAI.money >= 50)
                                 {

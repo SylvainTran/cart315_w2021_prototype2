@@ -154,12 +154,7 @@ public sealed class Main : MonoBehaviour
     {
         GameAssetsCharacters.InitGameAssetsCharacters();
         GameAssetsCharacters.LoadTable();
-        StartCoroutine(GameAssetsForms.LoadTable());
         LoadMain();
-    }
-
-    private void Update() {
-
     }
     
     private IEnumerator GameOverState()
