@@ -102,7 +102,6 @@ public class GrabController : MonoBehaviour
                 liftedGameObject.GetComponent<Cub>().PlayFXThenDie(fx);
             }
         }
-
         // liftedGameObject.transform.position = mouseSelector.transform.position;
         // Scale down physics collider temporarily
         currentColliderSize = liftedGameObject.gameObject.GetComponent<BoxCollider>().size;
@@ -120,6 +119,7 @@ public class GrabController : MonoBehaviour
         agent.SetDestination(Input.mousePosition);
     }
 
+    private GameObject lastValidObj = null;
     public void SetCursorToObjectHit()
     {
        RaycastHit hit;        
@@ -129,15 +129,11 @@ public class GrabController : MonoBehaviour
        {
             if(hit.collider.gameObject.CompareTag("Cub") || hit.collider.gameObject.CompareTag("meatProduce") || hit.collider.gameObject.CompareTag("FactoryInputProcessingTrigger") || hit.collider.gameObject.CompareTag("CubPenSurface") || hit.collider.gameObject.CompareTag("Fodder"))
             {
-                if(!validObjectHovered)
+                CursorManager.SetInteractibleCursor(); 
+                if(!hit.collider.gameObject.CompareTag("Fodder"))
                 {
-                    CursorManager.SetInteractibleCursor(); 
-                    if(!hit.collider.gameObject.CompareTag("Fodder"))
-                    {
-                        hit.collider.gameObject.GetComponent<HighlightController>().HighlightObject();               
-                        hit.collider.gameObject.GetComponent<HighlightController>().StartCoroutine("RemoveHighlightObject", 0.5f);
-                    }
-                    validObjectHovered = true;
+                    hit.collider.gameObject.GetComponent<HighlightController>().HighlightObject();               
+                    lastValidObj = hit.collider.gameObject;
                 }
             }
             else if(hit.collider.gameObject.layer == 5) // UI layer including menu buttons
@@ -147,8 +143,12 @@ public class GrabController : MonoBehaviour
             }
             else
             {
+                if(lastValidObj) 
+                {
+                    lastValidObj.gameObject.GetComponent<HighlightController>().StartCoroutine("RemoveHighlightObject", 0.0f);
+                }
                 CursorManager.SetDefaultCursor();
-                validObjectHovered = false;
+                lastValidObj = null;
             } 
        }
     }

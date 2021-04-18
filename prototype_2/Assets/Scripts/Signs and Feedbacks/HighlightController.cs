@@ -12,7 +12,7 @@ public class HighlightController : MonoBehaviour
     private void Start()
     {
         rend = GetComponent<MeshRenderer>();
-        mats = new Material[2];
+        mats = new Material[0];
         mats = rend.materials;
         defaultMaterial = mats[0];
     }
@@ -45,8 +45,8 @@ public class HighlightController : MonoBehaviour
             return;
         }
         // Swap to highlight mat at the second index
-        mats[0] = defaultMaterial;
-        mats[mats.Length-1] = highlightMaterial;
+        mats[0] = highlightMaterial;
+        //mats[mats.Length-1] = highlightMaterial;
         rend.materials = mats;
     }
 
@@ -54,7 +54,7 @@ public class HighlightController : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         mats[0] = defaultMaterial;
-        mats[mats.Length - 1] = null;
+        //mats[mats.Length - 1] = null;
         rend.materials = mats;
     }
 }
