@@ -34,7 +34,7 @@ public class SlaughterCubTrigger : MonoBehaviour
             AccountBalanceAI.UpdateCubCount(-1);
             // Start Coroutine to produce meat visual and spawn on other conveyor
             StartCoroutine("PlaceMeatProducedOnOutputConveyor", 5.0f);
-            // Destroy gameObject
+            // TODO put back in a pool somewhere?
             previousGo = other.gameObject;
             Destroy(other.gameObject);
         }    

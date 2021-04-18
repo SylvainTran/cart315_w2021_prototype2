@@ -38,8 +38,16 @@ public class InputController : MonoBehaviour
         globalCam = GameObject.FindGameObjectWithTag("GlobalCam");
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        if(Terminal.inTerminalRange && Input.anyKeyDown)
+        {
+            if(Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)) return;
+            GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            if(!CommandLineController.commandLine.isFocused) {
+                Terminal.currentTerminal.GetComponent<Terminal>().UpdateActiveCamera(this.gameObject);
+            }
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ReturnToMapCameraView();

@@ -12,6 +12,7 @@ public class MoveBehaviour : GenericBehaviour
 	public float jumpIntertialForce = 10f;          // Default horizontal inertial force when jumping.
 
 	private float speed, speedSeeker;               // Moving speed.
+	public float Speed { get { return speed; } set { speed = value; } }
 	private int jumpBool;                           // Animator variable related to jumping.
 	private int groundedBool;                       // Animator variable related to whether or not the player is on ground.
 	private bool jump;                              // Boolean to determine whether or not the player started a jump.
