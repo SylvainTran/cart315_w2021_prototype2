@@ -7,16 +7,48 @@ public class PrepareForSlaughter : MonoBehaviour
 {
     public Transform factoryInputConveyorStartPosition;
     public Transform factoryInputDoor;
-    
-    private void OnTriggerStay(Collider other) 
+    private bool insideTriggerRange = false;
+    private bool kinematicIsMoving = false;
+    private GameObject enteredGameObject;
+    private Coroutine kinematicMovingForwardRoutine;
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        if(enteredGameObject == null && other.gameObject.CompareTag("Cub"))
+        {
+            insideTriggerRange = true;
+            enteredGameObject = other.gameObject;
+            return;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if(insideTriggerRange)
+        {
+            StartProcess();
+        }
+        if(kinematicIsMoving)
+        {
+            KinematicMoveForward();
+        }
+    }
+
+    private void StartProcess()
+    {
+        StripAIComponents(enteredGameObject.gameObject);
+        enteredGameObject.GetComponent<Rigidbody>().isKinematic = true;
+        PutOnFactoryInputConveyorStartPosition();
+        enteredGameObject.gameObject.transform.LookAt(factoryInputDoor);
+        insideTriggerRange = false;
+    }
+
+    private void OnTriggerExit(Collider other)
     {
         if(other.gameObject.CompareTag("Cub"))
         {
-            StripAIComponents(other.gameObject);
-            other.GetComponent<Rigidbody>().isKinematic = false;
-            PutOnFactoryInputConveyorStartPosition(other.gameObject.transform);
-            other.gameObject.transform.LookAt(factoryInputDoor);
-        }    
+            insideTriggerRange = false;
+        }
     }
 
     public void StripAIComponents(GameObject objToStrip)
@@ -31,8 +63,15 @@ public class PrepareForSlaughter : MonoBehaviour
         }
     }
 
-    public void PutOnFactoryInputConveyorStartPosition(Transform objToPlace)
+    public void PutOnFactoryInputConveyorStartPosition()
     {
-        objToPlace.position = factoryInputConveyorStartPosition.position;
+        enteredGameObject.transform.position = factoryInputConveyorStartPosition.position;
+        kinematicIsMoving = true;
+    }
+
+    public void KinematicMoveForward()
+    {
+        if(enteredGameObject == null) return;
+        enteredGameObject.transform.Translate(Vector3.forward * Time.deltaTime);
     }
 }
