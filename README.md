@@ -1,6 +1,10 @@
-# Prototype 2: Momma Cub!
+# Prototype 2: Android Farmer Drama!
 
-This is a management and training simulator with a virtual economy, that also tries to make playfulness out of programming concepts to get things done.
+This is a management and training simulator with a virtual economy, exploring NPC management, deity sim, and AI auto-scripting/directing.
+
+The game is being worked on after this course ended (Summer 2021).
+
+The next features are listed on the devblog on itch.io : https://realsylvaintran.itch.io/android-farm-drama/devlog/243375/launching-android-farmer-drama
 
 # Main points to redress from the previous playtest.
 
