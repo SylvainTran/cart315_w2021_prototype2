@@ -1,5 +1,7 @@
 # Prototype 2: Android Farmer Drama!
 
+"final iteration" journal : https://github.com/SylvainTran/cart315_w2021_prototype2/wiki/Final-Iteration-Design-Journal
+
 This is a management and training simulator with a virtual economy, exploring NPC management, deity sim, and AI auto-scripting/directing.
 
 The game is being worked on after this course ended (Summer 2021).
