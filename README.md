@@ -14,18 +14,27 @@ The next features are listed on the devblog on itch.io : https://realsylvaintran
 
 This was a main point raised -- it wasn't certain how cubs were trained at the Training Center. It was also mentioned that there were many steps and it was complex to the live tester. Step-by-step instructions and clear indicators are a priority.
 
+ - Actions taken for clear indicators: Added visual feedback on all major mechanisms such as dragging and dropping. Mouse selection highlights things you can drag. Mouse cursor also changes to a heart-shaped icon over cubs and a red X on non-interactible stuff. Added tutorial dialogue as well. Also added shader feedback on draggable over surfaces such as cub pen surfaces (for training and leanness/fatness, and the factory input trigger of the slaughterhouse).
+
 ### Training Process
 
 The goals of the training process were not clear. Why do we have to drag cubs from one pen to the other? What do we gain from it? What do we lose?
 It was also mentioned that feedbacks were not entirely distinguishable from dropping cubs to when they are trained (feedback for training occurring).
 
+ - Actions taken for training process clarity: Added a pen that fattens cubs which is more intuitive. The cubs eat food and get fatter there which can increase their produce value (things that are produced by the animal that are non-lethal, such as milk, eggs, etc.). Leanness increases value as well but decreases fat, and requires slaughter.
+
+ - The slaughterhouse feature makes more intuitive sense now in the process as you need to raise animals and then get their meat. (Before that it wasn't clear what selling a cub meant).
+
 ### Art
 
 It was mentioned that the art could be more consistent between the main menu and the game.
+- Actions taken : I removed the main menu for now.
 
 ### Lack of challenges, rewards
 
 There is no clear game loop for cub training right now. It just happens automatically. (It's not a clicker game though). Adding clear obstacles to make it challenging and rewards for doing an activity in-game is a needed set of features.
+
+- Actions taken: The simulation has a clearer loop now, but a lot of it is left for the player to discover. There are three main resources: Coins, Food and Workers. Coins are used to buy workers and cubs. Food is used to increase the value of cubs. Workers generate food, and cubs eat food. Cubs can be sold for coin through the slaughterhouse. 
 
 # Issues playtesters
 
